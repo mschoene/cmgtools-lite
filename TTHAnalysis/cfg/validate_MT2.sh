@@ -81,7 +81,7 @@ fi
 
 ### Here one should specify the weights used to rescale the events in one or both samples ### 
 cat <<EOF > $outputFolder/inputs.txt
-ttHWW   : $labelB : 1.*puWeight*weight_lepsf*weight_btagsf*weight_isr ; FillColor=ROOT.kOrange+10 , Label="$labelB"
+ttHWW   : $labelB : 1. ; FillColor=ROOT.kOrange+10 , Label="$labelB"
 ref_ttHWW+ : $labelA : 1. ; FillColor=ROOT.kAzure+2, Label="$labelA"
 EOF
 
@@ -94,7 +94,7 @@ if [[ "$isDataMC" == "-data" ]]; then
 elif [[ "$isDataMC" == "-mc" ]]; then
     echo "processing -mc"
     cat susy-mT2/validation_plots_MT2_common.txt susy-mT2/validation_plots_MT2_mc.txt > susy-mT2/validation_plots_MT2   
-    python mcPlots.py -f --tree mt2  -P $workingDir/$outputFolder  $workingDir/$outputFolder/inputs.txt susy-mT2/validation_MT2.txt susy-mT2/test.txt --pdir $workingDir/$outputFolder/plots -p ref_ttHWW,ttHWW  -e --plotmode=norm --showRatio --maxRatioRange 0.65 1.35 --flagDifferences --toleranceForDiff 0.005
+    python mcPlots.py -f --tree mt2  -P $workingDir/$outputFolder  $workingDir/$outputFolder/inputs.txt susy-mT2/validation_MT2.txt susy-mT2/validation_plots_MT2 --pdir $workingDir/$outputFolder/plots -p ref_ttHWW,ttHWW  -e --plotmode=norm --showRatio --maxRatioRange 0.65 1.35 --flagDifferences --toleranceForDiff 0.005
 fi;
 
 echo "Cleaning up ..."

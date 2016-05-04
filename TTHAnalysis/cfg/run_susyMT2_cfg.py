@@ -44,7 +44,8 @@ lepAna.inclusive_electron_dz     = 999. # no cut since embedded in ID
 
 lepAna.mu_isoCorr = "deltaBeta"
 lepAna.ele_isoCorr = "deltaBeta"
-lepAna.ele_tightId = "Cuts_PHYS14_25ns_v1_ConvVetoDxyDz"
+# lepAna.ele_tightId = "Cuts_PHYS14_25ns_v1_ConvVetoDxyDz"
+lepAna.ele_tightId = "Cuts_SPRING15_25ns_v1_ConvVetoDxyDz"
 lepAna.notCleaningElectrons = True
 lepAna.doMiniIsolation = True
 lepAna.miniIsolationPUCorr = 'rhoArea'
@@ -66,9 +67,9 @@ jetAna.doPuId = False
 jetAna.doQG = True
 jetAna.jetEta = 4.7
 jetAna.jetEtaCentral = 2.5
-jetAna.jetPt = 10.
-jetAna.mcGT     = "Summer15_25nsV2_MC" # jec corrections
-jetAna.dataGT   = "Summer15_25nsV5_DATA" # jec corrections
+jetAna.jetPt = 20. #was 10
+jetAna.mcGT     = "Summer15_25nsV6_MC" # jec corrections
+jetAna.dataGT   = "Summer15_25nsV6_DATA" # jec corrections
 jetAna.recalibrateJets = False # True
 jetAna.applyL2L3Residual = False # 'Data'
 jetAna.calculateSeparateCorrections = False
@@ -311,7 +312,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 2 for full mc production
 # choose 3 for data production
 # choose 4 for signal production
-test = int(getHeppyOption('test',1))
+test = int(getHeppyOption('test',0))
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
 runPreprocessor = False
@@ -322,10 +323,12 @@ if test==0:
     # --- They may not be in synch anymore 
     from CMGTools.RootTools.samples.ComponentCreator import ComponentCreator
     kreator = ComponentCreator()
-    testComponent = kreator.makeMCComponent("testComponent", "/GJets_HT-200to400_Tune4C_13TeV-madgraph-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/MINIAODSIM", "CMS", ".*root",489.9)
+    testComponent = kreator.makeMCComponent("testComponent", "/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_v3-v2/MINIAODSIM", "CMS", ".*root",489.9)
     samples=[testComponent]
 
     json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/DCSOnly/json_DCSONLY.txt'
+
+    dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
 
     from CMGTools.TTHAnalysis.setup.Efficiencies import *
 
@@ -342,8 +345,11 @@ if test==0:
     #eventSelector.toSelect = [ 442430994 ]
     #sequence = cfg.Sequence([eventSelector] + sequence)
     comp=testComponent
-    # 74X TTbar
-    comp.files = ['/afs/cern.ch/user/d/dalfonso/public/SYNCHfiles/0066F143-F8FD-E411-9A0B-D4AE526A0D2E.root']
+    # 80X TTJets SingleLeptFromT
+    comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv1/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_v3-v2/30000/00C07411-470D-E611-9A70-001E67E6F4C2.root']
+    
+    # 76X TTJets
+    # comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/00000/002253C9-DFB8-E511-8B0A-001A648F1C42.root']
 
     # 74X GJets
     #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring15DR74/GJets_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/Asympt25ns_MCRUN2_74_V9-v1/00000/16E31BE7-7C18-E511-A551-00266CF2454C.root']

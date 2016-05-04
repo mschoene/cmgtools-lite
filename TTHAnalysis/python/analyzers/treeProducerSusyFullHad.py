@@ -82,10 +82,21 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("nJet30FailId", lambda ev: sum([j.pt() > 30 for j in ev.cleanJetsFailIdAll]), int, help="Number of jets after photon-cleaning with pt > 30, |eta|<4.7"),
     NTupleVariable("nJet100FailId", lambda ev: sum([j.pt() > 100 for j in ev.cleanJetsFailIdAll]), int, help="Number of jets after photon-cleaning with pt > 100, |eta|<4.7"),
 
-    NTupleVariable("nBJet40", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 40]), int, help="Number of jets with pt > 40 passing CSV medium"),
-    NTupleVariable("nBJet30", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 30]), int, help="Number of jets with pt > 25 passing CSV medium"),
-    NTupleVariable("nBJet25", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 25]), int, help="Number of jets with pt > 25 passing CSV medium"),
-    NTupleVariable("nBJet20", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 20]), int, help="Number of jets with pt > 20 passing CSV medium"),
+    NTupleVariable("nBJet40", lambda ev: sum([j.btagWP("CMVAv2M") for j in ev.cleanJets if j.pt() > 40]), int, help="Number of jets with pt > 40 passing cMVAv2 medium"),
+    NTupleVariable("nBJet30", lambda ev: sum([j.btagWP("CMVAv2M") for j in ev.cleanJets if j.pt() > 30]), int, help="Number of jets with pt > 25 passing cMVAv2 medium"),
+    NTupleVariable("nBJet25", lambda ev: sum([j.btagWP("CMVAv2M") for j in ev.cleanJets if j.pt() > 25]), int, help="Number of jets with pt > 25 passing cMVAv2 medium"),
+    NTupleVariable("nBJet20", lambda ev: sum([j.btagWP("CMVAv2M") for j in ev.cleanJets if j.pt() > 20]), int, help="Number of jets with pt > 20 passing cMVAv2 medium"),
+#
+    NTupleVariable("nBJet40mva", lambda ev: sum([j.btagWP("CMVAv2M") for j in ev.cleanJets if j.pt() > 40]), int, help="Number of jets with pt > 40 passing cMVAv2 medium"),
+    NTupleVariable("nBJet30mva", lambda ev: sum([j.btagWP("CMVAv2M") for j in ev.cleanJets if j.pt() > 30]), int, help="Number of jets with pt > 25 passing cMVAv2 medium"),
+    NTupleVariable("nBJet25mva", lambda ev: sum([j.btagWP("CMVAv2M") for j in ev.cleanJets if j.pt() > 25]), int, help="Number of jets with pt > 25 passing cMVAv2 medium"),
+    NTupleVariable("nBJet20mva", lambda ev: sum([j.btagWP("CMVAv2M") for j in ev.cleanJets if j.pt() > 20]), int, help="Number of jets with pt > 20 passing cMVAv2 medium"),
+#
+    NTupleVariable("nBJet40csv", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 40]), int, help="Number of jets with pt > 40 passing CSV medium"),
+    NTupleVariable("nBJet30csv", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 30]), int, help="Number of jets with pt > 25 passing CSV medium"),
+    NTupleVariable("nBJet25csv", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 25]), int, help="Number of jets with pt > 25 passing CSV medium"),
+    NTupleVariable("nBJet20csv", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 20]), int, help="Number of jets with pt > 20 passing CSV medium"),
+
     NTupleVariable("nMuons10", lambda ev: sum([l.pt() > 10 and abs(l.pdgId()) == 13 for l in ev.selectedLeptons]), int, help="Number of muons with pt > 10"),
     NTupleVariable("nElectrons10", lambda ev: sum([l.pt() > 10 and abs(l.pdgId()) == 11 for l in ev.selectedLeptons]), int, help="Number of electrons with pt > 10"),
     NTupleVariable("nTaus20", lambda ev: sum([l.pt() > 20 for l in ev.selectedTaus]), int, help="Number of taus with pt > 20"),
