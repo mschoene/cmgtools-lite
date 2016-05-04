@@ -84,7 +84,7 @@ nPFLep5LowMT:  nPFLep5LowMT: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5]
 nPFHad10LowMT: nPFHad10LowMT: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] ; XTitle='N(PFHad\, p_{T} > 10\, M_{T} < 100)'
 nLepLowMT:  nLepLowMT: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] ; XTitle='N(Lep(POG+isoTrack)\, M_{T} < 100)'
 
-minMTBMet:     minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
+#minMTBMet:     minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
 
 ##### JET 
 
@@ -176,7 +176,7 @@ cr_gamma_ht: gamma_ht:  15,0,1500    ; XTitle="H_{T}  [GeV]"
 cr_gamma_nJet40 : gamma_nJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] ; XTitle='N(jet\, p_{T} > 40)'
 cr_gamma_nBJet40 : gamma_nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 40\, CSVM)'
 cr_gamma_nBJet25 : gamma_nBJet25 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 25\, CSVM)'
-cr_gamma_minMTBMet : gamma_minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
+#cr_gamma_minMTBMet : gamma_minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
 
 cr_gamma_jet1_pt: gamma_jet1_pt: 16,0,800    ; XTitle="gamma jet1  p_{T}  [GeV]", Legend='TR'
 cr_gamma_jet2_pt: gamma_jet2_pt: 16,0,800    ; XTitle="gamma jet2  p_{T}  [GeV]", Legend='TR'
@@ -201,7 +201,7 @@ cr_zll_phi: zll_phi: 8,-3.15,3.15    ; XTitle="Z phi"
 cr_zll_eta: zll_eta: 10,-5.,5.    ; XTitle="Z eta"
 cr_zll_mass: zll_mass: 20,0,400.    ; XTitle="Z mass [GeV]"
 
-cr_zll_minMTBMet: zll_minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
+#cr_zll_minMTBMet: zll_minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
 
 ##### ZLL control variables
 
@@ -240,7 +240,7 @@ cr_rl_phi: rl_phi: 8,-3.15,3.15    ; XTitle="Zlike phi"
 cr_rl_eta: rl_eta: 10,-5.,5.    ; XTitle="Zlike eta"
 cr_rl_mass: rl_mass: 20,0,400.    ; XTitle="Zlike mass [GeV]"
 
-cr_rl_minMTBMet: rl_minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
+#cr_rl_minMTBMet: rl_minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
 
 
 ##### LEPTON
@@ -267,4 +267,21 @@ lep_convVeto:  lep_convVeto: 10,0.,5.;  Legend='TL'
 lep_tightCharge:  lep_tightCharge: [-1.5,-0.5,0.5,1.5];  Legend='TL'
 
 
+##### WEIGHTS
+#weight_btagsf: weight_btagsf: 20,0.8,1.5; XTitle="weight_btagsf"
+#weight_btagsf_heavy_UP: weight_btagsf_heavy_UP: 20,0.9,1.1; XTitle="weight_btagsf_heavy_UP"
+#weight_btagsf_heavy_DN: weight_btagsf_heavy_DN: 20,0.7,1.4; XTitle="weight_btagsf_heavy_DN"
+#weight_btagsf_light_UP: weight_btagsf_light_UP: 20,0.7,1.3; XTitle="weight_btagsf_light_UP"
+#weight_btagsf_light_DN: weight_btagsf_light_DN: 20,0.8,1.3; XTitle="weight_btagsf_light_DN"
+
+#weight_lepsf: weight_lepsf: 20,0.9,1.1; XTitle="weight_lepsf"
+#weight_lepsf_UP: weight_lepsf_UP: 20,0.95,1.1; XTitle="weight_lepsf_UP"
+#weight_lepsf_DN: weight_lepsf_DN: 20,0.9,1.05; XTitle="weight_lepsf_DN"
+
+#weight_toppt: weight_toppt: 20,0.7,1.2; XTitle="weight_toppt"
+#weight_toppt_2: weight_toppt_2: 20,0.7,1.2; XTitle="weight_toppt (ETH corrected)"
+#weight_scales: 
+#weight_scales_av
+
+#puWeight: puWeight: 20,0.,3.; XTitle="puWeight"
 

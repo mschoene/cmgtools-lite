@@ -58,3 +58,6 @@ cr_zllmt_minMTBMet: zllmt_minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
 ##### LEPTON
 
 
+##### WEIGHTS
+
+#weight_isr: weight_isr: 20,0.8,1.2; XTitle="weight_isr"
