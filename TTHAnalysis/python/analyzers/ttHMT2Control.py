@@ -353,7 +353,7 @@ class ttHMT2Control( Analyzer ):
             objectsXjc = [ j for j in event.cleanJets if j.pt() > self.jetPt and abs(j.eta())<2.5 ] + [l for l in vetoLeptons if l not in vetoLeptons_mt]
             objectsXja = [ j for j in event.cleanJetsAll if j.pt() > self.jetPt] + [l for l in vetoLeptons if l not in vetoLeptons_mt]
             event.zllmt_ht_Xj = sum([x.pt() for x in objectsXjc])
-            for n,j in enumerate(objectsXja):
+            for n,j in enumerate(objectsXjc):
                 if n>3:  break
                 thisDeltaPhi = abs( deltaPhi( j.phi(), event.zllmt_met.phi() ) )
                 if thisDeltaPhi < event.zllmt_deltaPhiMin_Xj : event.zllmt_deltaPhiMin_Xj = thisDeltaPhi

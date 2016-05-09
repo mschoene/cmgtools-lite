@@ -30,9 +30,10 @@ count_nJet40 : nJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,
 count_nJet30FailId : nJet30FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] ; XTitle='N(jet\, p_{T} > 30)'
 count_nJet100FailId : nJet100FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] ; XTitle='N(jet\, p_{T} > 100)'
 
-count_nBJet40 : nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 40\, CSVM)'
-count_nBJet30 : nBJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 30\, CSVM)'
-count_nBJet20 : nBJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 20\, CSVM)'
+count_nBJet40 : nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 40\, MVAM)'
+count_nBJet30 : nBJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 30\, MVAM)'
+count_nBJet25 : nBJet25 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 25\, MVAM)'
+count_nBJet20 : nBJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 20\, MVAM)'
 
 ##count_ngenParticles: ngenPart : 500,0,500  ; XTitle="nGenParticles"
 
@@ -174,8 +175,10 @@ cr_gamma_diffMetMht: gamma_diffMetMht: 100,0,500    ; XTitle="|MET-MHT|"
 cr_gamma_ht: gamma_ht:  15,0,1500    ; XTitle="H_{T}  [GeV]" 
 
 cr_gamma_nJet40 : gamma_nJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] ; XTitle='N(jet\, p_{T} > 40)'
-cr_gamma_nBJet40 : gamma_nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 40\, CSVM)'
-cr_gamma_nBJet25 : gamma_nBJet25 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 25\, CSVM)'
+cr_gamma_nBJet40 : gamma_nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 40\, MVAM)'
+cr_gamma_nBJet30 : gamma_nBJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 30\, MVAM)'
+cr_gamma_nBJet25 : gamma_nBJet25 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 25\, MVAM)'
+cr_gamma_nBJet20 : gamma_nBJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 20\, MVAM)'
 #cr_gamma_minMTBMet : gamma_minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
 
 cr_gamma_jet1_pt: gamma_jet1_pt: 16,0,800    ; XTitle="gamma jet1  p_{T}  [GeV]", Legend='TR'
