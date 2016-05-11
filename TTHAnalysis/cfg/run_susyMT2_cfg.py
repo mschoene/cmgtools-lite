@@ -67,12 +67,12 @@ jetAna.doPuId = False
 jetAna.doQG = True
 jetAna.jetEta = 4.7
 jetAna.jetEtaCentral = 2.5
-jetAna.jetPt = 10. #was 10
+jetAna.jetPt = 20. #was 10
 jetAna.mcGT     = "Spring16_25nsV1_MC" # jec corrections
 jetAna.dataGT   = "Summer15_25nsV6_DATA" # jec corrections
-jetAna.recalibrateJets = True # True
-jetAna.applyL2L3Residual = True # 'Data'
-jetAna.calculateSeparateCorrections = True
+jetAna.recalibrateJets = False # True or False
+jetAna.applyL2L3Residual = False # 'Data'
+jetAna.calculateSeparateCorrections = False
 jetAna.jetLepDR = 0.4
 jetAna.smearJets = False
 jetAna.jetGammaDR = 0.4
@@ -112,7 +112,7 @@ isoTrackAna.setOff=False
 isoTrackAna.doIsoAnnulus = True
 
 # recalibrate MET
-metAna.recalibrate = 'type1'
+metAna.recalibrate = False # 'type1' or False
 metAna.old74XMiniAODs = False # get right Raw MET on old 74X MiniAODs
 
 # store all taus by default
