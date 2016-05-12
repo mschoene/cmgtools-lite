@@ -270,6 +270,11 @@ lep_convVeto:  lep_convVeto: 10,0.,5.;  Legend='TL'
 lep_tightCharge:  lep_tightCharge: [-1.5,-0.5,0.5,1.5];  Legend='TL'
 
 
+##### TOP
+top_pt: top_pt: 100, 0, 500; XTitle="top p_{T} [GeV]"
+anti_top_pt: anti_top_pt: 250, 0, 500; XTitle="anti-top p_{T} [GeV]"
+
+
 ##### WEIGHTS
 #weight_btagsf: weight_btagsf: 20,0.8,1.5; XTitle="weight_btagsf"
 #weight_btagsf_heavy_UP: weight_btagsf_heavy_UP: 20,0.9,1.1; XTitle="weight_btagsf_heavy_UP"
