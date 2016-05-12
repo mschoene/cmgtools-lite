@@ -127,12 +127,14 @@ class ttHMT2Control( Analyzer ):
             break # only lead photon
 
         # look for minimal deltaPhi between MET and four leading jets with pt>40 and eta<2.4                                                                                                                                      
+        gamma_objects40ja.sort(key = lambda j : j.pt(), reverse = True)        
         event.gamma_deltaPhiMin_had = 999.
         for n,j in enumerate(gamma_objects40ja):
             if n>3:  break
             thisDeltaPhi = abs( deltaPhi( j.phi(), event.gamma_met.phi() ) )
             if thisDeltaPhi < event.gamma_deltaPhiMin_had : event.gamma_deltaPhiMin_had = thisDeltaPhi
 
+        gamma_objectsXja.sort(key = lambda j : j.pt(), reverse = True)
         event.gamma_deltaPhiMin_Xj_had = 999.
         for n,j in enumerate(gamma_objectsXja):
             if n>3:  break
@@ -194,8 +196,8 @@ class ttHMT2Control( Analyzer ):
 
             # look for minimal deltaPhi between MET and four leading jets with pt>40 and |eta|<2.4                                                                                                                                
             event.zll_deltaPhiMin = 999.
-            objects40jc = [ j for j in event.cleanJets if j.pt() > 40 and abs(j.eta())<2.5 ]
-            objects40ja = [ j for j in event.cleanJets if j.pt() > 40]
+            objects40jc = [ j for j in event.cleanJetsAll if j.pt() > 40 and abs(j.eta())<2.5 ]
+            objects40ja = [ j for j in event.cleanJetsAll if j.pt() > 40]
             event.zll_ht = sum([x.pt() for x in objects40jc])
             for n,j in enumerate(objects40ja):
                 if n>3:  break
@@ -204,7 +206,7 @@ class ttHMT2Control( Analyzer ):
 
             event.zll_deltaPhiMin_Xj = 999.
             objectsXjc = [ j for j in event.cleanJets if j.pt() > self.jetPt and abs(j.eta())<2.5 ]
-            objectsXja = [ j for j in event.cleanJets if j.pt() > self.jetPt]
+            objectsXja = [ j for j in event.cleanJetsAll if j.pt() > self.jetPt]
             event.zll_ht_Xj = sum([x.pt() for x in objectsXjc])
             for n,j in enumerate(objectsXja):
                 if n>3:  break
@@ -264,7 +266,7 @@ class ttHMT2Control( Analyzer ):
             # look for minimal deltaPhi between MET and four leading jets with pt>40 and |eta|<2.4                                                                                                                                
             event.rl_deltaPhiMin = 999.
             objects40jc = [ j for j in event.cleanJets if j.pt() > 40 and abs(j.eta())<2.5 ]
-            objects40ja = [ j for j in event.cleanJets if j.pt() > 40]
+            objects40ja = [ j for j in event.cleanJetsAll if j.pt() > 40]
             event.rl_ht = sum([x.pt() for x in objects40jc])
             for n,j in enumerate(objects40ja):
                 if n>3:  break
@@ -273,7 +275,7 @@ class ttHMT2Control( Analyzer ):
 
             event.rl_deltaPhiMin_Xj = 999.
             objectsXjc = [ j for j in event.cleanJets if j.pt() > self.jetPt and abs(j.eta())<2.5 ]
-            objectsXja = [ j for j in event.cleanJets if j.pt() > self.jetPt]
+            objectsXja = [ j for j in event.cleanJetsAll if j.pt() > self.jetPt]
             event.rl_ht_Xj = sum([x.pt() for x in objectsXjc])
             for n,j in enumerate(objectsXja):
                 if n>3:  break
@@ -321,14 +323,12 @@ class ttHMT2Control( Analyzer ):
 
             vetoLeptons_mt = []
             if (event.eventId%2):
-                vetoLeptons_mt.append(vetoLeptons[0])
-            else:
                 vetoLeptons_mt.append(vetoLeptons[1])
+            else:
+                vetoLeptons_mt.append(vetoLeptons[0])
 
-            vetoLeptons = vetoLeptons_mt
-                
             event.zllmt_met = ROOT.reco.Particle.LorentzVector( event.met.px(), event.met.py(), 0, 0 )
-            for l in vetoLeptons:
+            for l in vetoLeptons_mt:
                 event.zllmt_met = ROOT.reco.Particle.LorentzVector( event.zllmt_met.px() + l.px(), event.zllmt_met.py() + l.py() , 0, 0 )
 
             event.zllmt_met_pt = event.zllmt_met.pt()
@@ -338,23 +338,25 @@ class ttHMT2Control( Analyzer ):
             event.zllmt_mhtJet40j = event.mhtJet40j
             event.zllmt_mhtPhiJet40j = event.mhtPhiJet40j
 
-            event.zllmt_mhtJetXj = event.mhtJetXj
-            event.zllmt_mhtPhiJetXj = event.mhtPhiJetXj
+            # event.zllmt_mhtJetXj = event.mhtJetXj
+            # event.zllmt_mhtPhiJetXj = event.mhtPhiJetXj
 
             # look for minimal deltaPhi between MET and four leading jets with pt>40 and |eta|<2.4                                                                                                                                
             event.zllmt_deltaPhiMin = 999.
             objects40jc = [ j for j in event.cleanJets if j.pt() > 40 and abs(j.eta())<2.5 ]
-            objects40ja = [ j for j in event.cleanJets if j.pt() > 40]
+            objects40ja = [ j for j in event.cleanJetsAll if j.pt() > 40]
             event.zllmt_ht = sum([x.pt() for x in objects40jc])
+            objects40ja.sort(key = lambda j : j.pt(), reverse = True)
             for n,j in enumerate(objects40ja):
                 if n>3:  break
                 thisDeltaPhi = abs( deltaPhi( j.phi(), event.zllmt_met.phi() ) )
                 if thisDeltaPhi < event.zllmt_deltaPhiMin : event.zllmt_deltaPhiMin = thisDeltaPhi
 
             event.zllmt_deltaPhiMin_Xj = 999.
-            objectsXjc = [ j for j in event.cleanJets if j.pt() > self.jetPt and abs(j.eta())<2.5 ]
-            objectsXja = [ j for j in event.cleanJets if j.pt() > self.jetPt]
+            objectsXjc = [ j for j in event.cleanJets if j.pt() > self.jetPt and abs(j.eta())<2.5 ] + [l for l in vetoLeptons if l not in vetoLeptons_mt]
+            objectsXja = [ j for j in event.cleanJetsAll if j.pt() > self.jetPt] + [l for l in vetoLeptons if l not in vetoLeptons_mt]
             event.zllmt_ht_Xj = sum([x.pt() for x in objectsXjc])
+            objectsXja.sort(key = lambda j : j.pt(), reverse = True)
             for n,j in enumerate(objectsXja):
                 if n>3:  break
                 thisDeltaPhi = abs( deltaPhi( j.phi(), event.zllmt_met.phi() ) )
@@ -364,13 +366,21 @@ class ttHMT2Control( Analyzer ):
             zllmt_diffMetMht_vec = ROOT.reco.Particle.LorentzVector(event.mhtJet40jvec.px()-event.zllmt_met.px(), event.mhtJet40jvec.py()-event.zllmt_met.py(), 0, 0 )
             event.zllmt_diffMetMht = sqrt( zllmt_diffMetMht_vec.px()*zllmt_diffMetMht_vec.px() + zllmt_diffMetMht_vec.py()*zllmt_diffMetMht_vec.py() )
 
-            zllmt_diffMetMht_Xj_vec = ROOT.reco.Particle.LorentzVector(event.mhtJetXjvec.px()-event.zllmt_met.px(), event.mhtJetXjvec.py()-event.zllmt_met.py(), 0, 0 )
+            event.zllmt_mhtJetXjvec = ROOT.reco.Particle.LorentzVector( event.mhtJetXjvec.px(), event.mhtJetXjvec.py(), 0, 0 )
+            for thisL in [l for l in vetoLeptons if l not in vetoLeptons_mt]:
+            #for thisL in [l for l in vetoLeptons_mt]:
+                event.zllmt_mhtJetXjvec = ROOT.reco.Particle.LorentzVector( event.zllmt_mhtJetXjvec.px() - thisL.px(), event.zllmt_mhtJetXjvec.py() - thisL.py() , 0, 0 )
+
+            event.zllmt_mhtJetXj=event.zllmt_mhtJetXjvec.pt()
+            event.zllmt_mhtPhiJetXj=event.zllmt_mhtJetXjvec.phi()
+
+            zllmt_diffMetMht_Xj_vec = ROOT.reco.Particle.LorentzVector(event.zllmt_mhtJetXjvec.px()-event.zllmt_met.px(), event.zllmt_mhtJetXjvec.py()-event.zllmt_met.py(), 0, 0 )
             event.zllmt_diffMetMht_Xj = sqrt( zllmt_diffMetMht_Xj_vec.px()*zllmt_diffMetMht_Xj_vec.px() + zllmt_diffMetMht_Xj_vec.py()*zllmt_diffMetMht_Xj_vec.py() )
 
             # di-lepton invariant mass                                                                                                                                                                                            
-            for l in vetoLeptons:
-                event.zllmt_p4 += l.p4()
-                event.zllmt_mt = mtw(l, event.zllmt_met)
+            for thisL in [l for l in vetoLeptons if l not in vetoLeptons_mt]:
+                event.zllmt_p4 += thisL.p4()
+                event.zllmt_mt = mtw(thisL, event.zllmt_met)
                 ###event.zll_invmass = zll_p4.M()
 
     def process(self, event):
