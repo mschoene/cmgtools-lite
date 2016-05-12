@@ -8,7 +8,9 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
 ##    NTupleVariable("genQScale", lambda ev : ev.genQScale, help="Generator level binning quantity, QScale"),
     NTupleVariable("LHEweight_original", lambda ev: ev.LHE_originalWeight if  hasattr(ev,'LHE_originalWeight') else  0, mcOnly=True, help="original LHE weight"),
     NTupleVariable("genRecoil_pt", lambda ev: ev.GenRecoil_pt if  hasattr(ev,'GenRecoil_pt') else  -99, float, help="total pt of particles with status 62"),
-
+    NTupleVariable("top_pt", lambda ev: ev.toppt if  hasattr(ev,'toppt') else  -99, float, help="pt of top"),
+    NTupleVariable("anti_top_pt", lambda ev: ev.antitoppt if  hasattr(ev,'toppt') else  -99, float, help="pt of anti-top"),
+    
     ##--------------------------------------------------
     ## MET filter information (temporary)
     ##--------------------------------------------------
