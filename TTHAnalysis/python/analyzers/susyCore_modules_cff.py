@@ -288,7 +288,9 @@ isoTrackAna = cfg.Analyzer(
     doSecondVeto = False,
     #####
     doPrune = True,
-    do_mc_match = False # note: it will in any case try it only on MC, not on data
+    do_mc_match = False, # note: it will in any case try it only on MC, not on data
+    ####
+    useCorrectedMET = False,
     )
 
 
@@ -302,6 +304,7 @@ jetAna = cfg.Analyzer(
     jetPt = 25.,
     jetEta = 4.7,
     jetEtaCentral = 2.4,
+    doJetCleaning = True,
     jetLepDR = 0.4,
     jetLepArbitration = (lambda jet,lepton : lepton), # you can decide which to keep in case of overlaps; e.g. if the jet is b-tagged you might want to keep the jet
     cleanSelectedLeptons = True, #Whether to clean 'selectedLeptons' after disambiguation. Treat with care (= 'False') if running Jetanalyzer more than once

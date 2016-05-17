@@ -82,7 +82,45 @@ jetAna.jetGammaLepDR = 0.4
 jetAna.minGammaPt = 20.
 jetAna.gammaEtaCentral = 2.4
 jetAna.cleanJetsFromFirstPhoton = True
-jetAna.cleanJetsFromIsoTracks = True ## added for Dominick
+jetAna.cleanJetsFromIsoTracks = False ## added for Dominick
+jetAna.doJetCleaning = False
+
+### For Jet Cleaning AFTER MET analyzer
+from PhysicsTools.Heppy.analyzers.objects.JetCleaner import JetCleaner
+jetCleanAna = cfg.Analyzer(
+    JetCleaner, name = 'JetCleaner',
+
+    jetPt = 20.,
+    jetEta = 4.7,
+    jetEtaCentral = 2.5,
+
+    relaxJetId = False,
+    doPuId = False,
+
+    minLepPt = 10,
+    jetLepDR = 0.4,
+    cleanSelectedLeptons = True,
+    jetLepArbitration = (lambda jet,lepton : lepton),
+
+    jetGammaDR = 0.4,
+    minGammaPt = 20.,
+    gammaEtaCentral = 2.4,
+
+    cleanFromLepAndGammaSimultaneously = True,
+    jetGammaLepDR = 0.4,
+
+    alwaysCleanPhotons = False,
+    cleanGenJetsFromPhoton = False,
+    cleanJetsFromFirstPhoton = True,
+
+    cleanJetsFromIsoTracks = True,
+    cleanJetsFromTaus = False,
+
+    do_mc_match = True,
+    collectionPostFix = "",
+
+    )
+
 
 # TAU 
 tauAna.inclusive_ptMin = 20.0
@@ -247,12 +285,13 @@ triggerFlagsAna.triggerBits = {
 eventFlagsAna.triggerBits = {
     "HBHENoiseFilter" : [ "Flag_HBHENoiseFilter" ], ### hbheFilter temporary replaced
     "HBHENoiseIsoFilter" : [ "Flag_HBHENoiseIsoFilter" ], ### hbheFilter temporary replaced
-    "CSCTightHaloFilter" : [ "Flag_CSCTightHaloFilter" ],
-    "hcalLaserEventFilter" : [ "Flag_hcalLaserEventFilter" ],
+    "CSCTightHalo2015Filter" : [ "Flag_CSCTightHalo2015Filter" ],
     "EcalDeadCellTriggerPrimitiveFilter" : [ "Flag_EcalDeadCellTriggerPrimitiveFilter" ],
     "goodVertices" : [ "Flag_goodVertices" ],
-    "trackingFailureFilter" : [ "Flag_trackingFailureFilter" ],
     "eeBadScFilter" : [ "Flag_eeBadScFilter" ],
+    "globalTightHalo2016Filter" : [ "Flag_globalTightHalo2016Filter" ],
+    "hcalLaserEventFilter" : [ "Flag_hcalLaserEventFilter" ],
+    "trackingFailureFilter" : [ "Flag_trackingFailureFilter" ],
     "ecalLaserCorrFilter" : [ "Flag_ecalLaserCorrFilter" ],
     "trkPOGFilters" : [ "Flag_trkPOGFilters" ],
     "trkPOG_manystripclus53X" : [ "Flag_trkPOG_manystripclus53X" ],
@@ -291,15 +330,48 @@ susyCoreSequence.insert(susyCoreSequence.index(skimAnalyzer),
 #                        ttHSVAna)
 
 
-sequence = cfg.Sequence(
-    susyCoreSequence+[
+sequence = cfg.Sequence([
+    lheWeightAna,
+    skimAnalyzer,
+    susyCounter,
+   #eventSelector,
+    jsonAna,
+    triggerAna,
+    pileUpAna,
+    genAna,
+    genHiggsAna,
+    genHFAna,
+    pdfwAna,
+    susyScanAna,
+    vertexAna,
+    lepAna,
+    ttHLepSkim,
+    #ttHLepMCAna,
+    photonAna,
+    tauAna,
+    jetAna,
+    metAna,
+    isoTrackAna,
+    jetCleanAna,
+    ttHCoreEventAna,
+    triggerFlagsAna,
+    eventFlagsAna,
     ttHMT2Control,
     MT2Ana,
     ttHTopoJetAna,
     ttHFatJetAna,
-    # hbheFilterAna,
     treeProducer,
     ])
+
+#sequence = cfg.Sequence(
+#    susyCoreSequence+[
+#    ttHMT2Control,
+#    MT2Ana,
+#    ttHTopoJetAna,
+#    ttHFatJetAna,
+#    # hbheFilterAna,
+#    treeProducer,
+#    ])
 
 ## NoHF add on
 #sequence.insert(sequence.index(metAna),
