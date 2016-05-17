@@ -327,55 +327,23 @@ treeProducer = cfg.Analyzer(
 susyCoreSequence.insert(susyCoreSequence.index(skimAnalyzer),
                         susyCounter)
 
-#susyCoreSequence.insert(susyCoreSequence.index(ttHLepSkim),
-#                        ttHZskim)
+### Here we are moving the jet cleaning module so that the JEC corrections are already propagated
+### to jets, met, and isoTracks
+susyCoreSequence.remove(isoTrackAna)
+susyCoreSequence.insert(susyCoreSequence.index(metAna)+1,isoTrackAna)
+susyCoreSequence.insert(susyCoreSequence.index(isoTrackAna)+1,jetCleanAna)
 
-#susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
-#                        ttHSVAna)
 
 
-sequence = cfg.Sequence([
-    lheWeightAna,
-    skimAnalyzer,
-    susyCounter,
-   #eventSelector,
-    jsonAna,
-    triggerAna,
-    pileUpAna,
-    genAna,
-    genHiggsAna,
-    genHFAna,
-    pdfwAna,
-    susyScanAna,
-    vertexAna,
-    lepAna,
-    ttHLepSkim,
-    #ttHLepMCAna,
-    photonAna,
-    tauAna,
-    jetAna,
-    metAna,
-    isoTrackAna,
-    jetCleanAna,
-    ttHCoreEventAna,
-    triggerFlagsAna,
-    eventFlagsAna,
+sequence = cfg.Sequence(
+    susyCoreSequence+[
     ttHMT2Control,
     MT2Ana,
     ttHTopoJetAna,
     ttHFatJetAna,
+    # hbheFilterAna,
     treeProducer,
     ])
-
-#sequence = cfg.Sequence(
-#    susyCoreSequence+[
-#    ttHMT2Control,
-#    MT2Ana,
-#    ttHTopoJetAna,
-#    ttHFatJetAna,
-#    # hbheFilterAna,
-#    treeProducer,
-#    ])
 
 ## NoHF add on
 #sequence.insert(sequence.index(metAna),
