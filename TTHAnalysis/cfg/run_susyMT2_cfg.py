@@ -85,42 +85,6 @@ jetAna.cleanJetsFromFirstPhoton = True
 jetAna.cleanJetsFromIsoTracks = False ## added for Dominick
 jetAna.doJetCleaning = False
 
-### For Jet Cleaning AFTER MET analyzer
-from PhysicsTools.Heppy.analyzers.objects.JetCleaner import JetCleaner
-jetCleanAna = cfg.Analyzer(
-    JetCleaner, name = 'JetCleaner',
-
-    jetPt = 20.,
-    jetEta = 4.7,
-    jetEtaCentral = 2.5,
-
-    relaxJetId = False,
-    doPuId = False,
-
-    minLepPt = 10,
-    jetLepDR = 0.4,
-    cleanSelectedLeptons = True,
-    jetLepArbitration = (lambda jet,lepton : lepton),
-
-    jetGammaDR = 0.4,
-    minGammaPt = 20.,
-    gammaEtaCentral = 2.4,
-
-    cleanFromLepAndGammaSimultaneously = True,
-    jetGammaLepDR = 0.4,
-
-    alwaysCleanPhotons = False,
-    cleanGenJetsFromPhoton = False,
-    cleanJetsFromFirstPhoton = True,
-
-    cleanJetsFromIsoTracks = True,
-    cleanJetsFromTaus = False,
-
-    do_mc_match = True,
-    collectionPostFix = "",
-
-    )
-
 
 # TAU 
 tauAna.inclusive_ptMin = 20.0
@@ -313,7 +277,6 @@ from CMGTools.TTHAnalysis.analyzers.treeProducerSusyFullHad import *
 
 treeProducer = cfg.Analyzer(
      AutoFillTreeProducer, name='treeProducerSusyFullHad',
-##     AutoFillTreeProducer, name='treeProducerSusyCore',
      vectorTree = True,
      saveTLorentzVectors = False,  # can set to True to get also the TLorentzVectors, but trees will be bigger
      PDFWeights = PDFWeights,
@@ -327,61 +290,23 @@ treeProducer = cfg.Analyzer(
 susyCoreSequence.insert(susyCoreSequence.index(skimAnalyzer),
                         susyCounter)
 
-#susyCoreSequence.insert(susyCoreSequence.index(ttHLepSkim),
-#                        ttHZskim)
+### Here we are moving the jet cleaning module so that the JEC corrections are already propagated
+### to jets, met, and isoTracks
+susyCoreSequence.remove(isoTrackAna)
+susyCoreSequence.insert(susyCoreSequence.index(metAna)+1,isoTrackAna)
+susyCoreSequence.insert(susyCoreSequence.index(isoTrackAna)+1,jetCleanAna)
 
-#susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
-#                        ttHSVAna)
 
 
-sequence = cfg.Sequence([
-    lheWeightAna,
-    skimAnalyzer,
-    susyCounter,
-   #eventSelector,
-    jsonAna,
-    triggerAna,
-    pileUpAna,
-    genAna,
-    genHiggsAna,
-    genHFAna,
-    pdfwAna,
-    susyScanAna,
-    vertexAna,
-    lepAna,
-    ttHLepSkim,
-    #ttHLepMCAna,
-    photonAna,
-    tauAna,
-    jetAna,
-    metAna,
-    isoTrackAna,
-    jetCleanAna,
-    ttHCoreEventAna,
-    triggerFlagsAna,
-    eventFlagsAna,
+sequence = cfg.Sequence(
+    susyCoreSequence+[
     ttHMT2Control,
     MT2Ana,
     ttHTopoJetAna,
     ttHFatJetAna,
+    # hbheFilterAna,
     treeProducer,
     ])
-
-#sequence = cfg.Sequence(
-#    susyCoreSequence+[
-#    ttHMT2Control,
-#    MT2Ana,
-#    ttHTopoJetAna,
-#    ttHFatJetAna,
-#    # hbheFilterAna,
-#    treeProducer,
-#    ])
-
-## NoHF add on
-#sequence.insert(sequence.index(metAna),
-#                metNoHFAna)
-#sequence.insert(sequence.index(MT2Ana),
-#                MT2AnaNoHF)
 
 
 ###---- to switch off the compression

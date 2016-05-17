@@ -61,8 +61,8 @@ Flag_hcalLaserEventFilter : Flag_hcalLaserEventFilter : [-0.5,0.5,1.5]; XTitle="
 Flag_trkPOG_logErrorTooManyClusters : Flag_trkPOG_logErrorTooManyClusters : [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_trkPOGFilters : Flag_trkPOGFilters : [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_trackingFailureFilter : Flag_trackingFailureFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
-Flag_CSCTightHaloFilter : Flag_CSCTightHaloFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
-Flag_HBHENoiseFilter : Flag_HBHENoiseFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
+#Flag_CSCTightHaloFilter : Flag_CSCTightHaloFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
+#Flag_HBHENoiseFilter : Flag_HBHENoiseFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_goodVertices : Flag_goodVertices: [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_eeBadScFilter : Flag_eeBadScFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_METFilters : Flag_METFilters: [-0.5,0.5,1.5]; XTitle="metFilter"
@@ -271,8 +271,8 @@ lep_tightCharge:  lep_tightCharge: [-1.5,-0.5,0.5,1.5];  Legend='TL'
 
 
 ##### TOP
-top_pt: top_pt: 100, 0, 500; XTitle="top p_{T} [GeV]"
-anti_top_pt: anti_top_pt: 250, 0, 500; XTitle="anti-top p_{T} [GeV]"
+#top_pt: top_pt: 100, 0, 500; XTitle="top p_{T} [GeV]"
+#anti_top_pt: anti_top_pt: 250, 0, 500; XTitle="anti-top p_{T} [GeV]"
 
 
 ##### WEIGHTS

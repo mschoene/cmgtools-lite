@@ -406,6 +406,35 @@ ttHFatJetAna = cfg.Analyzer(
     #shiftJEC = 0, # set to +1 or -1 to get +/-1 sigma shifts
     )
 
+# JetCleaner
+from PhysicsTools.Heppy.analyzers.objects.JetCleaner import JetCleaner
+jetCleanAna = cfg.Analyzer(
+    JetCleaner, name = 'JetCleaner',
+    jetPt = 20.,
+    jetEta = 4.7,
+    jetEtaCentral = 2.5,
+    relaxJetId = False,
+    doPuId = False,
+    minLepPt = 10,
+    jetLepDR = 0.4,
+    cleanSelectedLeptons = True,
+    jetLepArbitration = (lambda jet,lepton : lepton),
+    jetGammaDR = 0.4,
+    minGammaPt = 20.,
+    gammaEtaCentral = 2.4,
+    cleanFromLepAndGammaSimultaneously = True,
+    jetGammaLepDR = 0.4,
+    alwaysCleanPhotons = False,
+    cleanGenJetsFromPhoton = False,
+    cleanJetsFromFirstPhoton = True,
+    cleanJetsFromIsoTracks = True,
+    cleanJetsFromTaus = False,
+    do_mc_match = True,
+    collectionPostFix = "",
+)
+
+
+
 
 # Secondary vertex analyzer
 from CMGTools.TTHAnalysis.analyzers.ttHSVAnalyzer import ttHSVAnalyzer
