@@ -277,7 +277,6 @@ from CMGTools.TTHAnalysis.analyzers.treeProducerSusyFullHad import *
 
 treeProducer = cfg.Analyzer(
      AutoFillTreeProducer, name='treeProducerSusyFullHad',
-##     AutoFillTreeProducer, name='treeProducerSusyCore',
      vectorTree = True,
      saveTLorentzVectors = False,  # can set to True to get also the TLorentzVectors, but trees will be bigger
      PDFWeights = PDFWeights,
@@ -308,12 +307,6 @@ sequence = cfg.Sequence(
     # hbheFilterAna,
     treeProducer,
     ])
-
-## NoHF add on
-#sequence.insert(sequence.index(metAna),
-#                metNoHFAna)
-#sequence.insert(sequence.index(MT2Ana),
-#                MT2AnaNoHF)
 
 
 ###---- to switch off the compression
