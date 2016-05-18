@@ -153,13 +153,6 @@ MT2Ana = cfg.Analyzer(
     collectionPostFix = "",
     )
 
-#MT2AnaNoHF = cfg.Analyzer(
-#    MT2Analyzer, name = 'MT2Analyzer',
-#    metCollection     = "slimmedMETsNoHF",
-#    doOnlyDefault = True,
-#    jetPt = mt2JPt, ### this will change MT2 and pseudo-jets
-#    collectionPostFix = "NoHF",
-#    )
 
 ##------------------------------------------
 ##  Z skim
@@ -251,23 +244,15 @@ triggerFlagsAna.triggerBits = {
 
 ##  FILTERS DEFINITION
 eventFlagsAna.triggerBits = {
-    "HBHENoiseFilter" : [ "Flag_HBHENoiseFilter" ], ### hbheFilter temporary replaced
-    "HBHENoiseIsoFilter" : [ "Flag_HBHENoiseIsoFilter" ], ### hbheFilter temporary replaced
+# recommended filters for 80X
+    "HBHENoiseFilter" : [ "Flag_HBHENoiseFilter" ], 
+    "HBHENoiseIsoFilter" : [ "Flag_HBHENoiseIsoFilter" ], 
     "CSCTightHalo2015Filter" : [ "Flag_CSCTightHalo2015Filter" ],
     "EcalDeadCellTriggerPrimitiveFilter" : [ "Flag_EcalDeadCellTriggerPrimitiveFilter" ],
     "goodVertices" : [ "Flag_goodVertices" ],
     "eeBadScFilter" : [ "Flag_eeBadScFilter" ],
+# filter under study 
     "globalTightHalo2016Filter" : [ "Flag_globalTightHalo2016Filter" ],
-    "hcalLaserEventFilter" : [ "Flag_hcalLaserEventFilter" ],
-    "trackingFailureFilter" : [ "Flag_trackingFailureFilter" ],
-    "ecalLaserCorrFilter" : [ "Flag_ecalLaserCorrFilter" ],
-    "trkPOGFilters" : [ "Flag_trkPOGFilters" ],
-    "trkPOG_manystripclus53X" : [ "Flag_trkPOG_manystripclus53X" ],
-    "trkPOG_toomanystripclus53X" : [ "Flag_trkPOG_toomanystripclus53X" ],
-    "trkPOG_logErrorTooManyClusters" : [ "Flag_trkPOG_logErrorTooManyClusters" ],
-    "chargedHadronTrackResolutionFilter" : [ "Flag_chargedHadronTrackResolutionFilter" ],
-    "muonBadTrackFilter" : [ "Flag_muonBadTrackFilter" ],
-    "METFilters" : [ "Flag_METFilters" ],
 }
 
 
