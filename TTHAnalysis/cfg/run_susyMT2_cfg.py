@@ -153,13 +153,6 @@ MT2Ana = cfg.Analyzer(
     collectionPostFix = "",
     )
 
-#MT2AnaNoHF = cfg.Analyzer(
-#    MT2Analyzer, name = 'MT2Analyzer',
-#    metCollection     = "slimmedMETsNoHF",
-#    doOnlyDefault = True,
-#    jetPt = mt2JPt, ### this will change MT2 and pseudo-jets
-#    collectionPostFix = "NoHF",
-#    )
 
 ##------------------------------------------
 ##  Z skim
