@@ -91,7 +91,7 @@ photonAna.ptMin = 20
 photonAna.gammaID = "POG_SPRING15_25ns_Loose_NoIso"
 photonAna.do_randomCone = False
 photonAna.do_mc_match = True
-photonAna.conversionSafe_eleVeto = True
+photonAna.conversionSafe_eleVeto = False
 
 
 
@@ -294,9 +294,9 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 
-test = 1 # this is for local tests
+#test = 1 # this is for local tests
 #test = 2 # this is for 76X ZGamma MC
-#test = 3 # this is for data 2015 (16Dec, 76X)
+test = 3 # this is for data 2016
 
 isData = False # will be changed accordingly if chosen to run on data
 runPreprocessor = False
@@ -460,7 +460,7 @@ elif test==2:
 elif test==3:
     # run on data
     isData = True
-    from CMGTools.RootTools.samples.samples_13TeV_DATA2015 import *
+    from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
 
     dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
     json=dataDir+'/json/json_DCSONLY.txt'
@@ -476,7 +476,8 @@ elif test==3:
     #selectedComponents = [JetHT_Run2015D, HTMHT_Run2015D, MET_Run2015D, SingleElectron_Run2015D, SingleMuon_Run2015D, SinglePhoton_Run2015D, DoubleEG_Run2015D, MuonEG_Run2015D, DoubleMuon_Run2015D]
 ###    selectedComponents  = dataSamples_Run2015C_27Jan + [ SingleElectron_Run2015D_16Dec, DoubleEG_Run2015D_16Dec, MuonEG_Run2015D_16Dec, DoubleMuon_Run2015D_16Dec ]
 #    selectedComponents = dataSamples_Run2015C_16Dec + [ SingleElectron_Run2015D_16Dec, SingleMuon_Run2015D_16Dec, DoubleEG_Run2015D_16Dec, MuonEG_Run2015D_16Dec, DoubleMuon_Run2015D_16Dec ] 
-    selectedComponents  = [ SingleMuon_Run2015B_16Dec, SingleMuon_Run2015C_25ns_16Dec, SingleMuon_Run2015D_16Dec, DoubleMuon_Run2015B_16Dec, DoubleMuon_Run2015C_25ns_16Dec, DoubleMuon_Run2015D_16Dec, DoubleEG_Run2015B_16Dec, DoubleEG_Run2015C_25ns_16Dec, DoubleEG_Run2015D_16Dec ]
+    selectedComponents  = [ DoubleMuon_Run2016B_PromptReco_v1 ]
+    #selectedComponents  = [ SingleMuon_Run2016B_PromptReco_v1, SingleMuon_Run2016B_PromptReco_v2, DoubleMuon_Run2016B_PromptReco_v1, DoubleMuon_Run2016B_PromptReco_v2, DoubleEG_Run2016B_PromptReco_v1, DoubleEG_Run2016B_PromptReco_v2 ]
 
     for comp in selectedComponents:
         comp.json=json
