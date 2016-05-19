@@ -22,7 +22,8 @@ jsonAna.useLumiBlocks = True
 vertexAna.keepFailingEvents = True # keep events with no good vertices
 
 #Lepton
-lepAna.loose_muon_id = "POG_ID_HighPt_OR_Loose"
+lepAna.loose_muon_id = "POG_ID_Loose"
+#lepAna.loose_muon_id = "POG_ID_HighPt_OR_Loose"
 lepAna.loose_muon_dxy = 0.2
 lepAna.loose_muon_dz  = 0.5
 lepAna.loose_muon_relIso  = 0.15
@@ -71,14 +72,16 @@ jetAna.doQG = False
 jetAna.jetEta = 4.7
 jetAna.jetEtaCentral = 2.5
 jetAna.jetPt = 30. #was 10
-jetAna.mcGT     = "Summer15_25nsV6_MC" # jec corrections
-jetAna.dataGT   = "Summer15_25nsV6_DATA" # jec corrections
-jetAna.recalibrateJets = False # True
-jetAna.applyL2L3Residual = False # 'Data'
-jetAna.calculateSeparateCorrections = False
+jetAna.mcGT     = "Spring16_25nsV1_MC" # jec corrections
+jetAna.dataGT   = "Spring16_25nsV1_MC" # jec corrections
+jetAna.recalibrateJets = True # True or False
+jetAna.applyL2L3Residual = True # 'Data'
+jetAna.calculateSeparateCorrections = True
 jetAna.jetLepDR = 0.4
 jetAna.smearJets = False
 jetAna.jetGammaDR = 0.4
+jetAna.cleanFromLepAndGammaSimultaneously = True
+jetAna.jetGammaLepDR = 0.4
 jetAna.minGammaPt = 20.
 jetAna.gammaEtaCentral = 2.4
 jetAna.cleanJetsFromFirstPhoton = True
@@ -96,38 +99,32 @@ photonAna.conversionSafe_eleVeto = False
 
 
 
-era = "25ns"
-sync = False
+#era = "25ns"
+#sync = False
+#
+#lepAna.doElectronScaleCorrections = {
+#  'data' : 'EgammaAnalysis/ElectronTools/data/76X_16DecRereco_2015',
+#  'GBRForest': ('$CMSSW_BASE/src/CMGTools/RootTools/data/egamma_epComb_GBRForest_76X.root',
+#    'gedelectron_p4combination_'+era),
+#  'isSync': sync
+#}
+#
+#photonAna.doPhotonScaleCorrections = {
+#  'data' : 'EgammaAnalysis/ElectronTools/data/76X_16DecRereco_2015',
+#  'isSync': sync
+#}
+#
+#smear = "basic"
+#lepAna.doMuonScaleCorrections = ( 'Kalman', {
+#  'MC': 'MC_76X_13TeV',
+#  'Data': 'DATA_76X_13TeV',
+#  'isSync': sync,
+#  'smearMode':smear
+#})
 
-lepAna.doElectronScaleCorrections = {
-  'data' : 'EgammaAnalysis/ElectronTools/data/76X_16DecRereco_2015',
-  'GBRForest': ('$CMSSW_BASE/src/CMGTools/RootTools/data/egamma_epComb_GBRForest_76X.root',
-    'gedelectron_p4combination_'+era),
-  'isSync': sync
-}
-
-photonAna.doPhotonScaleCorrections = {
-  'data' : 'EgammaAnalysis/ElectronTools/data/76X_16DecRereco_2015',
-  'isSync': sync
-}
-
-smear = "basic"
-lepAna.doMuonScaleCorrections = ( 'Kalman', {
-  'MC': 'MC_76X_13TeV',
-  'Data': 'DATA_76X_13TeV',
-  'isSync': sync,
-  'smearMode':smear
-})
-
-
-
-# Isolated Track
-isoTrackAna.setOff=False
-isoTrackAna.doIsoAnnulus = True
-isoTrackAna.do_mc_match = False
 
 # recalibrate MET
-metAna.recalibrate = False
+metAna.recalibrate = 'type1' # 'type1' or False
 metAna.old74XMiniAODs = False # get right Raw MET on old 74X MiniAODs
 
 # store all taus by default
@@ -159,83 +156,89 @@ ttHZskim = cfg.Analyzer(
             doZReco = True
             )
 
-from CMGTools.TTHAnalysis.analyzers.hbheAnalyzer import hbheAnalyzer
-hbheFilterAna = cfg.Analyzer(
-    hbheAnalyzer, name = 'hbheAnalyzer',
-    IgnoreTS4TS5ifJetInLowBVRegion=False,
-)
-
 
 ##------------------------------------------
 ##  PRODUCER
 ##------------------------------------------
 
 
-from CMGTools.RootTools.samples.triggers_13TeV_Spring15 import triggers_HT900, triggers_HT800, triggers_AllMET170, triggers_HT350_MET100, triggers_HT350_MET120
-from CMGTools.RootTools.samples.triggers_13TeV_Spring15 import triggers_MT2_mumu, triggers_MT2_ee, triggers_MT2_e, triggers_MT2_mu, triggers_MT2_emu, triggers_MT2_mue 
-from CMGTools.RootTools.samples.triggers_13TeV_Spring15 import triggers_dijet, triggers_dijet70met120, triggers_dijet55met110, triggers_HT350, triggers_HT475,  triggers_HT600
-from CMGTools.RootTools.samples.triggers_13TeV_Spring15 import triggers_photon75, triggers_photon90, triggers_photon120, triggers_photon75ps 
-from CMGTools.RootTools.samples.triggers_13TeV_Spring15 import triggers_photon90ps, triggers_photon120ps, triggers_photon155, triggers_photon165_HE10, triggers_photon175
-from CMGTools.RootTools.samples.triggers_13TeV_Spring15 import triggers_met90_mht90, triggers_metNoMu90_mhtNoMu90, triggers_metNoMu120_mhtNoMu120, triggers_Jet80MET90
-from CMGTools.RootTools.samples.triggers_13TeV_Spring15 import triggers_doubleele33, triggers_mumu_noniso
+
+
+
+##  TRIGGERS DEFINITION
+from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_photon75, triggers_photon90, triggers_photon120, triggers_photon75ps 
+from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_photon90ps, triggers_photon120ps, triggers_photon155, triggers_photon165_HE10, triggers_photon175
+from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_doubleele33, triggers_mumu_noniso
 
 triggerFlagsAna.triggerBits = {
-'PFHT900' : triggers_HT900,
-'PFHT800' : triggers_HT800,
-'PFMET170' : triggers_AllMET170,
-'PFHT350_PFMET100' : triggers_HT350_MET100,
-'PFHT350_PFMET120' : triggers_HT350_MET120,
-'SingleMu' : triggers_MT2_mu,
-'SingleEl' : triggers_MT2_e,
-'DoubleMu' : triggers_MT2_mumu,
-'DoubleEl' : triggers_MT2_ee,
-'MuX_Ele12' : triggers_MT2_emu,
-'Mu8_EleX'  : triggers_MT2_mue,
-#'MuEG' : triggers_MT2_mue,
-'DiCentralPFJet70_PFMET120' : triggers_dijet70met120,
-'DiCentralPFJet55_PFMET110' : triggers_dijet55met110,
-##
-'PFHT350_Prescale' : triggers_HT350,
-'PFHT475_Prescale' : triggers_HT475,
-'PFHT600_Prescale'  : triggers_HT600,
-'DiJet' : triggers_dijet,
+# signal triggers 
+'PFHT800' : ["HLT_PFHT800_v*"],
+'PFHT900' : ["HLT_PFHT900_v*"],
+'PFMET170' : ["HLT_PFMET170_NoiseCleaned_v*","HLT_PFMET170_NotCleaned_v*","HLT_PFMET170_HBHECleaned_v*","HLT_PFMET170_JetIdCleaned_v*"],
+'PFHT300_PFMET100' : ["HLT_PFHT300_PFMET100_v*"],
+'PFHT300_PFMET110' : ["HLT_PFHT300_PFMET110_v*"],
+'PFHT350_PFMET100' : ["HLT_PFHT350_PFMET100_NoiseCleaned_v*","HLT_PFHT350_PFMET100_JetIdCleaned_v*","HLT_PFHT350_PFMET100_v*"],
+'PFHT350_PFMET120' : ["HLT_PFHT350_PFMET120_NoiseCleaned_v*","HLT_PFHT350_PFMET120_JetIdCleaned_v*"],
+#
+# mono-jet signal triggers
+'PFMETNoMu90_PFMHTNoMu90' : ["HLT_PFMETNoMu90_JetIdCleaned_PFMHTNoMu90_IDTight_v*","HLT_PFMETNoMu90_NoiseCleaned_PFMHTNoMu90_IDTight_v*","HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*"],
+'MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90' : ["HLT_MonoCentralPFJet80_PFMETNoMu90_NoiseCleaned_PFMHTNoMu90_IDTight_v*","HLT_MonoCentralPFJet80_PFMETNoMu90_JetIdCleaned_PFMHTNoMu90_IDTight_v*",
+                                                "HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight_v*"],
+'PFMETNoMu120_PFMHTNoMu120' : ["HLT_PFMETNoMu120_JetIdCleaned_PFMHTNoMu120_IDTight_v*","HLT_PFMETNoMu120_NoiseCleaned_PFMHTNoMu120_IDTight_v*","HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_v*"],
+'PFMET90_PFMHT90'           : ["HLT_PFMET90_PFMHT90_IDTight_v*","HLT_PFMET90_PFMHT90_IDLoose_v*"],
+'PFMET100_PFMHT100'         : ["HLT_PFMET100_PFMHT100_IDTight_v*"],
+'PFMET110_PFMHT110'         : ["HLT_PFMET110_PFMHT110_IDTight_v*"],
+'PFMET120_PFMHT120'         : ["HLT_PFMET120_PFMHT120_IDTight_v*"],
+#
+# lepton triggers
+'SingleMu'     : ["HLT_IsoMu17_eta2p1_v*","HLT_IsoMu20_v*","HLT_IsoMu20_eta2p1_v*","HLT_IsoTkMu20_v*","HLT_IsoTkMu20_eta2p1_v*","HLT_IsoMu24_v*","HLT_IsoTkMu24_v*"],
+'SingleEl'     : ["HLT_Ele23_WPLoose_Gsf_v*","HLT_Ele22_eta2p1_WPLoose_Gsf_v*","HLT_Ele23_WP75_Gsf_v*","HLT_Ele22_eta2p1_WP75_Gsf_v*","HLT_Ele25_eta2p1_WPTight_Gsf_v*"],
+'DoubleEl'     : ["HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*","HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*"],
+'DoubleEl33'   : ["HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_v*"],
+'MuX_Ele12' : ["HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*","HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*"],
+'Mu8_EleX' : ["HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v*","HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v*"],
+'DoubleMu'     : ["HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v*","HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*","HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v*","HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v*"],
+# for single-photon control region
+'Photon120' : ["HLT_Photon120_v*"], 
+'Photon165_HE10' : ["HLT_Photon165_HE10_v*"], 
+
+# for QCD control region
+'PFHT125_Prescale'  : ["HLT_PFHT125_v*"],
+'PFHT200_Prescale'  : ["HLT_PFHT200_v*"],
+'PFHT300_Prescale'  : ["HLT_PFHT300_v*"],
+'PFHT350_Prescale'  : ["HLT_PFHT350_v*"],
+'PFHT475_Prescale'  : ["HLT_PFHT475_v*"],
+'PFHT600_Prescale'  : ["HLT_PFHT600_v*"],
+
+'DiCentralPFJet70_PFMET120'  : ["HLT_DiCentralPFJet70_PFMET120_NoiseCleaned_v*","HLT_DiCentralPFJet70_PFMET120_JetIdCleaned_v*"], 
+'DiCentralPFJet55_PFMET110'  : ["HLT_DiCentralPFJet55_PFMET110_NoiseCleaned_v*","HLT_DiCentralPFJet55_PFMET110_JetIdCleaned_v*"], 
+
+#Francesco's ?? 
 'Photon75_R9Id90_HE10_IsoM' : triggers_photon75,
 'Photon90_R9Id90_HE10_IsoM' : triggers_photon90,
 'Photon120_R9Id90_HE10_IsoM' : triggers_photon120,
 'Photon75' : triggers_photon75ps,
 'Photon90' : triggers_photon90ps,
-'Photon120' : triggers_photon120ps,
 'Photon155' : triggers_photon155,
-'Photon165_HE10' : triggers_photon165_HE10,
 'Photon175' : triggers_photon175,
-## monojet triggers
-'PFMET90_PFMHT90' : triggers_met90_mht90,
-'PFMETNoMu90_PFMHTNoMu90' : triggers_metNoMu90_mhtNoMu90,
-'PFMETNoMu120_PFMHTNoMu120' : triggers_metNoMu120_mhtNoMu120,
-'MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90' : triggers_Jet80MET90,
+
 ### ZGamma triggers
 'DoubleEle33' : triggers_doubleele33,
 'Mu30_TkMu11' : triggers_mumu_noniso,
 }
 
-### Temporary replacement for hbheFilter
+
+##  FILTERS DEFINITION
 eventFlagsAna.triggerBits = {
-    "HBHENoiseFilter" : [ "Flag_HBHENoiseFilter" ], ### hbheFilter temporary replaced
-    "HBHENoiseIsoFilter" : [ "Flag_HBHENoiseIsoFilter" ], ### hbheFilter temporary replaced
-    "CSCTightHaloFilter" : [ "Flag_CSCTightHaloFilter" ],
-    "hcalLaserEventFilter" : [ "Flag_hcalLaserEventFilter" ],
+# recommended filters for 80X
+    "HBHENoiseFilter" : [ "Flag_HBHENoiseFilter" ], 
+    "HBHENoiseIsoFilter" : [ "Flag_HBHENoiseIsoFilter" ], 
+    "CSCTightHalo2015Filter" : [ "Flag_CSCTightHalo2015Filter" ],
     "EcalDeadCellTriggerPrimitiveFilter" : [ "Flag_EcalDeadCellTriggerPrimitiveFilter" ],
     "goodVertices" : [ "Flag_goodVertices" ],
-    "trackingFailureFilter" : [ "Flag_trackingFailureFilter" ],
     "eeBadScFilter" : [ "Flag_eeBadScFilter" ],
-    "ecalLaserCorrFilter" : [ "Flag_ecalLaserCorrFilter" ],
-    "trkPOGFilters" : [ "Flag_trkPOGFilters" ],
-    "trkPOG_manystripclus53X" : [ "Flag_trkPOG_manystripclus53X" ],
-    "trkPOG_toomanystripclus53X" : [ "Flag_trkPOG_toomanystripclus53X" ],
-    "trkPOG_logErrorTooManyClusters" : [ "Flag_trkPOG_logErrorTooManyClusters" ],
-    "chargedHadronTrackResolutionFilter" : [ "Flag_chargedHadronTrackResolutionFilter" ],
-    "muonBadTrackFilter" : [ "Flag_muonBadTrackFilter" ],
-    "METFilters" : [ "Flag_METFilters" ],
+# filter under study 
+    "globalTightHalo2016Filter" : [ "Flag_globalTightHalo2016Filter" ],
 }
 
 
@@ -272,12 +275,6 @@ sequence = cfg.Sequence(
     treeProducer,
     ])
 
-## NoHF add on
-#sequence.insert(sequence.index(metAna),
-#                metNoHFAna)
-#sequence.insert(sequence.index(MT2Ana),
-#                MT2AnaNoHF)
-
 
 ###---- to switch off the compression
 #treeProducer.isCompressed = 0
@@ -294,9 +291,9 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 
-#test = 1 # this is for local tests
+test = 0 # this is for local tests
 #test = 2 # this is for 76X ZGamma MC
-test = 3 # this is for data 2016
+#test = 3 # this is for data 2016
 
 isData = False # will be changed accordingly if chosen to run on data
 runPreprocessor = False
@@ -311,6 +308,8 @@ if test==0:
     samples=[testComponent]
 
     json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/DCSOnly/json_DCSONLY.txt'
+
+    dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
 
     from CMGTools.TTHAnalysis.setup.Efficiencies import *
 
@@ -327,8 +326,10 @@ if test==0:
     #eventSelector.toSelect = [ 442430994 ]
     #sequence = cfg.Sequence([eventSelector] + sequence)
     comp=testComponent
-    # 74X TTbar
-    comp.files = ['/afs/cern.ch/user/d/dalfonso/public/SYNCHfiles/0066F143-F8FD-E411-9A0B-D4AE526A0D2E.root']
+    # 80X TTJets SingleLeptFromT for synch with SnT
+    comp.files = ['file:/afs/cern.ch/user/m/mangano/public/MECCA/dataset/80X/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_109B2CAB-1205-E611-A9BE-0CC47A0AD6C4.root']
+    ## 74X TTbar
+    #comp.files = ['/afs/cern.ch/user/d/dalfonso/public/SYNCHfiles/0066F143-F8FD-E411-9A0B-D4AE526A0D2E.root']
 
     # 74X GJets
     #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring15DR74/GJets_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/Asympt25ns_MCRUN2_74_V9-v1/00000/16E31BE7-7C18-E511-A551-00266CF2454C.root']
