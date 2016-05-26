@@ -292,7 +292,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 4 for signal production
 
 test = 0 # this is for local tests
-#test = 2 # this is for 76X ZGamma MC
+#test = 2 # this is for 80X ZGamma MC
 #test = 3 # this is for data 2016
 
 isData = False # will be changed accordingly if chosen to run on data
@@ -327,7 +327,7 @@ if test==0:
     #sequence = cfg.Sequence([eventSelector] + sequence)
     comp=testComponent
     # 80X TTJets SingleLeptFromT for synch with SnT
-    comp.files = ['file:/afs/cern.ch/user/m/mangano/public/MECCA/dataset/80X/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_109B2CAB-1205-E611-A9BE-0CC47A0AD6C4.root']
+    comp.files = ['file:/afs/cern.ch/work/p/pandolf/public/ZGTo2LG_acmatnlo_80X.root']
     ## 74X TTbar
     #comp.files = ['/afs/cern.ch/user/d/dalfonso/public/SYNCHfiles/0066F143-F8FD-E411-9A0B-D4AE526A0D2E.root']
 
@@ -387,6 +387,8 @@ elif test==1:
         comp.splitFactor = 1200
 
 
+
+
 #    comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
 
 elif test==2:
@@ -443,14 +445,15 @@ elif test==2:
 #        # triggers on MC
 #        #comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
 
-    from CMGTools.RootTools.samples.samples_13TeV_RunIIFall15MiniAODv2 import *
+    from CMGTools.RootTools.samples.samples_13TeV_RunIISpring16MiniAODv1 import *
     #from CMGTools.RootTools.samples.samples_13TeV_RunIIFall15MiniAODv2 import ZGammaSig
 ### 25 ns
-    selectedComponents = [ZGTo2LG, DYJetsToLL_M50_LO] + ZGsignal
+    selectedComponents = [ZGTo2LG, DYJetsToLL_M50_LO]
+    #selectedComponents = [ZGTo2LG, DYJetsToLL_M50_LO] + ZGsignal
 
     for comp in selectedComponents:
         comp.splitFactor = 1200
-        #comp.fineSplitFactor = 2 # to run two jobs per file
+        comp.fineSplitFactor = 4 # to run two jobs per file
         comp.files = comp.files[:]
         #comp.files = comp.files[:1]
         #comp.files = comp.files[57:58]  # to process only file [57]  
@@ -465,6 +468,7 @@ elif test==3:
 
     dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
     json=dataDir+'/json/json_DCSONLY.txt'
+    #json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
     #synche file DATA
     #comp = JetHT_Run2015B_PromptReco
     #comp.files = ['/afs/cern.ch/user/m/mangano/public/MECCA/dataset/74X/data/JetHT_promptReco_Run2015B.root']
@@ -477,8 +481,8 @@ elif test==3:
     #selectedComponents = [JetHT_Run2015D, HTMHT_Run2015D, MET_Run2015D, SingleElectron_Run2015D, SingleMuon_Run2015D, SinglePhoton_Run2015D, DoubleEG_Run2015D, MuonEG_Run2015D, DoubleMuon_Run2015D]
 ###    selectedComponents  = dataSamples_Run2015C_27Jan + [ SingleElectron_Run2015D_16Dec, DoubleEG_Run2015D_16Dec, MuonEG_Run2015D_16Dec, DoubleMuon_Run2015D_16Dec ]
 #    selectedComponents = dataSamples_Run2015C_16Dec + [ SingleElectron_Run2015D_16Dec, SingleMuon_Run2015D_16Dec, DoubleEG_Run2015D_16Dec, MuonEG_Run2015D_16Dec, DoubleMuon_Run2015D_16Dec ] 
-    selectedComponents  = [ DoubleMuon_Run2016B_PromptReco_v1 ]
-    #selectedComponents  = [ SingleMuon_Run2016B_PromptReco_v1, SingleMuon_Run2016B_PromptReco_v2, DoubleMuon_Run2016B_PromptReco_v1, DoubleMuon_Run2016B_PromptReco_v2, DoubleEG_Run2016B_PromptReco_v1, DoubleEG_Run2016B_PromptReco_v2 ]
+    #selectedComponents  = [ DoubleMuon_Run2016B_PromptReco_v1 ]
+    selectedComponents  = [ SingleMuon_Run2016B_PromptReco_v1, SingleMuon_Run2016B_PromptReco_v2, DoubleMuon_Run2016B_PromptReco_v1, DoubleMuon_Run2016B_PromptReco_v2, DoubleEG_Run2016B_PromptReco_v1, DoubleEG_Run2016B_PromptReco_v2 ]
 
     for comp in selectedComponents:
         comp.json=json
