@@ -53,19 +53,11 @@ HLT_PFMETNoMu90_PFMHTNoMu90    : HLT_PFMETNoMu90_PFMHTNoMu90     : [-0.5,0.5,1.5
 HLT_PFMETNoMu120_PFMHTNoMu120    : HLT_PFMETNoMu120_PFMHTNoMu120     : [-0.5,0.5,1.5]; XTitle="HLT"
 HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90    : HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90     : [-0.5,0.5,1.5]; XTitle="HLT"
 
-Flag_EcalDeadCellTriggerPrimitiveFilter : Flag_EcalDeadCellTriggerPrimitiveFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
-Flag_trkPOG_manystripclus53X : Flag_trkPOG_manystripclus53X: [-0.5,0.5,1.5]; XTitle="metFilter"
-Flag_ecalLaserCorrFilter : Flag_ecalLaserCorrFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
-Flag_trkPOG_toomanystripclus53X : Flag_trkPOG_toomanystripclus53X : [-0.5,0.5,1.5]; XTitle="metFilter"
-Flag_hcalLaserEventFilter : Flag_hcalLaserEventFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
-Flag_trkPOG_logErrorTooManyClusters : Flag_trkPOG_logErrorTooManyClusters : [-0.5,0.5,1.5]; XTitle="metFilter"
-Flag_trkPOGFilters : Flag_trkPOGFilters : [-0.5,0.5,1.5]; XTitle="metFilter"
-Flag_trackingFailureFilter : Flag_trackingFailureFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
-#Flag_CSCTightHaloFilter : Flag_CSCTightHaloFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
 #Flag_HBHENoiseFilter : Flag_HBHENoiseFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
+#Flag_CSCTightHaloFilter : Flag_CSCTightHaloFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
+Flag_EcalDeadCellTriggerPrimitiveFilter : Flag_EcalDeadCellTriggerPrimitiveFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_goodVertices : Flag_goodVertices: [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_eeBadScFilter : Flag_eeBadScFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
-Flag_METFilters : Flag_METFilters: [-0.5,0.5,1.5]; XTitle="metFilter"
 
 ##### MT2
 
