@@ -291,9 +291,9 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 
-test = 0 # this is for local tests
+#test = 0 # this is for local tests
 #test = 2 # this is for 80X ZGamma MC
-#test = 3 # this is for data 2016
+test = 3 # this is for data 2016
 
 isData = False # will be changed accordingly if chosen to run on data
 runPreprocessor = False
