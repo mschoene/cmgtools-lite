@@ -308,8 +308,8 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-#test = 3
-test = 2
+test = 3
+#test = 2
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
 runPreprocessor = False
@@ -446,23 +446,18 @@ elif test==3:
     dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
     json=dataDir+'/json/json_DCSONLY.txt'
     #json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
-    #synche file DATA
+
+    #For synch on a single file
     #comp = JetHT_Run2015B_PromptReco
-    #comp.files = ['/afs/cern.ch/user/m/mangano/public/MECCA/dataset/74X/data/JetHT_promptReco_Run2015B.root']
-    #comp.files = ['root://eoscms.cern.ch//eos/cms/store/data/Run2015B/JetHT/MINIAOD/PromptReco-v1/000/251/643/00000/0AF95D60-992C-E511-8D36-02163E0146A4.root']
+    #comp.files = ['fileNameHere.root']
     #selectedComponents = [comp]
 
-    ##selectedComponents = [JetHT_Run2015B, HTMHT_Run2015B, MET_Run2015B, SingleElectron_Run2015B, SingleMuon_Run2015B, SinglePhoton_Run2015B, DoubleEG_Run2015B, DoubleMuon_Run2015B, MuonEG_Run2015B]
-    #selectedComponents = [JetHT_Run2015B_17Jul2015, HTMHT_Run2015B_17Jul2015, MET_Run2015B_17Jul2015, SingleElectron_Run2015B_17Jul2015, SingleMuon_Run2015B_17Jul2015, SinglePhoton_Run2015B_17Jul2015, DoubleEG_Run2015B_17Jul2015, MuonEG_Run2015B_17Jul2015, DoubleMuon_Run2015B_17Jul2015, JetHT_Run2015B_PromptReco, HTMHT_Run2015B_PromptReco, MET_Run2015B_PromptReco, SingleElectron_Run2015B_PromptReco, SingleMuon_Run2015B_PromptReco, SinglePhoton_Run2015B_PromptReco, DoubleEG_Run2015B_PromptReco, MuonEG_Run2015B_PromptReco, DoubleMuon_Run2015B_PromptReco]
 
-    # selectedComponents = [JetHT_Run2015D, HTMHT_Run2015D, MET_Run2015D, SingleElectron_Run2015D, SingleMuon_Run2015D, SinglePhoton_Run2015D, DoubleEG_Run2015D, MuonEG_Run2015D, DoubleMuon_Run2015D]
-    #selectedComponents  = [ DoubleMuon_Run2016B_PromptReco_v1 ]
-    selectedComponents  = dataSamples_Run2016B
+    selectedComponents  = dataSamples_Run2016B_PromptV2
     
     for comp in selectedComponents:
         comp.json=json
         comp.files=comp.files[:]
-        
 
 elif test==4:
 
