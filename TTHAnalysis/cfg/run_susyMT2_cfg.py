@@ -241,6 +241,13 @@ triggerFlagsAna.triggerBits = {
 'Mu30_TkMu11' : triggers_mumu_noniso,
 }
 
+# Get full list of triggers. To be used later to filter events
+allTriggers = []
+for key,value in triggerFlagsAna.triggerBits.items():
+    allTriggers = allTriggers + value
+#print "trigger list: %s" % (allTriggers)
+
+
 
 ##  FILTERS DEFINITION
 eventFlagsAna.triggerBits = {
@@ -314,6 +321,9 @@ isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
 runPreprocessor = False
 
+
+
+
 if test==0:
     # ------------------------------------------------------------------------------------------- #
     # --- all this lines taken from CMGTools.RootTools.samples.samples_13TeV_PHYS14
@@ -345,10 +355,7 @@ if test==0:
     # 80X TTJets SingleLeptFromT for synch with SnT
     comp.files = ['file:/afs/cern.ch/user/m/mangano/public/MECCA/dataset/80X/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_109B2CAB-1205-E611-A9BE-0CC47A0AD6C4.root']
     #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv1/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/00000/109B2CAB-1205-E611-A9BE-0CC47A0AD6C4.root']
-    
-    # 80X TTJets TuneCUETP8M1 for comparison with 76X
-    # comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv1/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_v3-v2/30000/00C07411-470D-E611-9A70-001E67E6F4C2.root']
-    
+        
     selectedComponents = [comp]
 #    comp.splitFactor = 10
 #    comp.fineSplitFactor = 100
@@ -371,6 +378,11 @@ elif test==1:
         comp.splitFactor = 1200
 
 #    comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
+
+
+
+
+
 
 elif test==2:
 
@@ -438,6 +450,12 @@ elif test==2:
         # triggers on MC
         #comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
 
+
+
+
+
+
+
 elif test==3:
     # run on data
     isData = True
@@ -448,16 +466,18 @@ elif test==3:
     #json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
 
     #For synch on a single file
-    #comp = JetHT_Run2015B_PromptReco
+    #comp = JetHT_Run2016B_PromptReco_v1
     #comp.files = ['fileNameHere.root']
+    #comp.files = ['/afs/cern.ch/work/m/mmasciov/public/2AAEC6C2-D61B-E611-B5D4-02163E0127EB.root']
     #selectedComponents = [comp]
 
-
+    #For running on the full list of samples
     selectedComponents  = dataSamples_Run2016B_PromptV2
     
     for comp in selectedComponents:
         comp.json=json
         comp.files=comp.files[:]
+        comp.triggers = allTriggers
 
 elif test==4:
 
