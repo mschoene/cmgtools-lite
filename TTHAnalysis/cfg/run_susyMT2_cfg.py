@@ -155,20 +155,15 @@ MT2Ana = cfg.Analyzer(
 
 
 ##------------------------------------------
-##  Z skim
+##  MT2 skim
 ##------------------------------------------
 
-from CMGTools.TTHAnalysis.analyzers.ttHmllSkimmer import ttHmllSkimmer
+from CMGTools.TTHAnalysis.analyzers.MT2Skimmer import MT2Skimmer
 # Tree Producer                                                                                                                                                                         
-ttHZskim = cfg.Analyzer(
-            ttHmllSkimmer, name='ttHmllSkimmer',
-            lepId=[13],
-            maxLeps=3,
-            massMin=60,
-            massMax=120,
-            doZGen = False,
-            doZReco = True
+MT2skim = cfg.Analyzer(
+            MT2Skimmer, name='MT2Skimmer',
             )
+
 
 
 ##------------------------------------------
@@ -296,6 +291,7 @@ sequence = cfg.Sequence(
     MT2Ana,
     ttHTopoJetAna,
     #ttHFatJetAna,
+    MT2skim,
     treeProducer,
     ])
 
@@ -458,6 +454,10 @@ elif test==2:
 
 elif test==3:
     # run on data
+
+    # magic string to submit jobs via heppy_crab.py script:
+    # python heppy_crab.py -c ../run_susyMT2_cfg.py --AAAconfig=full -s T3_CH_PSI -d crab -v MT2_8_0_5 -l data30May_v1 -u mt2.root,RLTInfo.root
+
     isData = True
     from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
 
