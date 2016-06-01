@@ -45,6 +45,9 @@ class MT2Skimmer( Analyzer ):
         zll_mt2 = event.mt2_zll
         zll_met_pt = event.zll_met_pt
 
+        #QCD skim to be added in OR next time
+        #skimmingSelection="isGolden && ((nJet30>1 && nlep==0 && met_pt > 30. &&  (diffMetMht < 0.5*met_pt) && mt2>50. ))"
+
 
         test = (
             ( (ht > 200 and nJet30 >= 1 and ( (nJet30>=2 and mt2>200.) or nJet30==1 ) ) and ((ht<1000. and met_pt>200.)
