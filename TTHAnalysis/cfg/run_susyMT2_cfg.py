@@ -291,7 +291,6 @@ sequence = cfg.Sequence(
     MT2Ana,
     ttHTopoJetAna,
     #ttHFatJetAna,
-    MT2skim,
     treeProducer,
     ])
 
@@ -467,17 +466,24 @@ elif test==3:
 
     #For synch on a single file
     #comp = JetHT_Run2016B_PromptReco_v1
-    #comp.files = ['fileNameHere.root']
     #comp.files = ['/afs/cern.ch/work/m/mmasciov/public/2AAEC6C2-D61B-E611-B5D4-02163E0127EB.root']
     #selectedComponents = [comp]
 
     #For running on the full list of samples
     selectedComponents  = dataSamples_Run2016B_PromptV2
+
+    #For runnin on a single dataset
+    #selectedComponents  = [JetHT_Run2016B_PromptReco_v2]
     
     for comp in selectedComponents:
         comp.json=json
         comp.files=comp.files[:]
         comp.triggers = allTriggers
+
+    # Here I add the skim to the sequence
+    sequence.insert(sequence.index(treeProducer),
+                        MT2skim)
+
 
 elif test==4:
 
