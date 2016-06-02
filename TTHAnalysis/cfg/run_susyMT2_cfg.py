@@ -488,14 +488,25 @@ elif test==3:
 
     #For synch on a single file
     #comp = JetHT_Run2016B_PromptReco_v1
-    #comp.files = ['/afs/cern.ch/work/m/mmasciov/public/2AAEC6C2-D61B-E611-B5D4-02163E0127EB.root']
+    #comp.files = ['/scratch/mangano/80X/DoubleEG.root',
+                  #'/scratch/mangano/80X/DoubleMuon.root',
+                  #'/scratch/mangano/80X/HTMHT.root',
+                  #'/scratch/mangano/80X/JetHT.root',
+                  #'/scratch/mangano/80X/MET.root',
+                  ##'/scratch/mangano/80X/MuonEG_v2.root',
+                  #'/scratch/mangano/80X/SingleElectron.root',
+                  #'/scratch/mangano/80X/SingleMuon.root',
+                  #'/scratch/mangano/80X/SinglePhoton.root'
+                  #]
+    #json='./testJson.txt'
     #selectedComponents = [comp]
-
-    #For running on the full list of samples
-    selectedComponents  = dataSamples_Run2016B_PromptV2
 
     #For runnin on a single dataset
     #selectedComponents  = [JetHT_Run2016B_PromptReco_v2]
+
+
+    #For running on the full list of samples
+    selectedComponents  = dataSamples_Run2016B_PromptV2
     
     for comp in selectedComponents:
         comp.json=json
@@ -506,6 +517,7 @@ elif test==3:
     sequence.insert(sequence.index(treeProducer),
                         MT2skim)
 
+    
 
 elif test==4:
 
