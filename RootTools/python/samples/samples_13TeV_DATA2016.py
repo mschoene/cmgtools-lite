@@ -13,8 +13,6 @@ json=dataDir+'/json/json_DCSONLY.txt'
 
 
 
-#run_range = (251244, 251562)
-#label = "_runs%s_%s"%(run_range[0], run_range[1])
 
 JetHT_Run2016B_PromptReco_v1          = kreator.makeDataComponent("JetHT_Run2016B_PromptReco_v1"         , "/JetHT/Run2016B-PromptReco-v1/MINIAOD"         , "CMS", ".*root", json)
 HTMHT_Run2016B_PromptReco_v1          = kreator.makeDataComponent("HTMHT_Run2016B_PromptReco_v1"         , "/HTMHT/Run2016B-PromptReco-v1/MINIAOD"         , "CMS", ".*root", json)
@@ -26,7 +24,8 @@ DoubleEG_Run2016B_PromptReco_v1       = kreator.makeDataComponent("DoubleEG_Run2
 MuonEG_Run2016B_PromptReco_v1         = kreator.makeDataComponent("MuonEG_Run2016B_PromptReco_v1"        , "/MuonEG/Run2016B-PromptReco-v1/MINIAOD"        , "CMS", ".*root", json)
 DoubleMuon_Run2016B_PromptReco_v1     = kreator.makeDataComponent("DoubleMuon_Run2016B_PromptReco_v1"    , "/DoubleMuon/Run2016B-PromptReco-v1/MINIAOD"    , "CMS", ".*root", json)
 
-
+#run_range = (1, 273730)
+#label = "_runs%s_%s"%(run_range[0], run_range[1])
 JetHT_Run2016B_PromptReco_v2          = kreator.makeDataComponent("JetHT_Run2016B_PromptReco_v2"         , "/JetHT/Run2016B-PromptReco-v2/MINIAOD"         , "CMS", ".*root", json)
 HTMHT_Run2016B_PromptReco_v2          = kreator.makeDataComponent("HTMHT_Run2016B_PromptReco_v2"         , "/HTMHT/Run2016B-PromptReco-v2/MINIAOD"         , "CMS", ".*root", json)
 MET_Run2016B_PromptReco_v2            = kreator.makeDataComponent("MET_Run2016B_PromptReco_v2"           , "/MET/Run2016B-PromptReco-v2/MINIAOD"           , "CMS", ".*root", json)
@@ -40,6 +39,7 @@ DoubleMuon_Run2016B_PromptReco_v2     = kreator.makeDataComponent("DoubleMuon_Ru
 
 
 dataSamples_Run2016B_PromptV1 = [JetHT_Run2016B_PromptReco_v1, HTMHT_Run2016B_PromptReco_v1, MET_Run2016B_PromptReco_v1, SingleElectron_Run2016B_PromptReco_v1, SingleMuon_Run2016B_PromptReco_v1, SinglePhoton_Run2016B_PromptReco_v1, DoubleEG_Run2016B_PromptReco_v1, MuonEG_Run2016B_PromptReco_v1, DoubleMuon_Run2016B_PromptReco_v1] 
+
 
 dataSamples_Run2016B_PromptV2 = [JetHT_Run2016B_PromptReco_v2, HTMHT_Run2016B_PromptReco_v2, MET_Run2016B_PromptReco_v2, SingleElectron_Run2016B_PromptReco_v2, SingleMuon_Run2016B_PromptReco_v2, SinglePhoton_Run2016B_PromptReco_v2, DoubleEG_Run2016B_PromptReco_v2, MuonEG_Run2016B_PromptReco_v2, DoubleMuon_Run2016B_PromptReco_v2]
 
