@@ -38,7 +38,7 @@ class MT2Skimmer( Analyzer ):
         nJet30 = sum([j.pt() > 30 for j in event.cleanJets])
         mt2= event.mt2_Xj
         met_pt = event.met.pt()
-        diffMetMht = event.diffMetMht
+        diffMetMht = event.diffMetMht_Xj
         deltaPhiMin = event.deltaPhiMin_Xj
 
         gamma_ht = event.gamma_htJetXj
