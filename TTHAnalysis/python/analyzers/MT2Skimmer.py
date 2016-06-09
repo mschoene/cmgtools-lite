@@ -63,7 +63,7 @@ class MT2Skimmer( Analyzer ):
 
         qcdSkim = ( (nJet30>1 and nLep==0 and met_pt > 30. and  (diffMetMht < 0.5*met_pt) and mt2>50. ) 
                     or 
-                    (nJet30==2 and met_pt>200. and ht>200. and nLep==0 and diffMetMht < 0.5*met_pt and deltaPhiMin>0.3) 
+                    (nJet30==2 and met_pt>200. and ht>200. and nLep==0 and diffMetMht < 0.5*met_pt and deltaPhiMin<0.3) 
                     )
 
 
