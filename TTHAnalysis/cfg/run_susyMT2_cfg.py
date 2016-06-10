@@ -488,7 +488,8 @@ elif test==3:
 
     #For synch on a single file
     #comp = JetHT_Run2016B_PromptReco_v1
-    #comp.files = ['/scratch/mangano/80X/DoubleEG.root',
+    #comp.files = ['/afs/cern.ch/user/m/mangano/work/datasets/data/80X/HTMHT.root'
+                  #'/scratch/mangano/80X/DoubleEG.root',
                   #'/scratch/mangano/80X/DoubleMuon.root',
                   #'/scratch/mangano/80X/HTMHT.root',
                   #'/scratch/mangano/80X/JetHT.root',
