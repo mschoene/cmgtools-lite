@@ -484,7 +484,9 @@ elif test==3:
 
     dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
     json=dataDir+'/json/json_DCSONLY.txt'
-    #json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
+
+    # Warning: this only works when running (e.g. locally) and having access to afs
+    #json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt' 
 
     #For synch on a single file
     #comp = JetHT_Run2016B_PromptReco_v1
@@ -498,7 +500,7 @@ elif test==3:
                   #'/scratch/mangano/80X/SingleElectron.root',
                   #'/scratch/mangano/80X/SingleMuon.root',
                   #'/scratch/mangano/80X/SinglePhoton.root'
-                  #]
+    #              ]
     #json='./testJson.txt'
     #selectedComponents = [comp]
 
