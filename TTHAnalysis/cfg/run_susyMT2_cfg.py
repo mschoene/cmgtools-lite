@@ -261,6 +261,7 @@ eventFlagsAna.triggerBits = {
 #-------- SEQUENCE
 
 from CMGTools.TTHAnalysis.analyzers.treeProducerSusyFullHad import *
+from CMGTools.TTHAnalysis.analyzers.treeProducerMT2forQCDStudies import *
 
 treeProducer = cfg.Analyzer(
      AutoFillTreeProducer, name='treeProducerSusyFullHad',
@@ -290,7 +291,6 @@ sequence = cfg.Sequence(
     ttHMT2Control,
     MT2Ana,
     ttHTopoJetAna,
-    #ttHFatJetAna,
     treeProducer,
     ])
 
@@ -520,6 +520,12 @@ elif test==3:
     sequence.insert(sequence.index(treeProducer),
                         MT2skim)    
     
+
+    # Tree configuration for QCD studies
+    #treeProducer.globalVariables = MT2forQCDStudies_globalVariables
+    #treeProducer.globalObjects = MT2forQCDStudies_globalObjects
+    #treeProducer.collections = MT2forQCDStudies_collections
+
 
 elif test==4:
 
