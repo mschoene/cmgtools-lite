@@ -510,6 +510,7 @@ elif test==3:
 
     #For running on the full list of samples
     selectedComponents  = dataSamples_Run2016B_PromptV2
+    #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
 
     for comp in selectedComponents:
         comp.json=json
