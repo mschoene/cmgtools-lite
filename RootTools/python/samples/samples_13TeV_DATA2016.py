@@ -43,11 +43,13 @@ dataSamples_Run2016B_PromptV1 = [JetHT_Run2016B_PromptReco_v1, HTMHT_Run2016B_Pr
 
 dataSamples_Run2016B_PromptV2 = [JetHT_Run2016B_PromptReco_v2, HTMHT_Run2016B_PromptReco_v2, MET_Run2016B_PromptReco_v2, SingleElectron_Run2016B_PromptReco_v2, SingleMuon_Run2016B_PromptReco_v2, SinglePhoton_Run2016B_PromptReco_v2, DoubleEG_Run2016B_PromptReco_v2, MuonEG_Run2016B_PromptReco_v2, DoubleMuon_Run2016B_PromptReco_v2]
 
+dataSamples_Run2016B_PromptV2_forQCD = [JetHT_Run2016B_PromptReco_v2, MET_Run2016B_PromptReco_v2, SingleElectron_Run2016B_PromptReco_v2]
+
 
 
 ### ----------------------------- summary ----------------------------------------
 
-dataSamples = dataSamples_Run2016B_PromptV1 + dataSamples_Run2016B_PromptV2
+dataSamples = dataSamples_Run2016B_PromptV1 + dataSamples_Run2016B_PromptV2 + dataSamples_Run2016B_PromptV2_forQCD
 samples = dataSamples
 
 ### ---------------------------------------------------------------------
