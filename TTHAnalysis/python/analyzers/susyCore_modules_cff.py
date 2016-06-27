@@ -83,6 +83,22 @@ eventFlagsAna = cfg.Analyzer(
     }
     )
 
+
+from CMGTools.TTHAnalysis.analyzers.badChargedHadronAnalyzer import badChargedHadronAnalyzer
+badChargedHadronAna = cfg.Analyzer(
+    badChargedHadronAnalyzer, name='badChargedHadronAna',
+    muons='slimmedMuons',
+    packedCandidates='packedPFCandidates',
+)
+
+from CMGTools.TTHAnalysis.analyzers.badMuonAnalyzer import badMuonAnalyzer
+badMuonAna = cfg.Analyzer(
+    badMuonAnalyzer, name='badMuonAna',
+    muons='slimmedMuons',
+    packedCandidates='packedPFCandidates',
+)
+
+
 # Select a list of good primary vertices (generic)
 vertexAna = cfg.Analyzer(
     VertexAnalyzer, name="VertexAnalyzer",
@@ -539,4 +555,6 @@ susyCoreSequence = [
     #ttHJetMETSkim
     triggerFlagsAna,
     eventFlagsAna,
+    badMuonAna,
+    badChargedHadronAna,
 ]

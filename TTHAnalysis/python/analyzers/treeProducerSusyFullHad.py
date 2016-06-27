@@ -11,6 +11,11 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("top_pt", lambda ev: ev.toppt if  hasattr(ev,'toppt') else  -99, float, help="pt of top"),
     NTupleVariable("anti_top_pt", lambda ev: ev.antitoppt if  hasattr(ev,'antitoppt') else  -99, float, help="pt of anti-top"),
     
+    ##--------------------------------------------------
+    ## Filters
+    ##--------------------------------------------------
+    NTupleVariable("Flag_badChargedHadronFilter", lambda ev: ev.badChargedHadron, int, help="bad charged hadron filter decision"),
+    NTupleVariable("Flag_badMuonFilter"         , lambda ev: ev.badMuon         , int, help="bad muon filter decision"),
     
     ##--------------------------------------------------
     ## energy sums
