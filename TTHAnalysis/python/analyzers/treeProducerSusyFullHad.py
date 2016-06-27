@@ -57,6 +57,8 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("nJet30FailId", lambda ev: sum([j.pt() > 30 for j in ev.cleanJetsFailIdAll]), int, help="Number of jets after photon-cleaning with pt > 30, |eta|<4.7"),
     NTupleVariable("nJet100FailId", lambda ev: sum([j.pt() > 100 for j in ev.cleanJetsFailIdAll]), int, help="Number of jets after photon-cleaning with pt > 100, |eta|<4.7"),
 
+    NTupleVariable("nJet20BadFastsim", lambda ev: sum([j.pt() > 20 and (j.mcJet.pt() if getattr(j,"mcJet",None) else 0.)==0. and j.chargedHadronEnergyFraction()<0.1 for j in ev.cleanJets]), int, help="Number of bad (fast-sim) jets with pt > 20, |eta|<2.5 (FASTSIM VETO)"),
+
     NTupleVariable("nBJet40", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 40]), int, help="Number of jets with pt > 40 passing CSV medium"),
     NTupleVariable("nBJet30", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 30]), int, help="Number of jets with pt > 25 passing CSV medium"),
     NTupleVariable("nBJet25", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 25]), int, help="Number of jets with pt > 25 passing CSV medium"),
