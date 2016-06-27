@@ -13,7 +13,7 @@ HLT_PFHT350_PFMET100: HLT_PFHT350_PFMET100: [-0.5,0.5,1.5]; XTitle="HLT"
 
 HLT_PFHT800      : HLT_PFHT800      : [-0.5,0.5,1.5]; XTitle="HLT"
 
-Flag_HBHEIsoNoiseFilter : Flag_HBHEIsoNoiseFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
+#Flag_HBHEIsoNoiseFilter : Flag_HBHEIsoNoiseFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
 
 
 ##### MT2
@@ -43,12 +43,11 @@ Flag_HBHEIsoNoiseFilter : Flag_HBHEIsoNoiseFilter : [-0.5,0.5,1.5]; XTitle="metF
 ##### ZLL control variables (MT)
 
 
-cr_zllmt_pt: zllmt_pt: 16,0,600    ; XTitle="Z p_{T}  [GeV]"
-cr_zllmt_phi: zllmt_phi: 8,-3.15,3.15    ; XTitle="Z phi"
-cr_zllmt_eta: zllmt_eta: 10,-5.,5.    ; XTitle="Z eta"
-cr_zllmt_mass: zllmt_mass: 20,0,400.    ; XTitle="Z mass [GeV]"
-
-cr_zllmt_minMTBMet: zllmt_minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
+#cr_zllmt_pt: zllmt_pt: 16,0,600    ; XTitle="Z p_{T}  [GeV]"
+#cr_zllmt_phi: zllmt_phi: 8,-3.15,3.15    ; XTitle="Z phi"
+#cr_zllmt_eta: zllmt_eta: 10,-5.,5.    ; XTitle="Z eta"
+#cr_zllmt_mass: zllmt_mass: 20,0,400.    ; XTitle="Z mass [GeV]"
+#cr_zllmt_minMTBMet: zllmt_minMTBMet: 16,0,800    ; XTitle="min M_{T}(B\,met)"
 
 
 ##### lepton removed plots

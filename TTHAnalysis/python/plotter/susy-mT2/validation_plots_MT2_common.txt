@@ -39,22 +39,61 @@ count_nBJet20 : nBJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\,
 
 ##### TRIGGERS
 
-HLT_PFMET170     : HLT_PFMET170     : [-0.5,0.5,1.5]; XTitle="HLT" 
-HLT_SingleMu   : HLT_SingleMu   : [-0.5,0.5,1.5]; XTitle="HLT"
-HLT_SingleEl   : HLT_SingleEl   : [-0.5,0.5,1.5]; XTitle="HLT"
-HLT_DoubleMu   : HLT_DoubleMu   : [-0.5,0.5,1.5]; XTitle="HLT"
-HLT_DoubleEl   : HLT_DoubleEl   : [-0.5,0.5,1.5]; XTitle="HLT"
-HLT_Mu8_EleX   : HLT_Mu8_EleX       : [-0.5,0.5,1.5]; XTitle="HLT"
-HLT_MuX_Ele12   : HLT_MuX_Ele12       : [-0.5,0.5,1.5]; XTitle="HLT"
-HLT_Photon165_HE10    : HLT_Photon165_HE10    : [-0.5,0.5,1.5]; XTitle="HLT"
-###HLT_htXprescale: HLT_htXprescale: [-0.5,0.5,1.5]; XTitle="HLT"
-HLT_PFMET90_PFMHT90    : HLT_PFMET90_PFMHT90     : [-0.5,0.5,1.5]; XTitle="HLT"
-HLT_PFMETNoMu90_PFMHTNoMu90    : HLT_PFMETNoMu90_PFMHTNoMu90     : [-0.5,0.5,1.5]; XTitle="HLT"
-HLT_PFMETNoMu120_PFMHTNoMu120    : HLT_PFMETNoMu120_PFMHTNoMu120     : [-0.5,0.5,1.5]; XTitle="HLT"
-HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90    : HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90     : [-0.5,0.5,1.5]; XTitle="HLT"
+# magic string: cat prova |awk -F: '{print $1}' |grep -v \#| sed "s/'//g"|awk '{print "HLT_"$1" : HLT_"$1 " : [-0.5,0.5,1.5]; XTitle=\"HLT\" "}'
 
-#Flag_HBHENoiseFilter : Flag_HBHENoiseFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
-#Flag_CSCTightHaloFilter : Flag_CSCTightHaloFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
+HLT_PFHT800 : HLT_PFHT800 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT900 : HLT_PFHT900 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFMET170 : HLT_PFMET170 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT300_PFMET100 : HLT_PFHT300_PFMET100 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT300_PFMET110 : HLT_PFHT300_PFMET110 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT350_PFMET100 : HLT_PFHT350_PFMET100 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT350_PFMET120 : HLT_PFHT350_PFMET120 : [-0.5,0.5,1.5]; XTitle="HLT" 
+
+HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90 : HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90 : [-0.5,0.5,1.5]; XTitle="HLT" 
+
+HLT_PFMETNoMu90_PFMHTNoMu90 : HLT_PFMETNoMu90_PFMHTNoMu90 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFMETNoMu100_PFMHTNoMu100 : HLT_PFMETNoMu100_PFMHTNoMu100 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFMETNoMu110_PFMHTNoMu110 : HLT_PFMETNoMu110_PFMHTNoMu110 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFMETNoMu120_PFMHTNoMu120 : HLT_PFMETNoMu120_PFMHTNoMu120 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFMET90_PFMHT90 : HLT_PFMET90_PFMHT90 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFMET100_PFMHT100 : HLT_PFMET100_PFMHT100 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFMET110_PFMHT110 : HLT_PFMET110_PFMHT110 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFMET120_PFMHT120 : HLT_PFMET120_PFMHT120 : [-0.5,0.5,1.5]; XTitle="HLT" 
+
+HLT_SingleMu : HLT_SingleMu : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_SingleEl : HLT_SingleEl : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_DoubleEl : HLT_DoubleEl : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_DoubleEl33 : HLT_DoubleEl33 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_MuX_Ele12 : HLT_MuX_Ele12 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_Mu8_EleX : HLT_Mu8_EleX : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_DoubleMu : HLT_DoubleMu : [-0.5,0.5,1.5]; XTitle="HLT" 
+
+HLT_Photon120 : HLT_Photon120 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_Photon165_HE10 : HLT_Photon165_HE10 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT125_Prescale : HLT_PFHT125_Prescale : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT200_Prescale : HLT_PFHT200_Prescale : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT300_Prescale : HLT_PFHT300_Prescale : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT350_Prescale : HLT_PFHT350_Prescale : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT475_Prescale : HLT_PFHT475_Prescale : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_PFHT600_Prescale : HLT_PFHT600_Prescale : [-0.5,0.5,1.5]; XTitle="HLT" 
+
+HLT_DiCentralPFJet70_PFMET120 : HLT_DiCentralPFJet70_PFMET120 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_DiCentralPFJet55_PFMET110 : HLT_DiCentralPFJet55_PFMET110 : [-0.5,0.5,1.5]; XTitle="HLT" 
+
+HLT_Photon75_R9Id90_HE10_IsoM : HLT_Photon75_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_Photon90_R9Id90_HE10_IsoM : HLT_Photon90_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_Photon120_R9Id90_HE10_IsoM : HLT_Photon120_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_Photon75 : HLT_Photon75 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_Photon90 : HLT_Photon90 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_Photon155 : HLT_Photon155 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_Photon175 : HLT_Photon175 : [-0.5,0.5,1.5]; XTitle="HLT" 
+
+HLT_DoubleEle33 : HLT_DoubleEle33 : [-0.5,0.5,1.5]; XTitle="HLT" 
+HLT_Mu30_TkMu11 : HLT_Mu30_TkMu11 : [-0.5,0.5,1.5]; XTitle="HLT" 
+
+
+##### FLAGS
+Flag_HBHENoiseFilter : Flag_HBHENoiseFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_EcalDeadCellTriggerPrimitiveFilter : Flag_EcalDeadCellTriggerPrimitiveFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_goodVertices : Flag_goodVertices: [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_eeBadScFilter : Flag_eeBadScFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
