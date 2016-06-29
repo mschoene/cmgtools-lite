@@ -80,23 +80,30 @@ HLT_PFHT600_Prescale : HLT_PFHT600_Prescale : [-0.5,0.5,1.5]; XTitle="HLT"
 HLT_DiCentralPFJet70_PFMET120 : HLT_DiCentralPFJet70_PFMET120 : [-0.5,0.5,1.5]; XTitle="HLT" 
 HLT_DiCentralPFJet55_PFMET110 : HLT_DiCentralPFJet55_PFMET110 : [-0.5,0.5,1.5]; XTitle="HLT" 
 
-HLT_Photon75_R9Id90_HE10_IsoM : HLT_Photon75_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]; XTitle="HLT" 
-HLT_Photon90_R9Id90_HE10_IsoM : HLT_Photon90_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]; XTitle="HLT" 
-HLT_Photon120_R9Id90_HE10_IsoM : HLT_Photon120_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]; XTitle="HLT" 
-HLT_Photon75 : HLT_Photon75 : [-0.5,0.5,1.5]; XTitle="HLT" 
-HLT_Photon90 : HLT_Photon90 : [-0.5,0.5,1.5]; XTitle="HLT" 
-HLT_Photon155 : HLT_Photon155 : [-0.5,0.5,1.5]; XTitle="HLT" 
-HLT_Photon175 : HLT_Photon175 : [-0.5,0.5,1.5]; XTitle="HLT" 
-
-HLT_DoubleEle33 : HLT_DoubleEle33 : [-0.5,0.5,1.5]; XTitle="HLT" 
-HLT_Mu30_TkMu11 : HLT_Mu30_TkMu11 : [-0.5,0.5,1.5]; XTitle="HLT" 
+#Zgamma's crap :-)
+#HLT_Photon75_R9Id90_HE10_IsoM : HLT_Photon75_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]; XTitle="HLT" 
+#HLT_Photon90_R9Id90_HE10_IsoM : HLT_Photon90_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]; XTitle="HLT" 
+#HLT_Photon120_R9Id90_HE10_IsoM : HLT_Photon120_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]; XTitle="HLT" 
+#HLT_Photon75 : HLT_Photon75 : [-0.5,0.5,1.5]; XTitle="HLT" 
+#HLT_Photon90 : HLT_Photon90 : [-0.5,0.5,1.5]; XTitle="HLT" 
+#HLT_Photon155 : HLT_Photon155 : [-0.5,0.5,1.5]; XTitle="HLT" 
+#HLT_Photon175 : HLT_Photon175 : [-0.5,0.5,1.5]; XTitle="HLT" 
+#HLT_DoubleEle33 : HLT_DoubleEle33 : [-0.5,0.5,1.5]; XTitle="HLT" 
+#HLT_Mu30_TkMu11 : HLT_Mu30_TkMu11 : [-0.5,0.5,1.5]; XTitle="HLT" 
 
 
 ##### FLAGS
 Flag_HBHENoiseFilter : Flag_HBHENoiseFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
+Flag_HBHENoiseIsoFilter : Flag_HBHENoiseIsoFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_EcalDeadCellTriggerPrimitiveFilter : Flag_EcalDeadCellTriggerPrimitiveFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_goodVertices : Flag_goodVertices: [-0.5,0.5,1.5]; XTitle="metFilter"
 Flag_eeBadScFilter : Flag_eeBadScFilter: [-0.5,0.5,1.5]; XTitle="metFilter"
+Flag_globalTightHalo2016Filter : Flag_globalTightHalo2016Filter: [-0.5,0.5,1.5]; XTitle="metFilter"
+Flag_badMuonFilter : Flag_badMuonFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
+Flag_badChargedHadronFilter :Flag_badChargedHadronFilter : [-0.5,0.5,1.5]; XTitle="metFilter"
+
+
+
 
 ##### MT2
 
