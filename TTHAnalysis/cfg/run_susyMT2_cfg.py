@@ -313,8 +313,8 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-#test = 3
-test = 2
+test = 3
+#test = 2
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
 runPreprocessor = False
@@ -550,7 +550,9 @@ elif test==3:
 
     #For synch on a single file
     #comp = JetHT_Run2016B_PromptReco_v1
-    #comp.files = ['/afs/cern.ch/user/m/mangano/work/datasets/data/80X/HTMHT.root'
+    #comp.files = ['root://xrootd.unl.edu//store/data/Run2016C/HTMHT/MINIAOD/PromptReco-v2/000/275/420/00000/4AD126B0-F539-E611-AD77-02163E013390.root'
+#/store/data/Run2016C/HTMHT/MINIAOD/PromptReco-v2/000/275/658/00000/227E1B3A-A53B-E611-A53E-02163E0136C4.root'
+#'/afs/cern.ch/user/m/mangano/work/datasets/data/80X/HTMHT.root'
                   #'/scratch/mangano/80X/DoubleEG.root',
                   #'/scratch/mangano/80X/DoubleMuon.root',
                   #'/scratch/mangano/80X/HTMHT.root',
@@ -571,6 +573,9 @@ elif test==3:
     #For running on the full list of samples
     selectedComponents  = dataSamples_Run2016B_PromptV2
     #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
+    #selectedComponents  = dataSamples_Run2016C_PromptV2
+    #selectedComponents  = dataSamples_Run2016C_PromptV2_forQCD
+
 
     for comp in selectedComponents:
         comp.json=json
@@ -579,7 +584,7 @@ elif test==3:
 
     # Here I add the skim to the sequence
     sequence.insert(sequence.index(treeProducer),
-                        MT2skim)    
+                    MT2skim)
     
 
     # Tree configuration for QCD studies
