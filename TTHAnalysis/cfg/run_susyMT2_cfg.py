@@ -212,7 +212,7 @@ triggerFlagsAna.triggerBits = {
 'DoubleMu'     : ["HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v*","HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*","HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v*","HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v*"],
 'DoubleMu_NonIso'    : ["HLT_Mu30_TkMu11_v*"],
 'Mu30_Ele30_NonIso'  : ["HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v*"],
-'SingleMu_NonIso'    : ["HLT_Mu50_v OR HLT_TkMu50_v*"],
+'SingleMu_NonIso'    : ["HLT_Mu50_v*","HLT_TkMu50_v*"],
 'SingleEl_NonIso'    : ["HLT_Ele105_CaloIdVT_GsfTrkIdT_v*"],
 # for single-photon control region
 'Photon120' : ["HLT_Photon120_v*"], 
