@@ -61,7 +61,7 @@ jetAna.relaxJetId = False
 jetAna.doPuId = False
 jetAna.doQG = True
 jetAna.jetEta = 4.7
-jetAna.jetEtaCentral = 2.5
+jetAna.jetEtaCentral = 2.4
 jetAna.jetPt = 20. #was 10
 jetAna.mcGT     = "Spring16_25nsV6_MC" # jec corrections
 jetAna.dataGT   = "Spring16_25nsV6_DATA" # jec corrections
@@ -355,8 +355,8 @@ if test==0:
     #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv1/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/00000/109B2CAB-1205-E611-A9BE-0CC47A0AD6C4.root']
 
     # 80X data
-    comp.files = ['file:/afs/cern.ch/user/m/mangano/work/datasets/data/80X/HTMHT.root']
-   
+    #comp.files = ['file:/afs/cern.ch/user/m/mangano/work/datasets/data/80X/HTMHT.root']
+    comp.files = ['file:/afs/cern.ch/user/m/mangano/work/public/MECCA/HTMHT.root']
    
     selectedComponents = [comp]
 #    comp.splitFactor = 10

@@ -5,7 +5,7 @@
 if [[ "$#" -eq 0 ]]; then
 echo "ERROR: the script needs at least one argument. Relunch it with one of the following options:"
 echo "source validate_MT2.sh inputFolder"
-echo "./validate_MT2.sh fileA.root fileB.root labelA labelB outputFolderName"
+echo "./validate_MT2.sh fileA.root fileB.root labelA labelB outputFolderName -data/mc"
 exit;
 fi;
 
