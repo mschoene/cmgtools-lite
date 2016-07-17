@@ -575,10 +575,13 @@ elif test==3:
 
 
     #For running on the full list of samples
-    selectedComponents  = dataSamples_Run2016B_PromptV2
+    #selectedComponents  = dataSamples_Run2016B_PromptV2
     #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
     #selectedComponents  = dataSamples_Run2016C_PromptV2
     #selectedComponents  = dataSamples_Run2016C_PromptV2_forQCD
+    selectedComponents  = dataSamples_Run2016D_PromptV2
+    #selectedComponents  = dataSamples_Run2016D_PromptV2_forQCD
+
 
 
     for comp in selectedComponents:
