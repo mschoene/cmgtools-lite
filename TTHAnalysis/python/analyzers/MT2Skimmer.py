@@ -47,7 +47,7 @@ class MT2Skimmer( Analyzer ):
         gamma_met_pt = event.gamma_met.pt()
 
         zll_ht = event.zll_ht_Xj
-        zll_mt2 = event.mt2_zll
+        zll_mt2 = event.mt2_Xj_zll
         zll_met_pt = event.zll_met_pt
 
 
