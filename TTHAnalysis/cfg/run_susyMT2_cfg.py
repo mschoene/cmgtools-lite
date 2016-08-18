@@ -548,6 +548,7 @@ elif test==3:
 
     dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
     json=dataDir+'/json/json_DCSONLY.txt'
+    #json=dataDir+'/json/json_ichep2016.txt'
 
     # Warning: this only works when running (e.g. locally) and having access to afs
     #json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt' 
@@ -579,8 +580,10 @@ elif test==3:
     #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
     #selectedComponents  = dataSamples_Run2016C_PromptV2
     #selectedComponents  = dataSamples_Run2016C_PromptV2_forQCD
-    selectedComponents  = dataSamples_Run2016D_PromptV2
+    #selectedComponents  = dataSamples_Run2016D_PromptV2
     #selectedComponents  = dataSamples_Run2016D_PromptV2_forQCD
+    selectedComponents  = dataSamples_Run2016E_PromptV2
+    #selectedComponents  = dataSamples_Run2016E_PromptV2_forQCD
 
 
 
