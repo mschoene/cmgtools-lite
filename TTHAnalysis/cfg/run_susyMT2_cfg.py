@@ -584,8 +584,8 @@ elif test==3:
     #selectedComponents  = dataSamples_Run2016D_PromptV2_forQCD
     #selectedComponents  = dataSamples_Run2016E_PromptV2
     #selectedComponents  = dataSamples_Run2016E_PromptV2_forQCD
-    selectedComponents  = dataSamples_Run2016F_PromptV2
-    #selectedComponents  = dataSamples_Run2016F_PromptV2_forQCD
+    selectedComponents  = dataSamples_Run2016F_PromptV1
+    #selectedComponents  = dataSamples_Run2016F_PromptV1_forQCD
 
 
 
