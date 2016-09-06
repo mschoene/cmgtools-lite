@@ -548,7 +548,10 @@ elif test==3:
 
     dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
     json=dataDir+'/json/json_DCSONLY.txt'
+    #json=dataDir+'/json/json_ichep2016.txt'
 
+    
+    # --------------- ALL THIS IS FOR TESTS -----------------------------------------------------
     # Warning: this only works when running (e.g. locally) and having access to afs
     #json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt' 
 
@@ -572,16 +575,24 @@ elif test==3:
 
     #For runnin on a single dataset
     #selectedComponents  = [JetHT_Run2016B_PromptReco_v2]
+    # --------------------------------------------------------------------
 
 
+    
+
+
+    # --------------- HERE IS THE PART YOU SHOULD PAY ATTENTION TO --------------------------------------------
     #For running on the full list of samples
     #selectedComponents  = dataSamples_Run2016B_PromptV2
     #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
     #selectedComponents  = dataSamples_Run2016C_PromptV2
     #selectedComponents  = dataSamples_Run2016C_PromptV2_forQCD
-    selectedComponents  = dataSamples_Run2016D_PromptV2
+    #selectedComponents  = dataSamples_Run2016D_PromptV2
     #selectedComponents  = dataSamples_Run2016D_PromptV2_forQCD
-
+    #selectedComponents  = dataSamples_Run2016E_PromptV2
+    #selectedComponents  = dataSamples_Run2016E_PromptV2_forQCD
+    #selectedComponents  = dataSamples_Run2016F_PromptV1
+    selectedComponents  = dataSamples_Run2016F_PromptV1_forQCD
 
 
     for comp in selectedComponents:
@@ -589,12 +600,15 @@ elif test==3:
         comp.files=comp.files[:]
         comp.triggers = allTriggers
 
-    # Here I add the skim to the sequence
+
+    # Here I add the skim to the sequence.
+    # It should be uncommented for non _forQCD samples. It should be commented for _forQCD samples
     sequence.insert(sequence.index(treeProducer),
                     MT2skim)
     
 
     # Tree configuration for QCD studies
+    # It should be commented for non _forQCD samples. It should be uncommented for _forQCD samples
     #treeProducer.globalVariables = MT2forQCDStudies_globalVariables
     #treeProducer.globalObjects = MT2forQCDStudies_globalObjects
     #treeProducer.collections = MT2forQCDStudies_collections
