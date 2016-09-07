@@ -62,7 +62,7 @@ jetAna.doPuId = False
 jetAna.doQG = True
 jetAna.jetEta = 4.7
 jetAna.jetEtaCentral = 2.4
-jetAna.jetPt = 20. #was 10
+jetAna.jetPt = 10. #was 10
 jetAna.mcGT     = "Spring16_25nsV6_MC" # jec corrections
 jetAna.dataGT   = "Spring16_25nsV6_DATA" # jec corrections
 jetAna.recalibrateJets = True # True or False
@@ -317,7 +317,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-test = 3
+test = 2
 #test = 2
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
@@ -396,17 +396,17 @@ elif test==2:
     # full production
 
     selectedComponents = [ 
-        TTJets, 
-        #TTJets_ext, 
-        #TTJets_LO,
-        #TT_pow_ext3, 
-        #TT_pow_ext4, 
-        TTJets_SingleLeptonFromTbar, 
-        TTJets_SingleLeptonFromTbar_ext, 
-        TTJets_SingleLeptonFromT, 
-        #TTJets_SingleLeptonFromT_ext, 
-        TTJets_DiLepton, 
-        TTJets_DiLepton_ext, 
+        # TTJets, 
+        # #TTJets_ext, 
+        # #TTJets_LO,
+        # #TT_pow_ext3, 
+        # #TT_pow_ext4, 
+        # TTJets_SingleLeptonFromTbar, 
+        # TTJets_SingleLeptonFromTbar_ext, 
+        # TTJets_SingleLeptonFromT, 
+        # #TTJets_SingleLeptonFromT_ext, 
+        # TTJets_DiLepton, 
+        # TTJets_DiLepton_ext, 
         #TTLep_pow, 
         #TTLep_pow_ext, 
         #TTJets_LO_HT600to800, 
@@ -418,71 +418,78 @@ elif test==2:
         #TTJets_LO_HT2500toInf,
         #TToLeptons_tch_amcatnlo,
         #TToLeptons_tch_amcatnlo_ext,
-        TToLeptons_tch_powheg,
-        TBarToLeptons_tch_powheg,
-        TToLeptons_sch_amcatnlo,
-        TBar_tWch,
+        # TToLeptons_tch_powheg,
+        # TBarToLeptons_tch_powheg,
+        # TToLeptons_sch_amcatnlo,
+        TBar_tWch_lep,
+        T_tWch_lep,
+        ttbb,
+        #TBar_tWch,
         #T_tWch,
         #T_tWch_DS,
         #TBar_tWch_DS,
         #TGJets,
         #TGJets_ext,
-        WJetsToLNu,
+        #WJetsToLNu,
         #WJetsToLNu_LO, 
         #DYJetsToLL_M10to50, 
         #DYJetsToLL_M10to50_ext1,
         ##DYJetsToLL_M5to50_LO, 
         #DYJetsToLL_M50, 
-        DYJetsToLL_M50_LO, 
+        #DYJetsToLL_M50_LO, 
         #DYJetsToNuNu_M50,
         #DYJetsToLL_M50_flatPu,
-        DYJetsToLL_M50_HT100to200,
-        DYJetsToLL_M50_HT100to200_ext,
-        DYJetsToLL_M50_HT200to400,
-        DYJetsToLL_M50_HT200to400_ext,
-        #DYJetsToLL_M50_HT400to600
-        DYJetsToLL_M50_HT400to600_ext,
-        DYJetsToLL_M50_HT600toInf,
-        DYJetsToLL_M50_HT600toInf_ext,
-        WJetsToLNu_HT100to200,
-        WJetsToLNu_HT100to200_ext,
-        WJetsToLNu_HT200to400,
-        WJetsToLNu_HT200to400_ext,
-        WJetsToLNu_HT400to600,
-        #WJetsToLNu_HT600toInf,
-        WJetsToLNu_HT600to800,
-        WJetsToLNu_HT800to1200,
-        WJetsToLNu_HT800to1200_ext,
-        WJetsToLNu_HT1200to2500,
-        WJetsToLNu_HT2500toInf,
-        GJets_HT40to100,
-        GJets_HT100to200,
-        GJets_HT200to400,
-        GJets_HT400to600,
-        GJets_HT600toInf,
-        ZJetsToNuNu_HT100to200,
-        ZJetsToNuNu_HT100to200_ext,
-        #ZJetsToNuNu_HT200to400, doesn't exist, not even in production
-        ZJetsToNuNu_HT200to400_ext,
-        ZJetsToNuNu_HT400to600,
-        ZJetsToNuNu_HT600to800,
-        ZJetsToNuNu_HT800to1200,
-        ZJetsToNuNu_HT1200to2500,
-        ZJetsToNuNu_HT1200to2500_ext,
-        ZJetsToNuNu_HT2500toInf,
+        # DYJetsToLL_M50_HT100to200,
+        # DYJetsToLL_M50_HT100to200_ext,
+        # DYJetsToLL_M50_HT200to400,
+        # DYJetsToLL_M50_HT200to400_ext,
+        # #DYJetsToLL_M50_HT400to600
+        # DYJetsToLL_M50_HT400to600_ext,
+        # DYJetsToLL_M50_HT600toInf,
+        # DYJetsToLL_M50_HT600toInf_ext,
+        DYJetsToLL_M50_HT600to800,
+        DYJetsToLL_M50_HT800to1200,
+        DYJetsToLL_M50_HT1200to2500,
+        DYJetsToLL_M50_HT2500toInf,
+        # WJetsToLNu_HT100to200,
+        # WJetsToLNu_HT100to200_ext,
+        # WJetsToLNu_HT200to400,
+        # WJetsToLNu_HT200to400_ext,
+        # WJetsToLNu_HT400to600,
+        # #WJetsToLNu_HT600toInf,
+        # WJetsToLNu_HT600to800,
+        # WJetsToLNu_HT800to1200,
+        # WJetsToLNu_HT800to1200_ext,
+        # WJetsToLNu_HT1200to2500,
+        # WJetsToLNu_HT2500toInf,
+        # GJets_HT40to100,
+        # GJets_HT100to200,
+        # GJets_HT200to400,
+        # GJets_HT400to600,
+        # GJets_HT600toInf,
+        # ZJetsToNuNu_HT100to200,
+        # ZJetsToNuNu_HT100to200_ext,
+        # #ZJetsToNuNu_HT200to400, doesn't exist, not even in production
+        # ZJetsToNuNu_HT200to400_ext,
+        # ZJetsToNuNu_HT400to600,
+        # ZJetsToNuNu_HT600to800,
+        # ZJetsToNuNu_HT800to1200,
+        # ZJetsToNuNu_HT1200to2500,
+        # ZJetsToNuNu_HT1200to2500_ext,
+        # ZJetsToNuNu_HT2500toInf,
         #QCD_HT100to200,
         #QCD_HT200to300,
         #QCD_HT200to300_ext,
-        QCD_HT300to500,
-        QCD_HT300to500_ext,
-        QCD_HT500to700,
-        QCD_HT500to700_ext,
-        QCD_HT700to1000,
-        QCD_HT700to1000_ext,
-        QCD_HT1000to1500,
-        QCD_HT1000to1500_ext,
-        QCD_HT1500to2000,
-        QCD_HT2000toInf,
+        # QCD_HT300to500,
+        # QCD_HT300to500_ext,
+        # QCD_HT500to700,
+        # QCD_HT500to700_ext,
+        # QCD_HT700to1000,
+        # QCD_HT700to1000_ext,
+        # QCD_HT1000to1500,
+        # QCD_HT1000to1500_ext,
+        # QCD_HT1500to2000,
+        # QCD_HT2000toInf,
         #WWTo2L2Nu,
         #WWToLNuQQ,
         #WWToLNuQQ_ext,
@@ -618,13 +625,17 @@ elif test==4:
 
     from CMGTools.RootTools.samples.samples_13TeV_signals import *
 
-### 25
-    selectedComponents = + SignalSUSY + SignalEXO #+ SignalSUSYFullScan ###Signal Spring15
-    
+    jetAna.mcGT     = "Spring16_FastSimV1_MC" # jec corrections for FastSim V1### 25
+    jetAna.applyL2L3Residual = False # 'Data'
+    jetAna.do_mc_match = True
+
+    selectedComponents = SignalSUSY #+ SignalEXO #+ SignalSUSYFullScan ###Signal Spring15
+        
     # test all components (1 thread per component).
     for comp in selectedComponents:
         comp.splitFactor = 1200
         #comp.fineSplitFactor = 2 # to run two jobs per file
+        #comp.files = comp.files[:1]
         comp.files = comp.files[:]
         # triggers on MC
         #comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
