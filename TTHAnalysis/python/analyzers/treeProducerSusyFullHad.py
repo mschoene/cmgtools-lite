@@ -10,6 +10,10 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("genRecoil_pt", lambda ev: ev.GenRecoil_pt if  hasattr(ev,'GenRecoil_pt') else  -99, float, help="total pt of particles with status 62"),
     NTupleVariable("top_pt", lambda ev: ev.toppt if  hasattr(ev,'toppt') else  -99, float, help="pt of top"),
     NTupleVariable("anti_top_pt", lambda ev: ev.antitoppt if  hasattr(ev,'antitoppt') else  -99, float, help="pt of anti-top"),
+
+    ### Gen HT (for stiching)
+    NTupleVariable("lheHT", lambda ev : ev.lheHT if hasattr(ev, 'lheHT') else -99, help="H_{T} computed from quarks and gluons in Heppy LHEAnalyzer"),
+    NTupleVariable("lheHTIncoming", lambda ev : ev.lheHTIncoming if hasattr(ev, 'lheHTIncoming') else -99, help="H_{T} computed from quarks and gluons in Heppy LHEAnalyzer (only LHE status<0 as mothers)"),
     
     ##--------------------------------------------------
     ## Filters
@@ -39,9 +43,14 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     # Met definitions
     ##--------------------------------------------------
 
-    NTupleVariable("met_caloPt", lambda ev : ev.met.caloMETPt(), help="calo met p_{T}"),
-    NTupleVariable("met_caloPhi", lambda ev : ev.met.caloMETPhi(), help="calo met phi"),
-    NTupleVariable("met_caloSumEt", lambda ev : ev.met.caloMETSumEt(), help="calo met sumEt"),
+#    NTupleVariable("met_caloPt", lambda ev : ev.met.caloMETPt(), help="calo met p_{T}"),
+#    NTupleVariable("met_caloPhi", lambda ev : ev.met.caloMETPhi(), help="calo met phi"),
+#    NTupleVariable("met_caloSumEt", lambda ev : ev.met.caloMETSumEt(), help="calo met sumEt"),
+    NTupleVariable("met_caloPt", lambda ev : ev.metUncor.caloMETPt(), help="calo met p_{T}"),
+    NTupleVariable("met_caloPhi", lambda ev : ev.metUncor.caloMETPhi(), help="calo met phi"),
+    NTupleVariable("met_caloSumEt", lambda ev : ev.metUncor.caloMETSumEt(), help="calo met sumEt"),
+
+    NTupleVariable("met_miniaodPt", lambda ev : ev.metUncor.pt(), help="pfmet p_{T} as from miniAOD (for pfmet/calomet filter)"),
 
     NTupleVariable("met_trkPt", lambda ev : ev.tkMet.pt() if  hasattr(ev,'tkMet') else  0, help="tkmet p_{T}"),
     NTupleVariable("met_trkPhi", lambda ev : ev.tkMet.phi() if  hasattr(ev,'tkMet') else  0, help="tkmet phi"),
