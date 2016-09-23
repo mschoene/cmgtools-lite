@@ -317,7 +317,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-test = 2
+test = 3
 #test = 2
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
@@ -585,21 +585,27 @@ elif test==3:
     # --------------------------------------------------------------------
 
 
-    
+    isForQCD = True
 
 
     # --------------- HERE IS THE PART YOU SHOULD PAY ATTENTION TO --------------------------------------------
     #For running on the full list of samples
-    #selectedComponents  = dataSamples_Run2016B_PromptV2
-    #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
-    #selectedComponents  = dataSamples_Run2016C_PromptV2
-    #selectedComponents  = dataSamples_Run2016C_PromptV2_forQCD
-    #selectedComponents  = dataSamples_Run2016D_PromptV2
-    #selectedComponents  = dataSamples_Run2016D_PromptV2_forQCD
-    #selectedComponents  = dataSamples_Run2016E_PromptV2
-    #selectedComponents  = dataSamples_Run2016E_PromptV2_forQCD
-    #selectedComponents  = dataSamples_Run2016F_PromptV1
-    selectedComponents  = dataSamples_Run2016F_PromptV1_forQCD
+    if not isForQCD:
+        #selectedComponents  = dataSamples_Run2016B_PromptV2
+        #selectedComponents  = dataSamples_Run2016C_PromptV2
+        #selectedComponents  = dataSamples_Run2016D_PromptV2
+        #selectedComponents  = dataSamples_Run2016E_PromptV2
+        #selectedComponents  = dataSamples_Run2016F_PromptV1
+        #selectedComponents  = dataSamples_Run2016G_PromptV1
+        selectedComponents  = dataSamples_Run2016B_PromptV2 + dataSamples_Run2016C_PromptV2 + dataSamples_Run2016D_PromptV2 + dataSamples_Run2016E_PromptV2 + dataSamples_Run2016F_PromptV1 + dataSamples_Run2016G_PromptV1
+    else:
+        #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
+        #selectedComponents  = dataSamples_Run2016C_PromptV2_forQCD
+        #selectedComponents  = dataSamples_Run2016D_PromptV2_forQCD
+        #selectedComponents  = dataSamples_Run2016E_PromptV2_forQCD
+        #selectedComponents  = dataSamples_Run2016F_PromptV1_forQCD
+        #selectedComponents  = dataSamples_Run2016G_PromptV1_forQCD
+        selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD + dataSamples_Run2016C_PromptV2_forQCD + dataSamples_Run2016D_PromptV2_forQCD + dataSamples_Run2016E_PromptV2_forQCD + dataSamples_Run2016F_PromptV1_forQCD + dataSamples_Run2016G_PromptV1_forQCD
 
 
     for comp in selectedComponents:
@@ -610,15 +616,16 @@ elif test==3:
 
     # Here I add the skim to the sequence.
     # It should be uncommented for non _forQCD samples. It should be commented for _forQCD samples
-    sequence.insert(sequence.index(treeProducer),
-                    MT2skim)
+    if not isForQCD:
+        sequence.insert(sequence.index(treeProducer), MT2skim)
     
 
     # Tree configuration for QCD studies
     # It should be commented for non _forQCD samples. It should be uncommented for _forQCD samples
-    #treeProducer.globalVariables = MT2forQCDStudies_globalVariables
-    #treeProducer.globalObjects = MT2forQCDStudies_globalObjects
-    #treeProducer.collections = MT2forQCDStudies_collections
+    if isForQCD:
+        treeProducer.globalVariables = MT2forQCDStudies_globalVariables
+        treeProducer.globalObjects = MT2forQCDStudies_globalObjects
+        treeProducer.collections = MT2forQCDStudies_collections
 
 
 elif test==4:
