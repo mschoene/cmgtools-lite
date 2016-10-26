@@ -598,7 +598,8 @@ elif test==3:
         #selectedComponents  = dataSamples_Run2016E_PromptV2
         #selectedComponents  = dataSamples_Run2016F_PromptV1
         #selectedComponents  = dataSamples_Run2016G_PromptV1
-        selectedComponents  = dataSamples_Run2016B_PromptV2 + dataSamples_Run2016C_PromptV2 + dataSamples_Run2016D_PromptV2 + dataSamples_Run2016E_PromptV2 + dataSamples_Run2016F_PromptV1 + dataSamples_Run2016G_PromptV1
+        selectedComponents  = dataSamples_Run2016H_PromptV1
+        #selectedComponents  = dataSamples_Run2016B_PromptV2 + dataSamples_Run2016C_PromptV2 + dataSamples_Run2016D_PromptV2 + dataSamples_Run2016E_PromptV2 + dataSamples_Run2016F_PromptV1 + dataSamples_Run2016G_PromptV1 + dataSamples_Run2016H_PromptV1
     else:
         #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
         #selectedComponents  = dataSamples_Run2016C_PromptV2_forQCD
@@ -606,7 +607,8 @@ elif test==3:
         #selectedComponents  = dataSamples_Run2016E_PromptV2_forQCD
         #selectedComponents  = dataSamples_Run2016F_PromptV1_forQCD
         #selectedComponents  = dataSamples_Run2016G_PromptV1_forQCD
-        selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD + dataSamples_Run2016C_PromptV2_forQCD + dataSamples_Run2016D_PromptV2_forQCD + dataSamples_Run2016E_PromptV2_forQCD + dataSamples_Run2016F_PromptV1_forQCD + dataSamples_Run2016G_PromptV1_forQCD
+        selectedComponents  = dataSamples_Run2016H_PromptV1_forQCD
+        #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD + dataSamples_Run2016C_PromptV2_forQCD + dataSamples_Run2016D_PromptV2_forQCD + dataSamples_Run2016E_PromptV2_forQCD + dataSamples_Run2016F_PromptV1_forQCD + dataSamples_Run2016G_PromptV1_forQCD + dataSamples_Run2016H_PromptV1_forQCD
 
 
     for comp in selectedComponents:
