@@ -206,16 +206,17 @@ triggerFlagsAna.triggerBits = {
 'PFMET120_PFMHT120'         : ["HLT_PFMET120_PFMHT120_IDTight_v*"],
 #
 # lepton triggers
-'SingleMu'     : ["HLT_IsoMu17_eta2p1_v*","HLT_IsoMu20_v*","HLT_IsoMu20_eta2p1_v*","HLT_IsoTkMu20_v*","HLT_IsoTkMu20_eta2p1_v*","HLT_IsoMu24_v*","HLT_IsoTkMu24_v*"],
-'SingleEl'     : ["HLT_Ele23_WPLoose_Gsf_v*","HLT_Ele22_eta2p1_WPLoose_Gsf_v*","HLT_Ele23_WP75_Gsf_v*","HLT_Ele22_eta2p1_WP75_Gsf_v*","HLT_Ele25_eta2p1_WPTight_Gsf_v*","HLT_Ele27_eta2p1_WPLoose_Gsf_v*","HLT_Ele27_eta2p1_WPTight_Gsf_v*"],
+'SingleMu'     : ["HLT_IsoMu27_v*", "HLT_IsoTkMu27_v*","HLT_IsoMu17_eta2p1_v*","HLT_IsoMu20_v*","HLT_IsoMu20_eta2p1_v*","HLT_IsoTkMu20_v*","HLT_IsoTkMu20_eta2p1_v*","HLT_IsoMu24_v*","HLT_IsoTkMu24_v*"],
+'SingleEl'     : ["HLT_Ele32_eta2p1_WPTight_Gsf_v*", "HLT_Ele23_WPLoose_Gsf_v*","HLT_Ele22_eta2p1_WPLoose_Gsf_v*","HLT_Ele23_WP75_Gsf_v*","HLT_Ele22_eta2p1_WP75_Gsf_v*","HLT_Ele25_eta2p1_WPTight_Gsf_v*","HLT_Ele27_eta2p1_WPLoose_Gsf_v*","HLT_Ele27_eta2p1_WPTight_Gsf_v*"],
 'DoubleEl'     : ["HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*","HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*"],
 'DoubleEl33'   : ["HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_v*","HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_v*"],
-'MuX_Ele12' : ["HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*","HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*"],
-'Mu8_EleX' : ["HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v*","HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v*"],
-'DoubleMu'     : ["HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v*","HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*","HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v*","HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v*"],
-'DoubleMu_NonIso'    : ["HLT_Mu30_TkMu11_v*"],
+'MuX_Ele12' : ["HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*","HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*","HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*"],
+'Mu8_EleX' : ["HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*", "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v*","HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v*"],
+'DoubleMu'     : ["HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*", "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v*","HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*","HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v*","HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v*"],
+'DoubleMu_NonIso'    : ["HLT_Mu40_TkMu11_v*","HLT_Mu30_TkMu11_v*"],
 'Mu30_Ele30_NonIso'  : ["HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v*"],
-'SingleMu_NonIso'    : ["HLT_Mu50_v*","HLT_TkMu50_v*"],
+'Mu33_Ele33_NonIso'  : ["HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v*"],
+'SingleMu_NonIso'    : ["HLT_Mu55_v*", "HLT_Mu50_v*","HLT_TkMu50_v*"],
 'SingleEl_NonIso'    : ["HLT_Ele105_CaloIdVT_GsfTrkIdT_v*"],
 # for single-photon control region
 'Photon120' : ["HLT_Photon120_v*"], 
@@ -321,7 +322,8 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-test = 2
+test = 3
+#test = 2
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
 runPreprocessor = False
@@ -616,21 +618,29 @@ elif test==3:
     # --------------------------------------------------------------------
 
 
-    
+    isForQCD = True
 
 
     # --------------- HERE IS THE PART YOU SHOULD PAY ATTENTION TO --------------------------------------------
     #For running on the full list of samples
-    #selectedComponents  = dataSamples_Run2016B_PromptV2
-    #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
-    #selectedComponents  = dataSamples_Run2016C_PromptV2
-    #selectedComponents  = dataSamples_Run2016C_PromptV2_forQCD
-    #selectedComponents  = dataSamples_Run2016D_PromptV2
-    #selectedComponents  = dataSamples_Run2016D_PromptV2_forQCD
-    #selectedComponents  = dataSamples_Run2016E_PromptV2
-    #selectedComponents  = dataSamples_Run2016E_PromptV2_forQCD
-    #selectedComponents  = dataSamples_Run2016F_PromptV1
-    selectedComponents  = dataSamples_Run2016F_PromptV1_forQCD
+    if not isForQCD:
+        #selectedComponents  = dataSamples_Run2016B_PromptV2
+        #selectedComponents  = dataSamples_Run2016C_PromptV2
+        #selectedComponents  = dataSamples_Run2016D_PromptV2
+        #selectedComponents  = dataSamples_Run2016E_PromptV2
+        #selectedComponents  = dataSamples_Run2016F_PromptV1
+        #selectedComponents  = dataSamples_Run2016G_PromptV1
+        selectedComponents  = dataSamples_Run2016H_PromptV1
+        #selectedComponents  = dataSamples_Run2016B_PromptV2 + dataSamples_Run2016C_PromptV2 + dataSamples_Run2016D_PromptV2 + dataSamples_Run2016E_PromptV2 + dataSamples_Run2016F_PromptV1 + dataSamples_Run2016G_PromptV1 + dataSamples_Run2016H_PromptV1
+    else:
+        #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
+        #selectedComponents  = dataSamples_Run2016C_PromptV2_forQCD
+        #selectedComponents  = dataSamples_Run2016D_PromptV2_forQCD
+        #selectedComponents  = dataSamples_Run2016E_PromptV2_forQCD
+        #selectedComponents  = dataSamples_Run2016F_PromptV1_forQCD
+        #selectedComponents  = dataSamples_Run2016G_PromptV1_forQCD
+        selectedComponents  = dataSamples_Run2016H_PromptV1_forQCD
+        #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD + dataSamples_Run2016C_PromptV2_forQCD + dataSamples_Run2016D_PromptV2_forQCD + dataSamples_Run2016E_PromptV2_forQCD + dataSamples_Run2016F_PromptV1_forQCD + dataSamples_Run2016G_PromptV1_forQCD + dataSamples_Run2016H_PromptV1_forQCD
 
 
     for comp in selectedComponents:
@@ -641,15 +651,16 @@ elif test==3:
 
     # Here I add the skim to the sequence.
     # It should be uncommented for non _forQCD samples. It should be commented for _forQCD samples
-    sequence.insert(sequence.index(treeProducer),
-                    MT2skim)
+    if not isForQCD:
+        sequence.insert(sequence.index(treeProducer), MT2skim)
     
 
     # Tree configuration for QCD studies
     # It should be commented for non _forQCD samples. It should be uncommented for _forQCD samples
-    #treeProducer.globalVariables = MT2forQCDStudies_globalVariables
-    #treeProducer.globalObjects = MT2forQCDStudies_globalObjects
-    #treeProducer.collections = MT2forQCDStudies_collections
+    if isForQCD:
+        treeProducer.globalVariables = MT2forQCDStudies_globalVariables
+        treeProducer.globalObjects = MT2forQCDStudies_globalObjects
+        treeProducer.collections = MT2forQCDStudies_collections
 
 
 elif test==4:
