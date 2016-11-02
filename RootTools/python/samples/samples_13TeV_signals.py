@@ -10,6 +10,11 @@ kreator = ComponentCreator()
 SMS_T1bbbb_mGluino1500_mLSP100 = kreator.makeMCComponent("SMS_T1bbbb_mGluino1500_mLSP100", "/SMS-T1bbbb_mGluino-1500_mLSP-100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM", "CMS", ".*root", 0.0141903)
 SMS_T1tttt_mGluino1500_mLSP100 = kreator.makeMCComponent("SMS_T1tttt_mGluino1500_mLSP100", "/SMS-T1tttt_mGluino-1500_mLSP-100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM", "CMS", ".*root", 0.0141903)
 
+
+SMS_T2qq = kreator.makeMCComponent("SMS_T2qq", "/SMS-T2qq_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM", "CMS", ".*root", -1)
+
+SMS_T1qqqq = kreator.makeMCComponent("SMS_T1qqqq", "/SMS-T1qqqq_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM", "CMS", ".*root", -1)
+
 SMS_T1tttt = kreator.makeMCComponent("SMS_T1tttt", "/SMS-T1tttt_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM", "CMS", ".*root", -1)
 SMS_T1bbbb = kreator.makeMCComponent("SMS_T1bbbb", "/SMS-T1bbbb_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM", "CMS", ".*root", -1)
 SMS_T2bb = kreator.makeMCComponent("SMS_T2bb", "/SMS-T2bb_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM", "CMS", ".*root", -1)
@@ -28,9 +33,11 @@ SMS_T2tt_mStop_850_mLSP_100 = kreator.makeMCComponent("SMS_T2tt_mStop_850_mLSP_1
 SignalSUSY = [
 #SMS_T1bbbb_mGluino1500_mLSP100,
 #SMS_T1tttt_mGluino1500_mLSP100,
+SMS_T1qqqq,
 SMS_T1bbbb,
 SMS_T1tttt,
 SMS_T2bb,
+SMS_T2qq,
 SMS_T2tt_mStop_150to250,
 SMS_T2tt_mStop_250to350,
 SMS_T2tt_mStop_350to400,

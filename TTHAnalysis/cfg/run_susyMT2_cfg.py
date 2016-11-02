@@ -124,6 +124,9 @@ ttHCoreEventAna.jetPt = mt2JPt
 ##  CONTROL VARIABLES
 ##------------------------------------------ 
 
+from PhysicsTools.Heppy.analyzers.gen.LHEAnalyzer import LHEAnalyzer
+LHEAna = LHEAnalyzer.defaultConfig
+
 from CMGTools.TTHAnalysis.analyzers.ttHMT2Control import ttHMT2Control
 
 ttHMT2Control = cfg.Analyzer(
@@ -307,6 +310,7 @@ susyCoreSequence.insert(susyCoreSequence.index(isoTrackAna)+1,jetCleanAna)
 
 sequence = cfg.Sequence(
     susyCoreSequence+[
+    LHEAna,
     ttHMT2Control,
     MT2Ana,
     ttHTopoJetAna,
@@ -345,24 +349,29 @@ if test==0:
     # --- They may not be in synch anymore 
     from CMGTools.RootTools.samples.ComponentCreator import ComponentCreator
     kreator = ComponentCreator()
-    testComponent = kreator.makeMCComponent("testComponent", "/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/MINIAODSIM", "CMS", ".*root",489.9)
+    #testComponent =  kreator.makeMCComponent("ZJetsToNuNu_HT800t1200", "/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v3/MINIAODSIM", "CMS", ".*root",1.474*1.23)
+
+    testComponent = kreator.makeMCComponent("ZJetsToNuNu_HT400to600", "/ZJetsToNuNu_HT-400To600_13TeV-madgraph/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM", "CMS", ".*root",10.94*1.23)
+#testComponent = kreator.makeMCComponent("testComponent", "/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/MINIAODSIM", "CMS", ".*root",489.9)
+
+
     samples=[testComponent]
 
-    json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
+    # json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
 
-    dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
+    # dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
 
-    from CMGTools.TTHAnalysis.setup.Efficiencies import *
+    # from CMGTools.TTHAnalysis.setup.Efficiencies import *
 
-    for comp in samples:
-        comp.isMC = False
-        comp.isData = True
-        comp.splitFactor = 250 
-        comp.puFileMC=dataDir+"/puProfile_Summer12_53X.root"
-        comp.puFileData=dataDir+"/puProfile_Data12.root"
-        comp.efficiency = eff2012
-        comp.json = json
-    # ------------------------------------------------------------------------------------------- #
+    # for comp in samples:
+    #     comp.isMC = False
+    #     comp.isData = True
+    #     comp.splitFactor = 250 
+    #     comp.puFileMC=dataDir+"/puProfile_Summer12_53X.root"
+    #     comp.puFileData=dataDir+"/puProfile_Data12.root"
+    #     comp.efficiency = eff2012
+    #     comp.json = json
+    # # ------------------------------------------------------------------------------------------- #
 
     #eventSelector.toSelect = [ 442430994 ]
     #sequence = cfg.Sequence([eventSelector] + sequence)
@@ -373,13 +382,21 @@ if test==0:
 
     # 80X data
     #comp.files = ['file:/afs/cern.ch/user/m/mangano/work/datasets/data/80X/HTMHT.root']
-    comp.files = ['file:/afs/cern.ch/user/m/mangano/work/public/MECCA/HTMHT.root']
-   
+    # comp.files = ['file:/afs/cern.ch/user/m/mangano/work/public/MECCA/HTMHT.root']
+    
+    #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/10000/90E502FD-ED22-E611-83D8-02163E0152D9.root',
+    #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/10000/A4CBB64E-EE22-E611-A0F5-02163E0161D0.root']
+
+    comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/3EDD874E-AA3F-E611-BED1-0090FAA57380.root', 'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/44DB2EF3-AA3F-E611-8B32-0090FAA57780.root',             'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/6828DCF2-AA3F-E611-82FF-001F2908CFBC.root',             'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/AA9DE7DA-AA3F-E611-AAB8-0090FAA58194.root',             'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/B683ABDE-AA3F-E611-A763-0CC47A1DF7FE.root',             'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/D84F85B7-AA3F-E611-B15F-001F2908BE42.root',             'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/DE9896D9-AA3F-E611-9F3E-002590D0AFA4.root'            ]
+
     selectedComponents = [comp]
-#    comp.splitFactor = 10
+    #comp.splitFactor = 10
 #    comp.fineSplitFactor = 100
 
-
+    for comp in selectedComponents:
+        comp.splitFactor = 1200
+        comp.files = comp.files[:]
+        comp.fineSplitFactor = 4 
 
 
 
@@ -388,15 +405,20 @@ elif test==1:
     #eventSelector.toSelect = [ 84142401 ]
     #sequence = cfg.Sequence([eventSelector] + sequence)
     
-    from CMGTools.RootTools.samples.samples_13TeV_RunIIFall15MiniAODv2 import *
+    from CMGTools.RootTools.samples.samples_13TeV_RunIISpring16MiniAODv2 import *
 
 
-    selectedComponents = [TTJets_LO]
+
+
+
+    selectedComponents = [ZJetsToNuNuHT]
     for comp in selectedComponents:
         comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/00000/00D010B5-1EB9-E511-B950-02163E014965.root']
-        comp.splitFactor = 1200
+       #  comp.files = [          root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/3EDD874E-AA3F-E611-BED1-0090FAA57380.root']
+# #,             root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/44DB2EF3-AA3F-E611-8B32-0090FAA57780.root',             root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/6828DCF2-AA3F-E611-82FF-001F2908CFBC.root',             root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/AA9DE7DA-AA3F-E611-AAB8-0090FAA58194.root',             root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/B683ABDE-AA3F-E611-A763-0CC47A1DF7FE.root',             root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/D84F85B7-AA3F-E611-B15F-001F2908BE42.root',             root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/DE9896D9-AA3F-E611-9F3E-002590D0AFA4.root'            ]
+#        # comp.splitFactor = 1200
 
-#    comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
+#    comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to aply trigger skimming
 
 
 
@@ -410,71 +432,75 @@ elif test==2:
 
     selectedComponents = [ 
         # TTJets, 
-        # #TTJets_ext, 
-        # #TTJets_LO,
-        # #TT_pow_ext3, 
-        # #TT_pow_ext4, 
+        # # #TTJets_ext, 
+        # # #TTJets_LO,
+        # # #TT_pow_ext3, 
+        # # #TT_pow_ext4, 
         # TTJets_SingleLeptonFromTbar, 
         # TTJets_SingleLeptonFromTbar_ext, 
         # TTJets_SingleLeptonFromT, 
-        # #TTJets_SingleLeptonFromT_ext, 
+        # TTJets_SingleLeptonFromT_ext, 
         # TTJets_DiLepton, 
         # TTJets_DiLepton_ext, 
-        #TTLep_pow, 
-        #TTLep_pow_ext, 
-        #TTJets_LO_HT600to800, 
-        #TTJets_LO_HT600to800_ext, 
-        #TTJets_LO_HT800to1200, 
-        #TTJets_LO_HT800to1200_ext, 
-        #TTJets_LO_HT1200to2500, 
-        #TTJets_LO_HT1200to2500_ext, 
-        #TTJets_LO_HT2500toInf,
-        #TToLeptons_tch_amcatnlo,
-        #TToLeptons_tch_amcatnlo_ext,
+        # #TTLep_pow, 
+        # #TTLep_pow_ext, 
+        # #TTJets_LO_HT600to800, 
+        # #TTJets_LO_HT600to800_ext, 
+        # #TTJets_LO_HT800to1200, 
+        # #TTJets_LO_HT800to1200_ext, 
+        # #TTJets_LO_HT1200to2500, 
+        # #TTJets_LO_HT1200to2500_ext, 
+        # #TTJets_LO_HT2500toInf,
+        # #TToLeptons_tch_amcatnlo,
+        # #TToLeptons_tch_amcatnlo_ext,
         # TToLeptons_tch_powheg,
         # TBarToLeptons_tch_powheg,
         # TToLeptons_sch_amcatnlo,
-        TBar_tWch_lep,
-        T_tWch_lep,
-        ttbb,
-        #TBar_tWch,
-        #T_tWch,
-        #T_tWch_DS,
-        #TBar_tWch_DS,
-        #TGJets,
-        #TGJets_ext,
-        #WJetsToLNu,
-        #WJetsToLNu_LO, 
-        #DYJetsToLL_M10to50, 
-        #DYJetsToLL_M10to50_ext1,
-        ##DYJetsToLL_M5to50_LO, 
-        #DYJetsToLL_M50, 
-        #DYJetsToLL_M50_LO, 
-        #DYJetsToNuNu_M50,
-        #DYJetsToLL_M50_flatPu,
+        # TBar_tWch_lep,
+        # T_tWch_lep,
+        # ttbb,
+        # #TBar_tWch,
+        # #T_tWch,
+        # #T_tWch_DS,
+        # #TBar_tWch_DS,
+        # #TGJets,
+        # #TGJets_ext,
+        # #WJetsToLNu,
+        # #WJetsToLNu_LO, 
+        # #DYJetsToLL_M10to50, 
+        # #DYJetsToLL_M10to50_ext1,
+        # ##DYJetsToLL_M5to50_LO, 
+        # #DYJetsToLL_M50, 
+        # #DYJetsToLL_M50_LO, 
+        # #DYJetsToNuNu_M50,
+        # #DYJetsToLL_M50_flatPu,
         # DYJetsToLL_M50_HT100to200,
         # DYJetsToLL_M50_HT100to200_ext,
         # DYJetsToLL_M50_HT200to400,
         # DYJetsToLL_M50_HT200to400_ext,
-        # #DYJetsToLL_M50_HT400to600
+        # DYJetsToLL_M50_HT400to600,
         # DYJetsToLL_M50_HT400to600_ext,
         # DYJetsToLL_M50_HT600toInf,
         # DYJetsToLL_M50_HT600toInf_ext,
-        DYJetsToLL_M50_HT600to800,
-        DYJetsToLL_M50_HT800to1200,
-        DYJetsToLL_M50_HT1200to2500,
-        DYJetsToLL_M50_HT2500toInf,
+        # DYJetsToLL_M50_HT600to800,
+        # DYJetsToLL_M50_HT800to1200,
+        # DYJetsToLL_M50_HT1200to2500,
+        # DYJetsToLL_M50_HT2500toInf,
         # WJetsToLNu_HT100to200,
         # WJetsToLNu_HT100to200_ext,
         # WJetsToLNu_HT200to400,
         # WJetsToLNu_HT200to400_ext,
         # WJetsToLNu_HT400to600,
-        # #WJetsToLNu_HT600toInf,
+        # WJetsToLNu_HT400to600_ext,
+        # # #WJetsToLNu_HT600toInf,
         # WJetsToLNu_HT600to800,
+        # WJetsToLNu_HT600to800_ext,
         # WJetsToLNu_HT800to1200,
         # WJetsToLNu_HT800to1200_ext,
         # WJetsToLNu_HT1200to2500,
+        # WJetsToLNu_HT1200to2500_ext,
         # WJetsToLNu_HT2500toInf,
+        # WJetsToLNu_HT2500toInf_ext,
         # GJets_HT40to100,
         # GJets_HT100to200,
         # GJets_HT200to400,
@@ -482,17 +508,18 @@ elif test==2:
         # GJets_HT600toInf,
         # ZJetsToNuNu_HT100to200,
         # ZJetsToNuNu_HT100to200_ext,
-        # #ZJetsToNuNu_HT200to400, doesn't exist, not even in production
+        # ZJetsToNuNu_HT200to400,
         # ZJetsToNuNu_HT200to400_ext,
         # ZJetsToNuNu_HT400to600,
+        # ZJetsToNuNu_HT400to600_ext,
         # ZJetsToNuNu_HT600to800,
-        # ZJetsToNuNu_HT800to1200,
+        ZJetsToNuNu_HT800to1200,
         # ZJetsToNuNu_HT1200to2500,
         # ZJetsToNuNu_HT1200to2500_ext,
         # ZJetsToNuNu_HT2500toInf,
-        #QCD_HT100to200,
-        #QCD_HT200to300,
-        #QCD_HT200to300_ext,
+        # QCD_HT100to200,
+        # QCD_HT200to300,
+        # QCD_HT200to300_ext,
         # QCD_HT300to500,
         # QCD_HT300to500_ext,
         # QCD_HT500to700,
@@ -503,42 +530,47 @@ elif test==2:
         # QCD_HT1000to1500_ext,
         # QCD_HT1500to2000,
         # QCD_HT2000toInf,
-        #WWTo2L2Nu,
-        #WWToLNuQQ,
-        #WWToLNuQQ_ext,
-        #WWTo1L1Nu2Q, 
-        #ZZTo2L2Nu,
-        #ZZTo2L2Q,
-        #ZZTo2Q2Nu,
-        #ZZTo4L,
-        #ZZTo4L_amcatnlo,
-        #WZTo1L3Nu, 
-        #WZTo1L1Nu2Q, 
-        #WZTo2L2Q,
-        #WZTo3LNu,
-        #WZTo3LNu_amcatnlo,
-        #VVTo2L2Nu,
-        #WGToLNuG, 
-        #WGJets,
-        #ZGJets,
-        #ZGJets_40130,
-        #ZGTo2LG,
-        #ZLLGJets_pt130,
-        #WWDouble, 
-        #WpWpJJ, 
-        #WW, 
-        # WZ, 
-        # ZZ,
-        # TTWToLNu, 
-        # TTWToQQ,
+        # #WWTo2L2Nu,
+        # #WWToLNuQQ,
+        # #WWToLNuQQ_ext,
+        # #WWTo1L1Nu2Q, 
+        # #ZZTo2L2Nu,
+        # #ZZTo2L2Q,
+        # #ZZTo2Q2Nu,
+        # #ZZTo4L,
+        # #ZZTo4L_amcatnlo,
+        # #WZTo1L3Nu, 
+        # #WZTo1L1Nu2Q, 
+        # #WZTo2L2Q,
+        # #WZTo3LNu,
+        # #WZTo3LNu_amcatnlo,
+        # #VVTo2L2Nu,
+        # #WGToLNuG, 
+        # #WGJets,
+        # #ZGJets,
+        # #ZGJets_40130,
+        # #ZGTo2LG,
+        # #ZLLGJets_pt130,
+        # #WWDouble, 
+        # #WpWpJJ, 
+        # #WW, 
+        # # WZ, 
+        # # ZZ,
+        # # TTWToLNu, 
+        # # TTWToQQ,
         # TTW_LO, 
-        # TTZToQQ, 
-        # TTZToLLNuNu, 
-        # #TTLLJets_m1to10, 
+        # # TTZToQQ, 
+        # # TTZToLLNuNu, 
+        # # #TTLLJets_m1to10, 
         # TTZ_LO,
-        # TTGJets,
-        # TTHnobb_ext,
-        # TTHbb_ext3,
+        # # TTGJets,
+        # # TTHnobb_ext,
+        # # TTHbb_ext3,
+        # TTHToNonbb,
+        # TTHTobb,
+        # TTTT_ext,
+        # ttbb,
+        # ttbb_ext,
         ]
 
 
@@ -656,7 +688,7 @@ elif test==4:
     # test all components (1 thread per component).
     for comp in selectedComponents:
         comp.splitFactor = 1200
-        #comp.fineSplitFactor = 2 # to run two jobs per file
+        comp.fineSplitFactor = 4 # to run 4 jobs per file
         #comp.files = comp.files[:1]
         comp.files = comp.files[:]
         # triggers on MC
@@ -673,7 +705,7 @@ if doSpecialSettingsForMECCA:
     # jetAna.do_mc_match = False
     lepAna.do_mc_match = False
     isoTrackAna.do_mc_match = False
-    genAna.makeLHEweights = False
+    genAna.makeLHEweights = True
 
 if isData:
     for comp in samples:
