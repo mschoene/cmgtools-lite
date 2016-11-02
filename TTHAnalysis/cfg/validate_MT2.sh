@@ -3,7 +3,7 @@
 
 
 if [[ "$#" -eq 0 ]]; then
-echo "ERROR: the script needs at least one argument. Relunch it with one of the following options:"
+echo "ERROR: the script needs at least one argument. Relaunch it with one of the following options:"
 echo "source validate_MT2.sh inputFolder"
 echo "./validate_MT2.sh fileA.root fileB.root labelA labelB outputFolderName -data/mc"
 exit;
@@ -16,7 +16,7 @@ if [[ "$#" -eq 1 ]]; then
 # copy files mt2_tree.root inside
 # CMGTools/TTHAnalysis/cfg/VALIDATEMT2/SNT/mt2/mt2_tree.root
 # CMGTools/TTHAnalysis/cfg/VALIDATEMT2/ETHCERN/mt2/mt2_tree.root
-# to dun execute: source validate_MT2.sh VALIDATEMT2
+# to run execute: source validate_MT2.sh VALIDATEMT2
 
 
     if test \! -d $X/ETHCERN; then echo "Did not find ETHCERN in $X"; exit 1; fi
@@ -84,6 +84,10 @@ cat <<EOF > $outputFolder/inputs.txt
 ttHWW   : $labelB : 1. ; FillColor=ROOT.kOrange+10 , Label="$labelB"
 ref_ttHWW+ : $labelA : 1. ; FillColor=ROOT.kAzure+2, Label="$labelA"
 EOF
+
+# ttHWW   : $labelB : evt_scale1fb*weight_btagsf ; FillColor=ROOT.kOrange+10 , Label="$labelB"
+# ref_ttHWW+ : $labelA : evt_scale1fb*weight_btagsf ; FillColor=ROOT.kAzure+2, Label="$labelA"
+# EOF
 
 
 cd ../python/plotter/
