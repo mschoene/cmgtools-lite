@@ -38,6 +38,9 @@ class ttHIsrJetAnalyzer( Analyzer ):
     def process(self, event):
         self.readCollections( event.input )
 
-        self.nIsrMatch(event)
+        event.nisrMatch = 0
+    
+        if self.cfg_comp.isMC:
+            self.nIsrMatch(event)
 
         return True
