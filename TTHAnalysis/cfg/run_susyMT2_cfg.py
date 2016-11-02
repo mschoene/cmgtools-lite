@@ -131,6 +131,17 @@ ttHMT2Control = cfg.Analyzer(
             jetPt = mt2JPt, 
             )
 
+##------------------------------------------ 
+##  NUMBER of ISR JETS
+##------------------------------------------ 
+
+from CMGTools.TTHAnalysis.analyzers.ttHIsrJetAnalyzer import ttHIsrJetAnalyzer
+
+ttHIsrJetAna = cfg.Analyzer(
+            ttHIsrJetAnalyzer, name = 'ttHIsrJetAnalyzer',
+            jetPt = mt2JPt, 
+            )
+
 ##------------------------------------------
 ##  TOPOLOGICAL VARIABLES: minMT, MT2
 ##------------------------------------------
@@ -299,6 +310,7 @@ sequence = cfg.Sequence(
     ttHMT2Control,
     MT2Ana,
     ttHTopoJetAna,
+    ttHIsrJetAna,
     treeProducer,
     ])
 

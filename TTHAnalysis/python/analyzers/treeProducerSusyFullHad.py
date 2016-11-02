@@ -99,6 +99,8 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("nPFHad10LowMT", lambda ev: ev.nPFHad10LowMT, int, help="number of PF hadrons with pt > 10, reliso < 0.1, MT < 100 "),
     NTupleVariable("nLepLowMT", lambda ev: ev.nLepLowMT, int, help="number of leptons (POGID and isoTrack ) with MT < 100 "),
 
+    NTupleVariable("nisrMatch", lambda ev: ev.nisrMatch, int, help="number of clean jets matched to ISR"),
+
     ##--------------------------------------------------
     # MT2
     ##--------------------------------------------------
