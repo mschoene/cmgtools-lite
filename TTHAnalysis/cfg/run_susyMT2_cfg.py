@@ -234,6 +234,9 @@ triggerFlagsAna.triggerBits = {
 # for single-photon control region
 'Photon120' : ["HLT_Photon120_v*"], 
 'Photon165_HE10' : ["HLT_Photon165_HE10_v*"], 
+# photon backups
+'Photon250_NoHE' : ["HLT_Photon250_NoHE_v*"], 
+'ECALHT800' : ["HLT_ECALHT800_v*"], 
 
 # for QCD control region
 'PFHT125_Prescale'  : ["HLT_PFHT125_v*"],
