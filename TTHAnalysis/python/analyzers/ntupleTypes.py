@@ -113,6 +113,8 @@ photonTypeSusy = NTupleObjectType("gammaSusy", baseObjectTypes = [ photonType ],
     NTupleVariable("chHadIsoRC",  lambda x : getattr(x, 'chHadIsoRC03', -1.0), float, mcOnly=False, help="charged iso 0.3 in a random cone 90 degrees in phi from photon"),
     NTupleVariable("drMinParton",  lambda x : getattr(x, 'drMinParton', -1.0), float, mcOnly=True, help="deltaR min between photon and parton"),
     NTupleVariable("etaSC",  lambda photon : photon.superCluster().eta(), float, mcOnly=False, help="SuperCluster eta"),
+    NTupleVariable("hOverE015", lambda x : x.hadronicOverEm(), float, mcOnly=False, help="Photon hadronicOverEm, H in DR<0.15 cone"),
+
 ])
 
 ##------------------------------------------  
