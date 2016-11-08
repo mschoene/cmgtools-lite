@@ -339,7 +339,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-test = 0
+test = 3
 #test = 2
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
@@ -635,29 +635,29 @@ elif test==3:
     # --------------------------------------------------------------------
 
 
-    isForQCD = True
+    isForQCD = False
 
 
     # --------------- HERE IS THE PART YOU SHOULD PAY ATTENTION TO --------------------------------------------
     #For running on the full list of samples
     if not isForQCD:
-        #selectedComponents  = dataSamples_Run2016B_PromptV2
-        #selectedComponents  = dataSamples_Run2016C_PromptV2
-        #selectedComponents  = dataSamples_Run2016D_PromptV2
-        #selectedComponents  = dataSamples_Run2016E_PromptV2
-        #selectedComponents  = dataSamples_Run2016F_PromptV1
-        #selectedComponents  = dataSamples_Run2016G_PromptV1
-        selectedComponents  = dataSamples_Run2016H_PromptV1
-        #selectedComponents  = dataSamples_Run2016B_PromptV2 + dataSamples_Run2016C_PromptV2 + dataSamples_Run2016D_PromptV2 + dataSamples_Run2016E_PromptV2 + dataSamples_Run2016F_PromptV1 + dataSamples_Run2016G_PromptV1 + dataSamples_Run2016H_PromptV1
+        selectedComponents  = dataSamples_Run2016B_ReReco23Sep
+        #selectedComponents  = dataSamples_Run2016C_ReReco23Sep
+        #selectedComponents  = dataSamples_Run2016D_ReReco23Sep
+        #selectedComponents  = dataSamples_Run2016E_ReReco23Sep
+        #selectedComponents  = dataSamples_Run2016F_ReReco23Sep
+        #selectedComponents  = dataSamples_Run2016G_ReReco23Sep
+        #selectedComponents  = dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV2
+        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep + dataSamples_Run2016C_ReReco23Sep + dataSamples_Run2016D_ReReco23Sep + dataSamples_Run2016E_ReReco23Sep + dataSamples_Run2016F_ReReco23Sep + dataSamples_Run2016G_ReReco23Sep + dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3
     else:
-        #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD
-        #selectedComponents  = dataSamples_Run2016C_PromptV2_forQCD
-        #selectedComponents  = dataSamples_Run2016D_PromptV2_forQCD
-        #selectedComponents  = dataSamples_Run2016E_PromptV2_forQCD
-        #selectedComponents  = dataSamples_Run2016F_PromptV1_forQCD
-        #selectedComponents  = dataSamples_Run2016G_PromptV1_forQCD
-        selectedComponents  = dataSamples_Run2016H_PromptV1_forQCD
-        #selectedComponents  = dataSamples_Run2016B_PromptV2_forQCD + dataSamples_Run2016C_PromptV2_forQCD + dataSamples_Run2016D_PromptV2_forQCD + dataSamples_Run2016E_PromptV2_forQCD + dataSamples_Run2016F_PromptV1_forQCD + dataSamples_Run2016G_PromptV1_forQCD + dataSamples_Run2016H_PromptV1_forQCD
+        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_forQCD
+        #selectedComponents  = dataSamples_Run2016C_ReReco23Sep_forQCD
+        #selectedComponents  = dataSamples_Run2016D_ReReco23Sep_forQCD
+        #selectedComponents  = dataSamples_Run2016E_ReReco23Sep_forQCD
+        #selectedComponents  = dataSamples_Run2016F_ReReco23Sep_forQCD
+        #selectedComponents  = dataSamples_Run2016G_ReReco23Sep_forQCD
+        #selectedComponents  = dataSamples_Run2016H_PromptV2_forQCD + dataSamples_Run2016H_PromptV2_forQCD
+        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_forQCD + dataSamples_Run2016C_ReReco23Sep_forQCD + dataSamples_Run2016D_ReReco23Sep_forQCD + dataSamples_Run2016E_ReReco23Sep_forQCD + dataSamples_Run2016F_ReReco23Sep_forQCD + dataSamples_Run2016G_ReReco23Sep_forQCD + dataSamples_Run2016H_PromptV2_forQCD + dataSamples_Run2016H_PromptV3_forQCD
 
 
     for comp in selectedComponents:
