@@ -202,6 +202,8 @@ triggerFlagsAna.triggerBits = {
 'PFHT300_PFMET110' : ["HLT_PFHT300_PFMET110_v*"],
 'PFHT350_PFMET100' : ["HLT_PFHT350_PFMET100_NoiseCleaned_v*","HLT_PFHT350_PFMET100_JetIdCleaned_v*","HLT_PFHT350_PFMET100_v*"],
 'PFHT350_PFMET120' : ["HLT_PFHT350_PFMET120_NoiseCleaned_v*","HLT_PFHT350_PFMET120_JetIdCleaned_v*"],
+'PFJet450' : ["HLT_PFJet450_v*"],
+'PFJet500' : ["HLT_PFJet500_v*"],
 #
 # mono-jet signal triggers
 'PFMETNoMu90_PFMHTNoMu90' : ["HLT_PFMETNoMu90_JetIdCleaned_PFMHTNoMu90_IDTight_v*","HLT_PFMETNoMu90_NoiseCleaned_PFMHTNoMu90_IDTight_v*","HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*"],
@@ -232,6 +234,9 @@ triggerFlagsAna.triggerBits = {
 # for single-photon control region
 'Photon120' : ["HLT_Photon120_v*"], 
 'Photon165_HE10' : ["HLT_Photon165_HE10_v*"], 
+# photon backups
+'Photon250_NoHE' : ["HLT_Photon250_NoHE_v*"], 
+'ECALHT800' : ["HLT_ECALHT800_v*"], 
 
 # for QCD control region
 'PFHT125_Prescale'  : ["HLT_PFHT125_v*"],
