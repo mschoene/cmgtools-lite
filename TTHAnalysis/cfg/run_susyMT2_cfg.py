@@ -687,6 +687,8 @@ elif test==4:
     jetAna.mcGT     = "Spring16_FastSimV1_MC" # jec corrections for FastSim V1### 25
     jetAna.applyL2L3Residual = False # 'Data'
     jetAna.do_mc_match = True
+    jetAna.relaxJetId = True
+    jetCleanAna.relaxJetId = True
 
     selectedComponents = SignalSUSY #+ SignalEXO #+ SignalSUSYFullScan ###Signal Spring15
         
