@@ -115,6 +115,7 @@ metAna.old74XMiniAODs = False # get right Raw MET on old 74X MiniAODs
 
 # store all taus by default
 genAna.allGenTaus = True
+susyScanAna.doLHE = False
 
 # Core Analyzer
 ttHCoreEventAna.mhtForBiasedDPhi = "mhtJetXjvec"
@@ -712,7 +713,7 @@ if doSpecialSettingsForMECCA:
     # jetAna.do_mc_match = False
     lepAna.do_mc_match = False
     isoTrackAna.do_mc_match = False
-    genAna.makeLHEweights = False
+###    genAna.makeLHEweights = False ### Such option does not exist (anymore)
 
 if isData:
     for comp in samples:
