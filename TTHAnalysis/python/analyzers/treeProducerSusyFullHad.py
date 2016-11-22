@@ -115,6 +115,14 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("zllmt_mt2", lambda ev: ev.mt2_Xj_zllmt, float, help="mt2(j1,j2,met) with zll (1 lepton only)  added to met, only hadrons"),
     NTupleVariable("rl_mt2", lambda ev: ev.mt2_Xj_rl, float, help="mt2(j1,j2,met) with 1 lepton added to met, only hadrons"),
 
+
+    ##--------------------------------------------------
+    # MT2
+    ##--------------------------------------------------    
+    NTupleVariable("mt2_genmet", lambda ev: ev.mt2_Xj_genmet, float, mcOnly=True, help="mt2(j1,j2,genmet) with jets and leptons"),
+    NTupleVariable("diffMetMht_genmet", lambda ev : ev.diffMetMht_Xj_genmet, float, mcOnly=True, help="abs( vec(mht) - vec(genmet) ) - with jets and leptons"),
+    NTupleVariable("deltaPhiMin_genmet", lambda ev : ev.deltaPhiMin_Xj_genmet, float, mcOnly=True, help="minimal deltaPhi between the genMET and the four leading jets with pt>40 and eta<2.4 and leptons (electrons ans muons with |eta|<2.5, pt > 10 GeV)"),
+
     
 
     ##--------------------------------------------------
