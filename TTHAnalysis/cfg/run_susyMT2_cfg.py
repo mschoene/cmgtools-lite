@@ -79,7 +79,7 @@ jetAna.gammaEtaCentral = 2.4
 jetAna.cleanJetsFromFirstPhoton = True
 jetAna.cleanJetsFromIsoTracks = False ## added for Dominick
 jetAna.doJetCleaning = False
-
+jetAna.shiftJEC = -1
 
 # TAU 
 tauAna.inclusive_ptMin = 20.0
@@ -290,6 +290,7 @@ eventFlagsAna.triggerBits = {
 
 from CMGTools.TTHAnalysis.analyzers.treeProducerSusyFullHad import *
 from CMGTools.TTHAnalysis.analyzers.treeProducerMT2forQCDStudies import *
+from CMGTools.TTHAnalysis.analyzers.treeProducerMT2forJECstudies import *
 
 treeProducer = cfg.Analyzer(
      AutoFillTreeProducer, name='treeProducerSusyFullHad',
@@ -340,7 +341,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-test = 0
+test = 1
 #test = 2
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
@@ -417,7 +418,7 @@ elif test==1:
 
 
 
-    selectedComponents = [ZJetsToNuNuHT]
+    selectedComponents = [TTJets_SingleLeptonFromT]
     for comp in selectedComponents:
         comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/00000/00D010B5-1EB9-E511-B950-02163E014965.root']
        #  comp.files = [          root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/3EDD874E-AA3F-E611-BED1-0090FAA57380.root']
@@ -427,7 +428,11 @@ elif test==1:
 #    comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to aply trigger skimming
 
 
-
+    # Tree configuration for JEC variations
+    if jetAna.shiftJEC > 0.5 or jetAna.shiftJEC < -0.5:
+        treeProducer.globalVariables = MT2forJECstudies_globalVariables
+        treeProducer.globalObjects = MT2forJECstudies_globalObjects
+        treeProducer.collections = MT2forJECstudies_collections
 
 
 
@@ -590,8 +595,11 @@ elif test==2:
         #comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
 
 
-
-
+    # Tree configuration for JEC variations
+    if jetAna.shiftJEC > 0.5 or jetAna.shiftJEC < -0.5:
+        treeProducer.globalVariables = MT2forJECstudies_globalVariables
+        treeProducer.globalObjects = MT2forJECstudies_globalObjects
+        treeProducer.collections = MT2forJECstudies_collections
 
 
 

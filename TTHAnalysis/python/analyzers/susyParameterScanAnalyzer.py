@@ -60,7 +60,7 @@ class susyParameterScanAnalyzer( Analyzer ):
             if not self.cfg_ana.doLHE:
                 if p == "Squark" or p == "Stop" or p == "Sbottom" or p == "Gluino":
                     event.genSusyMScan1 = avgmass
-                else if p == "Neutralino":
+                elif p == "Neutralino":
                     event.genSusyMScan2 = avgmass
 
     def readLHE(self,event):
