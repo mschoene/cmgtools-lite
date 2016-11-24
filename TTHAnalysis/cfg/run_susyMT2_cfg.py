@@ -290,6 +290,7 @@ eventFlagsAna.triggerBits = {
 
 from CMGTools.TTHAnalysis.analyzers.treeProducerSusyFullHad import *
 from CMGTools.TTHAnalysis.analyzers.treeProducerMT2forQCDStudies import *
+from CMGTools.TTHAnalysis.analyzers.treeProducerMT2forJECstudies import *
 
 treeProducer = cfg.Analyzer(
      AutoFillTreeProducer, name='treeProducerSusyFullHad',
@@ -427,7 +428,11 @@ elif test==1:
 #    comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to aply trigger skimming
 
 
-
+    # Tree configuration for JEC variations
+    if jetAna.shiftJEC > 0.5 or jetAna.shiftJEC < -0.5:
+        treeProducer.globalVariables = MT2forJECstudies_globalVariables
+        treeProducer.globalObjects = MT2forJECstudies_globalObjects
+        treeProducer.collections = MT2forJECstudies_collections
 
 
 
@@ -590,8 +595,11 @@ elif test==2:
         #comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
 
 
-
-
+    # Tree configuration for JEC variations
+    if jetAna.shiftJEC > 0.5 or jetAna.shiftJEC < -0.5:
+        treeProducer.globalVariables = MT2forJECstudies_globalVariables
+        treeProducer.globalObjects = MT2forJECstudies_globalObjects
+        treeProducer.collections = MT2forJECstudies_collections
 
 
 
