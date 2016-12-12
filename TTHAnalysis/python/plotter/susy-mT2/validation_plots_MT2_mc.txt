@@ -54,6 +54,20 @@ ngenLepFromTau : ngenLepFromTau : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5]
 ngenTau : ngenTau : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] ; XTitle='N(ngenTau)'
 #genTau_pdgId : genTau_pdgId : [10.5,11.5,12.5,13.5,14.5,15.5,16.5] ; XTitle='PDG_ID genTau'
 
+ngenTau1Prong : ngenTau1Prong : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] ; XTitle='N(ngenTau1Prong)'
+ngenTau3Prong : ngenTau3Prong : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] ; XTitle='N(ngenTau3Prong)'
+
+genTau_decayMode : genTau_decayMode : 27,-13.5,13.5 ; XTitle='genTau_decayMode'
+
+genTau_leadTrackPt : genTau_leadTrackPt : 25,0,500 ; XTitle='genTau_leadTrackPt'
+
+genTau_neutralDaughters : genTau_neutralDaughters : 10,-0.5,9.5 ; XTitle='genTau_neutralDaugthers'
+
+ngenLepFromZ : ngenLepFromZ : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] ; XTitle='N(ngenLepFromZ)'
+ngenNuFromZ : ngenNuFromZ : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] ; XTitle='N(ngenNuFromZ)'
+
+
+
 
 ##### PHOTONS
 
@@ -85,3 +99,7 @@ lep_relIsoAn04:  lep_relIsoAn04: 15,0,.5;  Legend='TR'
 ##### LEPTON
 
 
+##### GENMET
+mt2_genmet: mt2_genmet: 20, 0, 1000  ; XTilte="M_{T2}(genmet)  [GeV]"
+deltaPhiMin_genmet: deltaPhiMin_genmet: 64, 0, 3.2  ; XTilte="#Delta#Phi_{min}(genmet)"
+diffMetMht_genmet: diffMetMht_genmet: 50, 0, 500  ; XTilte="|H_{T}^{miss}-E_{T}^{miss}|(genmet)  [GeV]"

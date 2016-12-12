@@ -27,8 +27,8 @@ count_nGammas20 : nGammas20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]; XTitle="N(#gamma\,
 count_nJet30 : nJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] ; XTitle='N(jet\, p_{T} > 30)'
 count_nJet40 : nJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] ; XTitle='N(jet\, p_{T} > 40)'
 
-count_nJet30FailId : nJet30FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] ; XTitle='N(jet\, p_{T} > 30)'
-count_nJet100FailId : nJet100FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] ; XTitle='N(jet\, p_{T} > 100)'
+#count_nJet30FailId : nJet30FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] ; XTitle='N(jet\, p_{T} > 30)'
+#count_nJet100FailId : nJet100FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] ; XTitle='N(jet\, p_{T} > 100)'
 
 count_nBJet40 : nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 40\, MVAM)'
 count_nBJet30 : nBJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] ; XTitle='N(b-jet\, p_{T} > 30\, MVAM)'
@@ -319,15 +319,20 @@ lep_tightCharge:  lep_tightCharge: [-1.5,-0.5,0.5,1.5];  Legend='TL'
 #weight_btagsf_heavy_DN: weight_btagsf_heavy_DN: 20,0.7,1.4; XTitle="weight_btagsf_heavy_DN"
 #weight_btagsf_light_UP: weight_btagsf_light_UP: 20,0.7,1.3; XTitle="weight_btagsf_light_UP"
 #weight_btagsf_light_DN: weight_btagsf_light_DN: 20,0.8,1.3; XTitle="weight_btagsf_light_DN"
-
+#
 #weight_lepsf: weight_lepsf: 20,0.9,1.1; XTitle="weight_lepsf"
 #weight_lepsf_UP: weight_lepsf_UP: 20,0.95,1.1; XTitle="weight_lepsf_UP"
 #weight_lepsf_DN: weight_lepsf_DN: 20,0.9,1.05; XTitle="weight_lepsf_DN"
-
+#
+#weight_isr: weight_isr: 20,0.9,1.1; XTitle="weight_isr"
+#weight_isr_UP: weight_isr_UP: 20,0.95,1.1; XTitle="weight_isr_UP"
+#weight_isr_DN: weight_isr_DN: 20,0.9,1.05; XTitle="weight_isr_DN"
+#
+#
 #weight_toppt: weight_toppt: 20,0.7,1.2; XTitle="weight_toppt"
-#weight_toppt_2: weight_toppt_2: 20,0.7,1.2; XTitle="weight_toppt (ETH corrected)"
-#weight_scales: 
-#weight_scales_av
-
-#puWeight: puWeight: 20,0.,3.; XTitle="puWeight"
+##weight_toppt_2: weight_toppt_2: 20,0.7,1.2; XTitle="weight_toppt (ETH corrected)"
+##weight_scales: 
+##weight_scales_av
+#
+##puWeight: puWeight: 20,0.,3.; XTitle="puWeight"
 

@@ -214,7 +214,17 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("zllmt_minMTBMet", lambda ev: ev.zllmt_minMTBMet, float, help="min Mt(b,met) for zll, same as in main search"),
     NTupleVariable("zllmt_mt", lambda ev: ev.zllmt_mt, float, help="Mt(l,met) for zll (1 lepton only)"),
 
-    ###
+    ###GEN tau counters
+    NTupleVariable("ngenTau1Prong", lambda ev: ev.ngenTau1Prong if hasattr(ev,'ngenTau1Prong') else 0, int, mcOnly=True, help="Number of gen taus decays to 1 prong"),
+    NTupleVariable("ngenTau3Prong", lambda ev: ev.ngenTau3Prong if hasattr(ev,'ngenTau3Prong') else 0, int, mcOnly=True, help="Number of gen taus decays to 3 prong"),
+
+    ###GEN lep counters from Z
+###    NTupleVariable("ngenLepFromZ", lambda ev: sum([(abs(l.motherId)==21 or abs(l.motherId)==23) and (l.status()==1 or l.status()==23) for l in ev.genleps]+[(abs(t.motherId)==21 or abs(t.motherId)==23) and (t.status()==2 or t.status()==23) for t in ev.gentaus]), int, mcOnly=True, help="Number of gen leps from Z"),
+###    NTupleVariable("ngenNuFromZ" , lambda ev: sum([(abs(l.motherId)==21 or abs(l.motherId)==23) and (l.status()==1 or l.status()==23) for l in ev.gennus]), int, mcOnly=True, help="Number of gen nus from Z"),
+
+    NTupleVariable("ngenLepFromZ", lambda ev: sum([(abs(l.motherId)==23) and (l.status()==1 or l.status()==23) for l in ev.genleps]+[(abs(t.motherId)==23) and (t.status()==2 or t.status()==23) for t in ev.gentaus]), int, mcOnly=True, help="Number of gen leps from Z"),
+    NTupleVariable("ngenNuFromZ" , lambda ev: sum([(abs(l.motherId)==23) and (l.status()==1 or l.status()==23) for l in ev.gennus]), int, mcOnly=True, help="Number of gen nus from Z"),
+
 ]
 
 
@@ -236,12 +246,16 @@ susyFullHad_globalObjects.update({
 # susyFullHad_collections = susyCore_collections.copy()
 # susyFullHad_collections.update({
 susyFullHad_collections = {
-        "genleps"         : NTupleCollection("genLep",     genParticleWithLinksType, 10, help="Generated leptons (e/mu) from W/Z decays", filter=lambda l : l.motherId>=22 and l.motherId<=25 and (l.status()==1 or l.status()==23)),
-        "gentauleps"      : NTupleCollection("genLepFromTau", genParticleWithLinksType, 10, help="Generated leptons (e/mu) from decays of taus from W/Z/h decays"),
-        "gentaus"         : NTupleCollection("genTau",     genParticleWithLinksType, 10, help="Generated leptons (tau) from W/Z decays"),
+        "genleps"         : NTupleCollection("genLep",     genParticleWithLinksType, 10, help="Generated leptons (e/mu) from W/Z/H decays", filter=lambda l : (abs(l.motherId)==23 or abs(l.motherId)==24 or abs(l.motherId)==25) and (l.status()==1 or l.status()==23)),
+        "gentauleps"      : NTupleCollection("genLepFromTau", genParticleWithLinksType, 10, help="Generated leptons (e/mu) from decays of taus from W/Z/h decays", filter=lambda l : abs(l.motherId)==15 and (abs(l.grandmotherId)==23 or abs(l.grandmotherId)==24 or abs(l.grandmotherId)==25 or abs(l.grandmotherId)==15) and (l.status()==1 or l.status()==23)),
+        "gentaus"         : NTupleCollection("genTau",     genTauWithLinksType, 10, help="Generated leptons (tau) from W/Z decays", filter=lambda l : (abs(l.motherId)==23 or abs(l.motherId)==24 or abs(l.motherId)==25) and (l.status()==2 or l.status()==23)),
+        "gennus"         : NTupleCollection("genNu",     genParticleWithLinksType, 10, help="Generated neutrinos (nue/numu/nutau) from W/Z/h decays", filter=lambda l : (abs(l.motherId)==23 or abs(l.motherId)==24 or abs(l.motherId)==25) and (l.status()==1 or l.status()==23)),
+###        "genleps"         : NTupleCollection("genLep",     genParticleWithLinksType, 10, help="Generated leptons (e/mu) from W/Z/H decays", filter=lambda l : (abs(l.motherId)==21 or abs(l.motherId)==23 or abs(l.motherId)==24 or abs(l.motherId)==25) and (l.status()==1 or l.status()==23)),
+###        "gentauleps"      : NTupleCollection("genLepFromTau", genParticleWithLinksType, 10, help="Generated leptons (e/mu) from decays of taus from W/Z/h decays", filter=lambda l : abs(l.motherId)==15 and (abs(l.grandmotherId)==21 or abs(l.grandmotherId)==23 or abs(l.grandmotherId)==24 or abs(l.grandmotherId)==25 or abs(l.grandmotherId)==15) and (l.status()==1 or l.status()==23)),
+###        "gentaus"         : NTupleCollection("genTau",     genTauWithLinksType, 10, help="Generated leptons (tau) from W/Z decays", filter=lambda l : (abs(l.motherId)==21 or abs(l.motherId)==23 or abs(l.motherId)==24 or abs(l.motherId)==25) and (l.status()==2 or l.status()==23)),
+###        "gennus"         : NTupleCollection("genNu",     genParticleWithLinksType, 10, help="Generated neutrinos (nue/numu/nutau) from W/Z/h decays", filter=lambda l : (abs(l.motherId)==21 or abs(l.motherId)==23 or abs(l.motherId)==24 or abs(l.motherId)==25) and (l.status()==1 or l.status()==23)),
         "generatorSummary" : NTupleCollection("GenPart", genParticleWithLinksType, 100 , help="Hard scattering particles, with ancestry and links"),
         # put more here
-##        "gennus"         : NTupleCollection("genNu",     genParticleWithSourceType, 10, help="Generated neutrinos (nue/numu/nutau) from W/Z decays"),
         "selectedLeptons" : NTupleCollection("lep", leptonTypeSusy, 50, help="Leptons after the preselection", filter=lambda l : l.pt()>10 ),
         "selectedTaus"    : NTupleCollection("tau", tauTypeSusy, 50, help="Taus after the preselection"),
         "cleanJetsAll"       : NTupleCollection("jet", jetTypeSusyExtra, 100, help="all jets (w/ x-cleaning, w/ ID applied w/o PUID applied pt>20 |eta|<5.2) , sorted by pt", filter=lambda l : l.pt()>20  ),
