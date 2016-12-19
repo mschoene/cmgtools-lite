@@ -387,7 +387,8 @@ if test==0:
 
     # 80X data
     #comp.files = ['file:/afs/cern.ch/user/m/mangano/work/datasets/data/80X/HTMHT.root']
-    comp.files = ['file:/afs/cern.ch/user/m/mangano/work/public/MECCA/HTMHT.root']
+    #comp.files = ['file:/afs/cern.ch/user/m/mangano/work/public/MECCA/HTMHT.root']
+    comp.files = ['file:/afs/cern.ch/user/c/casal/public/96E8E959-E191-E611-8593-002590DB9232.root']
     
     #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/10000/90E502FD-ED22-E611-83D8-02163E0152D9.root',
     #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/10000/A4CBB64E-EE22-E611-A0F5-02163E0161D0.root']
@@ -641,23 +642,25 @@ elif test==3:
     # --------------- HERE IS THE PART YOU SHOULD PAY ATTENTION TO --------------------------------------------
     #For running on the full list of samples
     if not isForQCD:
-        selectedComponents  = dataSamples_Run2016B_ReReco23Sep
+        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V12
+        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V3
         #selectedComponents  = dataSamples_Run2016C_ReReco23Sep
         #selectedComponents  = dataSamples_Run2016D_ReReco23Sep
         #selectedComponents  = dataSamples_Run2016E_ReReco23Sep
         #selectedComponents  = dataSamples_Run2016F_ReReco23Sep
         #selectedComponents  = dataSamples_Run2016G_ReReco23Sep
-        #selectedComponents  = dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV2
+        selectedComponents  = dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3
         #selectedComponents  = dataSamples_Run2016B_ReReco23Sep + dataSamples_Run2016C_ReReco23Sep + dataSamples_Run2016D_ReReco23Sep + dataSamples_Run2016E_ReReco23Sep + dataSamples_Run2016F_ReReco23Sep + dataSamples_Run2016G_ReReco23Sep + dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3
     else:
-        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_forQCD
+        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V12_forQCD
+        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V3_forQCD
         #selectedComponents  = dataSamples_Run2016C_ReReco23Sep_forQCD
         #selectedComponents  = dataSamples_Run2016D_ReReco23Sep_forQCD
         #selectedComponents  = dataSamples_Run2016E_ReReco23Sep_forQCD
         #selectedComponents  = dataSamples_Run2016F_ReReco23Sep_forQCD
         #selectedComponents  = dataSamples_Run2016G_ReReco23Sep_forQCD
-        #selectedComponents  = dataSamples_Run2016H_PromptV2_forQCD + dataSamples_Run2016H_PromptV2_forQCD
-        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_forQCD + dataSamples_Run2016C_ReReco23Sep_forQCD + dataSamples_Run2016D_ReReco23Sep_forQCD + dataSamples_Run2016E_ReReco23Sep_forQCD + dataSamples_Run2016F_ReReco23Sep_forQCD + dataSamples_Run2016G_ReReco23Sep_forQCD + dataSamples_Run2016H_PromptV2_forQCD + dataSamples_Run2016H_PromptV3_forQCD
+        #selectedComponents  = dataSamples_Run2016H_PromptV2_forQCD + dataSamples_Run2016H_PromptV3_forQCD
+        selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V12_forQCD + dataSamples_Run2016B_ReReco23Sep_V3_forQCD + dataSamples_Run2016C_ReReco23Sep_forQCD + dataSamples_Run2016D_ReReco23Sep_forQCD + dataSamples_Run2016E_ReReco23Sep_forQCD + dataSamples_Run2016F_ReReco23Sep_forQCD + dataSamples_Run2016G_ReReco23Sep_forQCD + dataSamples_Run2016H_PromptV2_forQCD + dataSamples_Run2016H_PromptV3_forQCD
 
 
     for comp in selectedComponents:

@@ -11,8 +11,6 @@ kreator = ComponentCreator()
 dataDir = "$CMSSW_BASE/src/CMGTools/TTHAnalysis/data"  # use environmental variable, useful for instance to run on CRAB
 json=dataDir+'/json/json_DCSONLY.txt'
 
-
-
 JetHT_Run2016B_PromptReco_v1          = kreator.makeDataComponent("JetHT_Run2016B_PromptReco_v1"         , "/JetHT/Run2016B-PromptReco-v1/MINIAOD"         , "CMS", ".*root", json)
 HTMHT_Run2016B_PromptReco_v1          = kreator.makeDataComponent("HTMHT_Run2016B_PromptReco_v1"         , "/HTMHT/Run2016B-PromptReco-v1/MINIAOD"         , "CMS", ".*root", json)
 MET_Run2016B_PromptReco_v1            = kreator.makeDataComponent("MET_Run2016B_PromptReco_v1"           , "/MET/Run2016B-PromptReco-v1/MINIAOD"           , "CMS", ".*root", json)
@@ -32,6 +30,17 @@ SinglePhoton_Run2016B_PromptReco_v2   = kreator.makeDataComponent("SinglePhoton_
 DoubleEG_Run2016B_PromptReco_v2       = kreator.makeDataComponent("DoubleEG_Run2016B_PromptReco_v2"      , "/DoubleEG/Run2016B-PromptReco-v2/MINIAOD"      , "CMS", ".*root", json)
 MuonEG_Run2016B_PromptReco_v2         = kreator.makeDataComponent("MuonEG_Run2016B_PromptReco_v2"        , "/MuonEG/Run2016B-PromptReco-v2/MINIAOD"        , "CMS", ".*root", json)
 DoubleMuon_Run2016B_PromptReco_v2     = kreator.makeDataComponent("DoubleMuon_Run2016B_PromptReco_v2"    , "/DoubleMuon/Run2016B-PromptReco-v2/MINIAOD"    , "CMS", ".*root", json)
+
+# runB re-reco have either v1 or v2, and all have v3. They include exclusive run range so both must be merged
+JetHT_Run2016B_23Sep2016_v1          = kreator.makeDataComponent("JetHT_Run2016B_23Sep2016_v1"         , "/JetHT/Run2016B-23Sep2016-v1/MINIAOD"         , "CMS", ".*root", json)
+HTMHT_Run2016B_23Sep2016_v1          = kreator.makeDataComponent("HTMHT_Run2016B_23Sep2016_v1"         , "/HTMHT/Run2016B-23Sep2016-v1/MINIAOD"         , "CMS", ".*root", json)
+MET_Run2016B_23Sep2016_v2            = kreator.makeDataComponent("MET_Run2016B_23Sep2016_v2"           , "/MET/Run2016B-23Sep2016-v2/MINIAOD"           , "CMS", ".*root", json)
+SingleElectron_Run2016B_23Sep2016_v2 = kreator.makeDataComponent("SingleElectron_Run2016B_23Sep2016_v2", "/SingleElectron/Run2016B-23Sep2016-v2/MINIAOD", "CMS", ".*root", json)
+SingleMuon_Run2016B_23Sep2016_v1     = kreator.makeDataComponent("SingleMuon_Run2016B_23Sep2016_v1"    , "/SingleMuon/Run2016B-23Sep2016-v1/MINIAOD"    , "CMS", ".*root", json)
+SinglePhoton_Run2016B_23Sep2016_v1   = kreator.makeDataComponent("SinglePhoton_Run2016B_23Sep2016_v1"  , "/SinglePhoton/Run2016B-23Sep2016-v1/MINIAOD"  , "CMS", ".*root", json)
+DoubleEG_Run2016B_23Sep2016_v2       = kreator.makeDataComponent("DoubleEG_Run2016B_23Sep2016_v2"      , "/DoubleEG/Run2016B-23Sep2016-v2/MINIAOD"      , "CMS", ".*root", json)
+MuonEG_Run2016B_23Sep2016_v2         = kreator.makeDataComponent("MuonEG_Run2016B_23Sep2016_v2"        , "/MuonEG/Run2016B-23Sep2016-v2/MINIAOD"        , "CMS", ".*root", json)
+DoubleMuon_Run2016B_23Sep2016_v1     = kreator.makeDataComponent("DoubleMuon_Run2016B_23Sep2016_v1"    , "/DoubleMuon/Run2016B-23Sep2016-v1/MINIAOD"    , "CMS", ".*root", json)
 
 JetHT_Run2016B_23Sep2016_v3          = kreator.makeDataComponent("JetHT_Run2016B_23Sep2016_v3"         , "/JetHT/Run2016B-23Sep2016-v3/MINIAOD"         , "CMS", ".*root", json)
 HTMHT_Run2016B_23Sep2016_v3          = kreator.makeDataComponent("HTMHT_Run2016B_23Sep2016_v3"         , "/HTMHT/Run2016B-23Sep2016-v3/MINIAOD"         , "CMS", ".*root", json)
@@ -206,9 +215,11 @@ dataSamples_Run2016H_PromptV3 = [JetHT_Run2016H_PromptReco_v3, HTMHT_Run2016H_Pr
 dataSamples_Run2016H_PromptV3_forQCD = [JetHT_Run2016H_PromptReco_v3, MET_Run2016H_PromptReco_v3, SingleElectron_Run2016H_PromptReco_v3]
 
 # ReRecoed data
-# runB
-dataSamples_Run2016B_ReReco23Sep = [JetHT_Run2016B_23Sep2016_v3, HTMHT_Run2016B_23Sep2016_v3, MET_Run2016B_23Sep2016_v3, SingleElectron_Run2016B_23Sep2016_v3, SingleMuon_Run2016B_23Sep2016_v3, SinglePhoton_Run2016B_23Sep2016_v3, DoubleEG_Run2016B_23Sep2016_v3, MuonEG_Run2016B_23Sep2016_v3, DoubleMuon_Run2016B_23Sep2016_v3]
-dataSamples_Run2016B_ReReco23Sep_forQCD = [JetHT_Run2016B_23Sep2016_v3, MET_Run2016B_23Sep2016_v3, SingleElectron_Run2016B_23Sep2016_v3]
+# runB re-reco have either v1 or v2, and all have v3. They include exclusive run range so both must be merged
+dataSamples_Run2016B_ReReco23Sep_V12 = [JetHT_Run2016B_23Sep2016_v1, HTMHT_Run2016B_23Sep2016_v1, MET_Run2016B_23Sep2016_v2, SingleElectron_Run2016B_23Sep2016_v2, SingleMuon_Run2016B_23Sep2016_v1, SinglePhoton_Run2016B_23Sep2016_v1, DoubleEG_Run2016B_23Sep2016_v2, MuonEG_Run2016B_23Sep2016_v2, DoubleMuon_Run2016B_23Sep2016_v1]
+dataSamples_Run2016B_ReReco23Sep_V12_forQCD = [JetHT_Run2016B_23Sep2016_v1, MET_Run2016B_23Sep2016_v2, SingleElectron_Run2016B_23Sep2016_v2]
+dataSamples_Run2016B_ReReco23Sep_V3 = [JetHT_Run2016B_23Sep2016_v3, HTMHT_Run2016B_23Sep2016_v3, MET_Run2016B_23Sep2016_v3, SingleElectron_Run2016B_23Sep2016_v3, SingleMuon_Run2016B_23Sep2016_v3, SinglePhoton_Run2016B_23Sep2016_v3, DoubleEG_Run2016B_23Sep2016_v3, MuonEG_Run2016B_23Sep2016_v3, DoubleMuon_Run2016B_23Sep2016_v3]
+dataSamples_Run2016B_ReReco23Sep_V3_forQCD = [JetHT_Run2016B_23Sep2016_v3, MET_Run2016B_23Sep2016_v3, SingleElectron_Run2016B_23Sep2016_v3]
 
 # runC
 dataSamples_Run2016C_ReReco23Sep = [JetHT_Run2016C_23Sep2016_v1, HTMHT_Run2016C_23Sep2016_v1, MET_Run2016C_23Sep2016_v1, SingleElectron_Run2016C_23Sep2016_v1, SingleMuon_Run2016C_23Sep2016_v1, SinglePhoton_Run2016C_23Sep2016_v1, DoubleEG_Run2016C_23Sep2016_v1, MuonEG_Run2016C_23Sep2016_v1, DoubleMuon_Run2016C_23Sep2016_v1]
@@ -240,7 +251,13 @@ dataSamplesE = dataSamples_Run2016E_PromptV2 + dataSamples_Run2016E_PromptV2_for
 dataSamplesF = dataSamples_Run2016F_PromptV1 + dataSamples_Run2016F_PromptV1_forQCD
 dataSamplesG = dataSamples_Run2016G_PromptV1 + dataSamples_Run2016G_PromptV1_forQCD
 dataSamplesH = dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3 + dataSamples_Run2016H_PromptV2_forQCD +dataSamples_Run2016H_PromptV3_forQCD
-samples = dataSamplesB + dataSamplesC + dataSamplesD + dataSamplesE + dataSamplesF + dataSamplesG + dataSamplesH
+dataSamplesBrereco = dataSamples_Run2016B_ReReco23Sep_V12 + dataSamples_Run2016B_ReReco23Sep_V3 + dataSamples_Run2016B_ReReco23Sep_V12_forQCD + dataSamples_Run2016B_ReReco23Sep_V3_forQCD
+dataSamplesCrereco = dataSamples_Run2016C_ReReco23Sep + dataSamples_Run2016C_ReReco23Sep_forQCD
+dataSamplesDrereco = dataSamples_Run2016D_ReReco23Sep + dataSamples_Run2016D_ReReco23Sep_forQCD
+dataSamplesErereco = dataSamples_Run2016E_ReReco23Sep + dataSamples_Run2016E_ReReco23Sep_forQCD
+dataSamplesFrereco = dataSamples_Run2016F_ReReco23Sep + dataSamples_Run2016F_ReReco23Sep_forQCD
+dataSamplesGrereco = dataSamples_Run2016G_ReReco23Sep + dataSamples_Run2016G_ReReco23Sep_forQCD
+samples = dataSamplesB + dataSamplesC + dataSamplesD + dataSamplesE + dataSamplesF + dataSamplesG + dataSamplesH + dataSamplesBrereco + dataSamplesCrereco + dataSamplesDrereco + dataSamplesErereco + dataSamplesFrereco + dataSamplesGrereco
 
 ### ---------------------------------------------------------------------
 
@@ -248,7 +265,7 @@ from CMGTools.TTHAnalysis.setup.Efficiencies import *
 dataDir = "$CMSSW_BASE/src/CMGTools/TTHAnalysis/data"
 
 for comp in samples:
-    comp.splitFactor = 1000
+    comp.splitFactor = 2000
 #    comp.splitFactor = 400
     comp.isMC = False
     comp.isData = True
