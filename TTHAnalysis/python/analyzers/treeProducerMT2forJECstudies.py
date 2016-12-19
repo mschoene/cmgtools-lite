@@ -1,20 +1,8 @@
 from CMGTools.TTHAnalysis.analyzers.treeProducerSusyCore import *
 from CMGTools.TTHAnalysis.analyzers.ntupleTypes import *
 
-susyFullHad_globalVariables = susyCore_globalVariables + [
-    ##--------------------------------------------------
-    ## Generator information
-    ##--------------------------------------------------
-##    NTupleVariable("genQScale", lambda ev : ev.genQScale, help="Generator level binning quantity, QScale"),
-    NTupleVariable("LHEweight_original", lambda ev: ev.LHE_originalWeight if  hasattr(ev,'LHE_originalWeight') else  0, mcOnly=True, help="original LHE weight"),
-    NTupleVariable("genRecoil_pt", lambda ev: ev.GenRecoil_pt if  hasattr(ev,'GenRecoil_pt') else  -99, float, help="total pt of particles with status 62"),
-    NTupleVariable("top_pt", lambda ev: ev.toppt if  hasattr(ev,'toppt') else  -99, float, help="pt of top"),
-    NTupleVariable("anti_top_pt", lambda ev: ev.antitoppt if  hasattr(ev,'antitoppt') else  -99, float, help="pt of anti-top"),
+MT2forJECstudies_globalVariables = susyCore_globalVariables + [
 
-    ### Gen HT (for stiching)
-    NTupleVariable("lheHT", lambda ev : ev.lheHT if hasattr(ev, 'lheHT') else -99, help="H_{T} computed from quarks and gluons in Heppy LHEAnalyzer"),
-    NTupleVariable("lheHTIncoming", lambda ev : ev.lheHTIncoming if hasattr(ev, 'lheHTIncoming') else -99, help="H_{T} computed from quarks and gluons in Heppy LHEAnalyzer (only LHE status<0 as mothers)"),
-    
     ##--------------------------------------------------
     ## Filters
     ##--------------------------------------------------
@@ -218,36 +206,18 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
 ]
 
 
-susyFullHad_globalObjects = susyCore_globalObjects.copy()
-susyFullHad_globalObjects.update({
-            "pseudoJet1_Xj_had"       : NTupleObject("pseudoJet1_had",     fourVectorType, help="full pseudoJet1 for hemishphere"),
-            "pseudoJet2_Xj_had"       : NTupleObject("pseudoJet2_had",     fourVectorType, help="full pseudoJet2 for hemishphere"),
-            #
-            "pseudoJet1_Xj"       : NTupleObject("pseudoJet1",     fourVectorType, help="pseudoJet1 for hemishphere, including leptons"),
-            "pseudoJet2_Xj"       : NTupleObject("pseudoJet2",     fourVectorType, help="pseudoJet2 for hemishphere, including leptons"),
-            #
-            "pseudoViaKtJet1_Xj_had"       : NTupleObject("pseudoViaKtJet1_had",     fourVectorType, help="full pseudoJet1 for hemishphere via KT"),
-            "pseudoViaKtJet2_Xj_had"       : NTupleObject("pseudoViaKtJet2_had",     fourVectorType, help="full pseudoJet2 for hemishphere via KT"),
-            #
-##
+MT2forJECstudies_globalObjects = susyCore_globalObjects.copy()
+MT2forJECstudies_globalObjects.update({
             "gamma_met" : NTupleObject("gamma_met", fourVectorType, help="PF E_{T}^{miss}, plus photon, after type 1 corrections"),
 })
 
 # susyFullHad_collections = susyCore_collections.copy()
 # susyFullHad_collections.update({
-susyFullHad_collections = {
-        "genleps"         : NTupleCollection("genLep",     genParticleWithLinksType, 10, help="Generated leptons (e/mu) from W/Z decays", filter=lambda l : l.motherId>=22 and l.motherId<=25 and (l.status()==1 or l.status()==23)),
-        "gentauleps"      : NTupleCollection("genLepFromTau", genParticleWithLinksType, 10, help="Generated leptons (e/mu) from decays of taus from W/Z/h decays"),
-        "gentaus"         : NTupleCollection("genTau",     genParticleWithLinksType, 10, help="Generated leptons (tau) from W/Z decays"),
-        "generatorSummary" : NTupleCollection("GenPart", genParticleWithLinksType, 100 , help="Hard scattering particles, with ancestry and links"),
-        # put more here
-##        "gennus"         : NTupleCollection("genNu",     genParticleWithSourceType, 10, help="Generated neutrinos (nue/numu/nutau) from W/Z decays"),
+MT2forJECstudies_collections = {
         "selectedLeptons" : NTupleCollection("lep", leptonTypeSusy, 50, help="Leptons after the preselection", filter=lambda l : l.pt()>10 ),
         "selectedTaus"    : NTupleCollection("tau", tauTypeSusy, 50, help="Taus after the preselection"),
         "cleanJetsAll"       : NTupleCollection("jet", jetTypeSusyExtra, 100, help="all jets (w/ x-cleaning, w/ ID applied w/o PUID applied pt>20 |eta|<5.2) , sorted by pt", filter=lambda l : l.pt()>20  ),
         "cleanJetsFailIdAll"       : NTupleCollection("jetFailId", jetTypeSusyExtra, 100, help="all jets (w/ x-cleaning, w/o ID applied w/o PUID applied pt>20 |eta|<5.2) , sorted by pt", filter=lambda l : l.pt()>20 ),
         "selectedPhotons"    : NTupleCollection("gamma", photonTypeSusy, 50, help="photons with pt>20 and loose cut based ID"),
         "selectedIsoTrack"    : NTupleCollection("isoTrack", isoTrackType, 50, help="isoTrack, sorted by pt"),
-        "genParticles" : NTupleCollection("genPart", genParticleWithMotherId, 300, help="all pruned genparticles"),
-        "LHE_weights"    : NTupleCollection("LHEweight",  weightsInfoType, 1000, help="LHE weight info"),
 }            
