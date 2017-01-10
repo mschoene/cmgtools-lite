@@ -33,11 +33,13 @@ lepAna.loose_electron_relIso = 0.15
 lepAna.loose_electron_isoCut = lambda electron : electron.miniRelIso < 0.1
 
 lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
+#lepAna.loose_electron_id  = "POG_Cuts_ID_PHYS14_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
 lepAna.loose_electron_lostHits = 999. # no cut
 lepAna.loose_electron_dxy    = 999.
 lepAna.loose_electron_dz     = 999.
 
 lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
+#lepAna.inclusive_electron_id  = "POG_Cuts_ID_PHYS14_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
 lepAna.inclusive_electron_lostHits = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dxy    = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dz     = 999. # no cut since embedded in ID
@@ -53,8 +55,26 @@ lepAna.mu_effectiveAreas = 'Spring15_25ns_v1'              #new default
 lepAna.rhoMuon= 'fixedGridRhoFastjetCentralNeutral',      #new default
 lepAna.rhoElectron = 'fixedGridRhoFastjetCentralNeutral', #new default
 
-
 lepAna.doIsoAnnulus = True
+
+#era="25ns"
+#sync=False
+#lepAna.doElectronScaleCorrections = {
+#    'data' : 'EgammaAnalysis/ElectronTools/data/76X_16DecRereco_2015',
+#    'GBRForest': ('$CMSSW_BASE/src/CMGTools/RootTools/data/egamma_epComb_GBRForest_76X.root',
+#                  'gedelectron_p4combination_'+era),
+#    'isSync': sync
+#    }
+#
+#
+#smear="basic"
+#lepAna.doMuonScaleCorrections = ( 'Kalman', {
+#        'MC': 'MC_76X_13TeV',
+#        'Data': 'DATA_76X_13TeV',
+#        'isSync': sync,
+#        'smearMode':smear
+#        })
+
 
 # JET (for event variables do apply the jetID and not PUID yet)
 jetAna.relaxJetId = False
@@ -189,13 +209,11 @@ MT2skim = cfg.Analyzer(
 ##------------------------------------------
 
 
-
-
-
 ##  TRIGGERS DEFINITION
 from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_photon75, triggers_photon90, triggers_photon120, triggers_photon75ps 
 from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_photon90ps, triggers_photon120ps, triggers_photon155, triggers_photon165_HE10, triggers_photon175
 from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_doubleele33, triggers_mumu_noniso
+
 
 triggerFlagsAna.triggerBits = {
 # signal triggers 
@@ -262,6 +280,12 @@ triggerFlagsAna.triggerBits = {
 'Photon155' : triggers_photon155,
 'Photon175' : triggers_photon175,
 
+## monojet triggers
+'PFMET90_PFMHT90' : triggers_met90_mht90,
+'PFMETNoMu90_PFMHTNoMu90' : triggers_metNoMu90_mhtNoMu90,
+'PFMETNoMu120_PFMHTNoMu120' : triggers_metNoMu120_mhtNoMu120,
+'MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90' : triggers_Jet80MET90,
+
 ### ZGamma triggers
 'DoubleEle33' : triggers_doubleele33,
 'Mu30_TkMu11' : triggers_mumu_noniso,
@@ -284,7 +308,7 @@ eventFlagsAna.triggerBits = {
     "EcalDeadCellTriggerPrimitiveFilter" : [ "Flag_EcalDeadCellTriggerPrimitiveFilter" ],
     "goodVertices" : [ "Flag_goodVertices" ],
     "eeBadScFilter" : [ "Flag_eeBadScFilter" ],
-# filter under study 
+    # Halo filter to be used
     "globalTightHalo2016Filter" : [ "Flag_globalTightHalo2016Filter" ],
 }
 
@@ -418,12 +442,8 @@ elif test==1:
     # Uncomment the two following lines to run on a specific event
     #eventSelector.toSelect = [ 84142401 ]
     #sequence = cfg.Sequence([eventSelector] + sequence)
-    
+
     from CMGTools.RootTools.samples.samples_13TeV_RunIISpring16MiniAODv2 import *
-
-
-
-
 
     selectedComponents = [TTZ_LO]
     for comp in selectedComponents:
@@ -666,7 +686,8 @@ elif test==3:
         #selectedComponents  = dataSamples_Run2016E_ReReco23Sep
         #selectedComponents  = dataSamples_Run2016F_ReReco23Sep
         #selectedComponents  = dataSamples_Run2016G_ReReco23Sep
-        selectedComponents  = dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3
+        selectedComponents  = dataSamples_23Sep2016PlusPrompt
+        #selectedComponents  = dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3
         #selectedComponents  = dataSamples_Run2016B_ReReco23Sep + dataSamples_Run2016C_ReReco23Sep + dataSamples_Run2016D_ReReco23Sep + dataSamples_Run2016E_ReReco23Sep + dataSamples_Run2016F_ReReco23Sep + dataSamples_Run2016G_ReReco23Sep + dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3
     else:
         #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V12_forQCD
@@ -732,7 +753,7 @@ if doSpecialSettingsForMECCA:
     # jetAna.do_mc_match = False
     lepAna.do_mc_match = False
     isoTrackAna.do_mc_match = False
-###    genAna.makeLHEweights = False ### Such option does not exist (anymore)
+    ###genAna.makeLHEweights = False ### Such option does not exist (anymore)
 
 if isData:
     for comp in samples:
@@ -761,8 +782,6 @@ config = cfg.Config( components = selectedComponents,
                      services = [output_service],
                      #                     events_class = event_class)
                      events_class = Events)
-
-
 
 
 
@@ -833,7 +852,6 @@ config = cfg.Config( components = selectedComponents,
 #                         preprocessor=preprocessor, # comment if pre-processor non needed
 #                         #                     events_class = event_class)
 #                         events_class = Events)
-
 
 
 #printComps(config.components, True)

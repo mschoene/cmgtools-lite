@@ -25,8 +25,11 @@ class MCCorrections:
     def __init__(self,file):
         self._file = file
         self._corrections = []
-        for line in open(file,'r'):
+        infile = open(file,'r')
+        for line in infile:
             if re.match("\s*#.*", line): continue
+            while line.strip()[-1] == "\\":
+                line = line.strip()[:-1] + infile.next()
             line = re.sub("#.*","",line)
             extra = {}
             if ";" in line:
@@ -56,12 +59,17 @@ class MCCorrections:
 def printcorrections(myglob):
     print 'summary of MC corrections'
     print myglob
+    def myprint(x):
+        print '%s -> %s   --- data=%s'%(x._find.pattern,x._replace,x.alsoData)
     for c in myglob:
-        print str(c)
-        print len(c._corrections)
-        for corr in c._corrections:
-            print '%s -> %s   --- data=%s'%(corr._find.pattern,corr._replace,corr.alsoData)
-            
+        if isinstance(c,MCCorrections):
+            print str(c)
+            print len(c._corrections)
+            for corr in c._corrections:
+                myprint(corr)
+        elif isinstance(c,SimpleCorrection):
+            myprint(c)
+        else: raise RuntimeError, "Unknown object in corrections list"
     
 _corrections = []; _corrections_init = []
 def loadMCCorrections(options):

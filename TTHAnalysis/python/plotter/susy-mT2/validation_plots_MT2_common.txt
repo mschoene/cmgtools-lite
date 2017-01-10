@@ -15,6 +15,8 @@ diffMetMht: diffMetMht: 100,0,500    ; XTitle="|MET-MHT|"
 ht: ht:  15,0,1500    ; XTitle="H_{T}  [GeV]"
 
 rho: rho: 10,0,1  ; XTitle="rho"
+nTrueInt: nTrueInt: 50,0,50  ; XTitle="nTrueInt"
+
 nVert: nVert: 50,0,50  ; XTitle="nVert"
 
 ######### COUNTER
@@ -135,6 +137,9 @@ jet_mass: jet_mass: 20,0,400.    ; XTitle="jet mass [GeV]"
 jet_csv: jet_btagCSV: 110,-0.1,1.    ; XTitle="jet csv"
 
 jet_rawPt: jet_rawPt: 200, 0, 200     ; XTitle="jet raw pt"
+jet_mcPt: jet_mcPt: 200, 0, 200     ; XTitle="jet mc pt"
+
+jet_mcFlavour: jet_mcFlavour: 25, 0,25 ; XTitle="jet mc flavour"
 jet_area: jet_area: 100, 0,100 ; XTitle="jet mc area"
 
 jet_id: jet_id: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5] ; XTitle="jet id"
@@ -158,6 +163,7 @@ isoTrack_pdgId : isoTrack_pdgId : 300, -150,150 ; XTitle='PDG_ID'
 isoTrack_dz: isoTrack_dz: 100,0,0.5    ; XTitle="isotrack dz  [cm]"
 
 isoTrack_absIso:  isoTrack_absIso: 16,0,8;  Legend='TR'
+isoTrack_relIsoAn04:  isoTrack_relIsoAn04: 15,0,.5;  Legend='TR'
 
 #isoTrack_mcMatchId:  isoTrack_mcMatchId: 28,-1.5,26.5;  Legend='TR'
 
@@ -259,6 +265,7 @@ cr_zllmt_mht_phi:   zllmt_mht_phi: 8,-3.15,3.15    ; XTitle="phi of H_{T}^{miss}
 cr_zllmt_deltaPhiMin: zllmt_deltaPhiMin: 70,0,3.15    ; XTitle="dphi_{min}(jet\,E_{T}^{miss})"
 cr_zllmt_diffMetMht: zllmt_diffMetMht: 100,0,500    ; XTitle="|MET-MHT|"
 
+cr_zllmt_mt: zllmt_mt: 16,0,600    ; XTitle="M_{T}  [GeV]"
 
 
 ##### lepton removed plots

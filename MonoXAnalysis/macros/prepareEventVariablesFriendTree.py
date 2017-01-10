@@ -9,30 +9,29 @@ from CMGTools.MonoXAnalysis.tools.eventVars_monojet import EventVarsMonojet
 MODULES.append( ('vars_mj', EventVarsMonojet()) )
 
 from CMGTools.TTHAnalysis.tools.vertexWeightFriend import VertexWeightFriend
-pufile="/afs/cern.ch/work/e/emanuele/public/monox/pileup/nvtx_profile_runs_254227_260627.root"
-MODULES.append ( ('puWeights', VertexWeightFriend(pufile,pufile,"nvtx_signal","nvtx_data",verbose=True) ) )
+pufile_mc="/afs/cern.ch/work/e/emanuele/public/monox/pileup/pileup_profile_Spring16.root"
+pufile_data="/afs/cern.ch/work/e/emanuele/public/monox/pileup/pileup_profile_runs_271036_279931.root"
+MODULES.append ( ('puWeights', VertexWeightFriend(pufile_mc,pufile_data,"pu_mc","pileup",name="puw",verbose=True,vtx_coll_to_reweight="nTrueInt") ) )
 
 pathvetolists="/afs/cern.ch/work/e/emanuele/public/monox/met_vetolists/"
 vetoLists= ["cscfilter", "ecalfilter"]
 
-from CMGTools.MonoXAnalysis.tools.eventVetoListChecker import EventVetoListChecker
-MODULES.append( ('eventVetoChecker', EventVetoListChecker(pathvetolists,vetoLists)) )
-
-from CMGTools.MonoXAnalysis.tools.lepVars import residualCalibratedEcalEnergyFriend
-MODULES.append ( ('lepvars', residualCalibratedEcalEnergyFriend()) )
+#from CMGTools.MonoXAnalysis.tools.eventVetoListChecker import EventVetoListChecker
+#MODULES.append( ('eventVetoChecker', EventVetoListChecker(pathvetolists,vetoLists)) )
 
 class VariableProducer(Module):
-    def __init__(self,name,booker,sample_nevt,dataset,modules):
+    def __init__(self,name,booker,region,sample_nevt,dataset,modules):
         Module.__init__(self,name,booker)
         self._modules = modules
         self._sample_nevt = sample_nevt
         self.dataset = dataset
+        self.region = region
     def beginJob(self):
         self.t = PyTree(self.book("TTree","t","t"))
         self.branches = {}
         for name,mod in self._modules:
             if name == "eventVetoChecker": mod.initDataset(self.dataset)
-            if name == "vars_mj": mod.initSampleNormalization(self._sample_nevt)
+            if name == "vars_mj": mod.initSample(self.region,self._sample_nevt)
             for B in mod.listBranches():
                 # don't add the same branch twice
                 if B in self.branches: 
@@ -74,6 +73,7 @@ parser.add_option("--FMC", "--add-friend-mc",    dest="friendTreesMC",  action="
 parser.add_option("--FD", "--add-friend-data",    dest="friendTreesData",  action="append", default=[], nargs=2, help="Add a friend tree (treename, filename) to data trees only. Can use {name}, {cname} patterns in the treename") 
 parser.add_option("-L", "--list-modules",  dest="listModules", action="store_true", default=False, help="just list the configured modules");
 parser.add_option("-n", "--new",  dest="newOnly", action="store_true", default=False, help="Make only missing trees");
+parser.add_option("-R", "--region", dest="region",  type="string", default="SR", help="Region phase space ('SR' for signal, 'VM' for ZM, WM, 'VE' for ZE, WE)");
 (options, args) = parser.parse_args()
 
 if options.listModules:
@@ -97,7 +97,13 @@ for D in glob(args[0]+"/*"):
     if (not os.path.exists(fname)) and os.path.exists("%s/%s/tree.root" % (D,options.tree)):
         treename = "tree"
         fname    = "%s/%s/tree.root" % (D,options.tree)
-    if os.path.exists(fname):
+
+    if (not os.path.exists(fname)) and (os.path.exists("%s/%s/tree.root.url" % (D,options.tree)) ):
+        treename = "tree"
+        fname    = "%s/%s/tree.root" % (D,options.tree)
+        fname    = open(fname+".url","r").readline().strip()
+
+    if os.path.exists(fname) or (os.path.exists("%s/%s/tree.root.url" % (D,options.tree))):
         short = os.path.basename(D)
         if options.datasets != []:
             if short not in options.datasets: continue
@@ -106,7 +112,7 @@ for D in glob(args[0]+"/*"):
             for dm in  options.datasetMatches:
                 if re.match(dm,short): found = True
             if not found: continue
-        data = any(x in short for x in "DoubleMu DoubleEl DoubleEG MuEG MuonEG SingleMu SingleEl MET".split())
+        data = any(x in short for x in "DoubleMu DoubleEl DoubleEG MuEG MuonEG SingleMu SingleEl SinglePhoton MET".split())
         pckobj  = pickle.load(open(pckfile,'r'))
         counters = dict(pckobj)
         if ('Sum Weights' in counters):
@@ -145,9 +151,9 @@ print "I have %d taks to process" % len(jobs)
 
 if options.queue:
     import os, sys
-    basecmd = "bsub -q {queue} {dir}/lxbatch_runner.sh {dir} {cmssw} python {self} -N {chunkSize} -T '{tdir}' -t {tree} {data} {output}".format(
+    basecmd = "bsub -q {queue} {dir}/lxbatch_runner.sh {dir} {cmssw} python {self} -N {chunkSize} -T '{tdir}' -t {tree} -R '{region}' {data} {output}".format(
                 queue = options.queue, dir = os.getcwd(), cmssw = os.environ['CMSSW_BASE'], 
-                self=sys.argv[0], chunkSize=options.chunkSize, tdir=options.treeDir, tree=options.tree, data=args[0], output=args[1]
+                self=sys.argv[0], chunkSize=options.chunkSize, tdir=options.treeDir, tree=options.tree, region=options.region, data=args[0], output=args[1]
             )
     if options.vectorTree: basecmd += " --vector "
     friendPost =  "".join(["  -F  %s %s " % (fn,ft) for fn,ft in options.friendTrees])
@@ -166,8 +172,38 @@ maintimer = ROOT.TStopwatch()
 def _runIt(myargs):
     (name,fin,sample_nevt,fout,data,range,chunk) = myargs
     timer = ROOT.TStopwatch()
-    fb = ROOT.TFile(fin)
+
+    fetchedfile = None
+    if 'LSB_JOBID' in os.environ or 'LSF_JOBID' in os.environ:
+        if fin.startswith("root://"):
+            try:
+                tmpdir = os.environ['TMPDIR'] if 'TMPDIR' in os.environ else "/tmp"
+                tmpfile =  "%s/%s" % (tmpdir, os.path.basename(fin))
+                print "xrdcp %s %s" % (fin, tmpfile)
+                os.system("xrdcp %s %s" % (fin, tmpfile))
+                if os.path.exists(tmpfile):
+                    fin = tmpfile 
+                    fetchedfile = fin
+                    print "success :-)"
+            except:
+                pass
+        fb = ROOT.TFile.Open(fin)
+    elif "root://" in fin:        
+        ROOT.gEnv.SetValue("TFile.AsyncReading", 1);
+        ROOT.gEnv.SetValue("XNet.Debug", 0); # suppress output about opening connections
+        ROOT.gEnv.SetValue("XrdClientDebug.kUSERDEBUG", 0); # suppress output about opening connections
+        fb   = ROOT.TXNetFile(fin+"?readaheadsz=65535&DebugLevel=0")
+        os.environ["XRD_DEBUGLEVEL"]="0"
+        os.environ["XRD_DebugLevel"]="0"
+        os.environ["DEBUGLEVEL"]="0"
+        os.environ["DebugLevel"]="0"
+    else:
+        fb = ROOT.TFile.Open(fin)
+        print fb
+
+    print "getting tree.."
     tb = fb.Get(options.tree)
+
     if not tb: tb = fb.Get("tree") # new trees
     if options.vectorTree:
         tb.vectorTree = True
@@ -193,7 +229,7 @@ def _runIt(myargs):
                 if re.match(pat,m):
                     toRun[m] = True 
         modulesToRun = [ (m,v) for (m,v) in MODULES if m in toRun ]
-    el = EventLoop([ VariableProducer(options.treeDir,booker,sample_nevt,short,modulesToRun), ])
+    el = EventLoop([ VariableProducer(options.treeDir,booker,options.region,sample_nevt,short,modulesToRun), ])
     el.loop([tb], eventRange=range)
     booker.done()
     fb.Close()

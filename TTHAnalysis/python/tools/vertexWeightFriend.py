@@ -7,6 +7,7 @@ class VertexWeightFriend:
         self.myvals = self.load(myfile,myhist)
         self.targetvals = self.load(targetfile,targethist)
         self.vtxCollectionInEvent = vtx_coll_to_reweight
+        self.warned = False
         def w2(t,m):
             if t == 0: return (0 if m else 1)
             return (t/m if m else 1)
@@ -45,6 +46,8 @@ class VertexWeightFriend:
         tf = ROOT.TFile.Open(filename)
         hist = tf.Get(hname)
         vals = [ hist.GetBinContent(i) for i in xrange(1,hist.GetNbinsX()+1) ]
+        if self.verbose:
+            print "Normalization of ",hname,": ",sum(vals)
         tf.Close()
         if norm: 
             scale = 1.0/sum(vals)
@@ -53,15 +56,18 @@ class VertexWeightFriend:
     def listBranches(self):
         return [ (self.name,'F') ]
     def __call__(self,event):
-        nvtx = int(getattr(event,self.vtxCollectionInEvent))
-        weight = self.weights[nvtx] if nvtx < len(self.weights) else 1
-        return { self.name: weight }
+        if hasattr(event,self.vtxCollectionInEvent):
+            nvtx = int(getattr(event,self.vtxCollectionInEvent))
+            weight = self.weights[nvtx] if nvtx < len(self.weights) else 1
+            return { self.name: weight }
+        else:
+            if not self.warned:
+                print "WARNING! Variable ",self.vtxCollectionInEvent," is missing in the tree. Setting the weight to 1."
+                self.warned = True
+            return { self.name: 1 }
 
 if __name__ == '__main__':
     from sys import argv
-    file = ROOT.TFile(argv[1])
-    tree = file.Get("tree")
-    tree.vectorTree = True
     class Tester(Module):
         def __init__(self, name):
             Module.__init__(self,name,None)
@@ -71,4 +77,9 @@ if __name__ == '__main__':
             print ev.nVert, ret.values()[0]
     test = Tester("tester")              
     el = EventLoop([ test ])
-    el.loop([tree], maxEvents = 100000 if len(argv) < 4 else int(argv[3]))
+    import os.path
+    if os.path.exists(argv[1]):
+        file = ROOT.TFile(argv[1])
+        tree = file.Get("tree")
+        tree.vectorTree = True
+        el.loop([tree], maxEvents = 100000 if len(argv) < 4 else int(argv[3]))

@@ -8,25 +8,25 @@ if __name__ == '__main__':
 
     parser.add_option("-c","--counter",dest="trigcounter",default='skimAnalyzerCount/SkimReport.pck',help="counter")
     parser.add_option("-s","--sigma",dest="sigma",type=float,help="cross section",default=1.0)
-    parser.add_option("-f","--rootFile",dest="rootFile",default='vvTreeProducer/tree.root')
 
     (options,args) = parser.parse_args()
     #define output dictionary
     output=dict()
-    rootFile=options.rootFile
+    rootFile='vvTreeProducer/tree.root'
 
 
     for directory in os.listdir(args[0]):
-        if directory.find("Chunk")!=-1:
+        # check if directory contains desired rootFile
+        if not os.path.isfile(directory+'/'+rootFile):
             continue
-    
+
         #First unpack tyhe counter and get the events
         if os.path.exists(directory+'/'+options.trigcounter):
             counterFile=open(directory+'/'+options.trigcounter)
             counter=pickle.load(counterFile)
             if len(counter)>1 and counter[1][0]=='Sum Weights':
                 events=counter[1][1]
-            else:    
+            else:
                 events=counter[0][1]
         else:
             print 'problem in file/ cannot count events in ',directory
@@ -43,4 +43,3 @@ if __name__ == '__main__':
 
         #next copy the main tree
         shutil.copyfile(directory+'/'+rootFile,directory+'.root')
-    

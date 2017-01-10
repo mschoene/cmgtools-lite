@@ -1,8 +1,11 @@
-relIso03_01: LepGood_relIso03<0.1:  2,-0.5,1.5;   Title="I_{03}<0.1", MarkerColor=1,  MarkerStyle=21, MarkerSize=1.3
-AND_relIso03_01_SIP4: LepGood_relIso03<0.1 && LepGood_sip3d < 4:  2,-0.5,1.5;   Title="I_{03}<0.1\, S_{ip3D} < 4", MarkerColor=1,  MarkerStyle=21, MarkerSize=1.3
-mvaTTH_08: LepGood_mvaTTH > 0.8:  2,-0.5,1.5;   Title="MVA {ttH} > 0.8", MarkerColor=1,  MarkerStyle=21, MarkerSize=1.3
-mvaTTH_08i: LepGood_mvaTTH > 0.8:  2,-0.5,1.5;   Title="MVA {ttH} > 0.8 + Id", MarkerColor=1,  MarkerStyle=21, MarkerSize=1.3
-mvaTTH_07: LepGood_mvaTTH > 0.7:  2,-0.5,1.5;   Title="MVA {ttH} > 0.7", MarkerColor=1,  MarkerStyle=21, MarkerSize=1.3
-mvaTTH_06: LepGood_mvaTTH > 0.6:  2,-0.5,1.5;   Title="MVA {ttH} > 0.6", MarkerColor=1,  MarkerStyle=21, MarkerSize=1.3
-mvaTTH_06i: LepGood_mvaTTH > 0.6 && LepGood_mediumMuonId > 0:  2,-0.5,1.5;   Title="MVA {ttH} > 0.6 + Id", MarkerColor=1,  MarkerStyle=21, MarkerSize=1.3
 miniRelIso_005: LepGood_miniRelIso<0.05: 2,-0.5,1.5;   Title="MiniIso<0.05", MarkerColor=ROOT.kViolet+10, MarkerStyle=21, MarkerSize=1.3
+mvaPt_060: LepGood_mvaTTH > 0.60:  2,-0.5,1.5;   Title="MVA > 0.60", MarkerColor=4,  MarkerStyle=21, MarkerSize=1.3
+mvaPt_060i: LepGood_mvaTTH > 0.60 && LepGood_ICHEPmediumMuonId > 0:  2,-0.5,1.5;   Title="MVA > 0.60 + Id", MarkerColor=4,  MarkerStyle=21, MarkerSize=1.3
+mvaPt_075i: LepGood_mvaTTH > 0.75 && LepGood_ICHEPmediumMuonId > 0:  2,-0.5,1.5;   Title="MVA > 0.75 + Id", MarkerColor=4,  MarkerStyle=21, MarkerSize=1.3
+mvaPt_080i: LepGood_mvaTTH > 0.80 && LepGood_ICHEPmediumMuonId > 0:  2,-0.5,1.5;   Title="MVA > 0.80 + Id", MarkerColor=4,  MarkerStyle=21, MarkerSize=1.3
+mvaPt_030i: LepGood_mvaTTH > 0.30 && LepGood_ICHEPmediumMuonId > 0:  2,-0.5,1.5;   Title="MVA > 0.30 + Id", MarkerColor=4,  MarkerStyle=21, MarkerSize=1.3
+mvaPt_000i: LepGood_mvaTTH > 0.00 && LepGood_ICHEPmediumMuonId > 0:  2,-0.5,1.5;   Title="MVA > 0.00 + Id", MarkerColor=4,  MarkerStyle=21, MarkerSize=1.3
+ra5_tight: multiIso_singleWP(LepGood_miniRelIso,LepGood_jetPtRatiov2,LepGood_jetPtRelv2,if3(abs(LepGood_pdgId)==11,3,2)) > 0 && LepGood_mvaIdSpring15 >=0.87+(0.60-0.87)*(abs(LepGood_eta)>0.8)+(+0.17-0.60)*(abs(LepGood_eta)>1.479):  2,-0.5,1.5;   Title="RA5 tight", MarkerColor=4,  MarkerStyle=21, MarkerSize=1.3
+ra7_tight: multiIso_singleWP(LepGood_miniRelIso,LepGood_jetPtRatiov2,LepGood_jetPtRelv2,if3(abs(LepGood_pdgId)==11,2,1)) > 0 && LepGood_mvaIdSpring15 >=0.87+(0.60-0.87)*(abs(LepGood_eta)>0.8)+(+0.17-0.60)*(abs(LepGood_eta)>1.479):  2,-0.5,1.5;   Title="RA7 tight", MarkerColor=4,  MarkerStyle=21, MarkerSize=1.3
+mvaSusy_sMi: LepGood_mvaSUSY > if3(abs(LepGood_pdgId)==13,-0.2,0.5) && LepGood_ICHEPmediumMuonId > 0:  2,-0.5,1.5;   Title="MVA SUSY M + Id", MarkerColor=4,  MarkerStyle=21, MarkerSize=1.3
+mvaSusy_sVi: LepGood_mvaSUSY > if3(abs(LepGood_pdgId)==13,0.45,0.75) && LepGood_ICHEPmediumMuonId > 0:  2,-0.5,1.5;   Title="MVA SUSY V + Id", MarkerColor=4,  MarkerStyle=21, MarkerSize=1.3
