@@ -337,7 +337,7 @@ jetAna = cfg.Analyzer(
     jetEta = 4.7,
     jetEtaCentral = 2.4,
     #NOT in central
-    doJetCleaning = True
+    doJetCleaning = True,
     #CENTRALcmglite-central/80X
     #cleanJetsFromLeptons = True,
     jetLepDR = 0.4,
