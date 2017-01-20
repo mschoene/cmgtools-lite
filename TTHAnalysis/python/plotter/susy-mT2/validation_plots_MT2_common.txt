@@ -15,7 +15,7 @@ diffMetMht: diffMetMht: 100,0,500    ; XTitle="|MET-MHT|"
 ht: ht:  15,0,1500    ; XTitle="H_{T}  [GeV]"
 
 rho: rho: 10,0,1  ; XTitle="rho"
-nTrueInt: nTrueInt: 50,0,50  ; XTitle="nTrueInt"
+#nTrueInt: nTrueInt: 50,0,50  ; XTitle="nTrueInt"
 
 nVert: nVert: 50,0,50  ; XTitle="nVert"
 
@@ -143,9 +143,9 @@ jet_mass: jet_mass: 20,0,400.    ; XTitle="jet mass [GeV]"
 jet_csv: jet_btagCSV: 110,-0.1,1.    ; XTitle="jet csv"
 
 jet_rawPt: jet_rawPt: 200, 0, 200     ; XTitle="jet raw pt"
-jet_mcPt: jet_mcPt: 200, 0, 200     ; XTitle="jet mc pt"
+#jet_mcPt: jet_mcPt: 200, 0, 200     ; XTitle="jet mc pt"
 
-jet_mcFlavour: jet_mcFlavour: 25, 0,25 ; XTitle="jet mc flavour"
+#jet_mcFlavour: jet_mcFlavour: 25, 0,25 ; XTitle="jet mc flavour"
 jet_area: jet_area: 100, 0,100 ; XTitle="jet mc area"
 
 jet_id: jet_id: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5] ; XTitle="jet id"
