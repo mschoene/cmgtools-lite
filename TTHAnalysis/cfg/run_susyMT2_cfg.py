@@ -32,29 +32,33 @@ lepAna.loose_electron_eta    = 2.4
 lepAna.loose_electron_relIso = 0.15
 lepAna.loose_electron_isoCut = lambda electron : electron.miniRelIso < 0.1
 
-lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
-#lepAna.loose_electron_id  = "POG_Cuts_ID_PHYS14_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
+#lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING16_25ns_v1_ConvVetoDxyDz_Veto"
+#lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
+lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto"
 lepAna.loose_electron_lostHits = 999. # no cut
 lepAna.loose_electron_dxy    = 999.
 lepAna.loose_electron_dz     = 999.
 
-lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
-#lepAna.inclusive_electron_id  = "POG_Cuts_ID_PHYS14_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
+#lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING16_25ns_v1_ConvVetoDxyDz_Veto"
+#lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
+lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto"
 lepAna.inclusive_electron_lostHits = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dxy    = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dz     = 999. # no cut since embedded in ID
 
 lepAna.mu_isoCorr = "deltaBeta"
 lepAna.ele_isoCorr = "deltaBeta"
+#lepAna.ele_tightId = "Cuts_SPRING16_25ns_v1_ConvVetoDxyDz"
 lepAna.ele_tightId = "Cuts_SPRING15_25ns_v1_ConvVetoDxyDz"
 lepAna.notCleaningElectrons = True
 lepAna.doMiniIsolation = True
 lepAna.miniIsolationPUCorr = 'rhoArea'
+#lepAna.ele_effectiveAreas = 'Spring16_25ns_v1'             #new default 
+#lepAna.mu_effectiveAreas = 'Spring16_25ns_v1'              #new default
 lepAna.ele_effectiveAreas = 'Spring15_25ns_v1'             #new default 
 lepAna.mu_effectiveAreas = 'Spring15_25ns_v1'              #new default
 lepAna.rhoMuon= 'fixedGridRhoFastjetCentralNeutral',      #new default
 lepAna.rhoElectron = 'fixedGridRhoFastjetCentralNeutral', #new default
-
 lepAna.doIsoAnnulus = True
 
 #era="25ns"
@@ -83,8 +87,19 @@ jetAna.doQG = True
 jetAna.jetEta = 4.7
 jetAna.jetEtaCentral = 2.4
 jetAna.jetPt = 20. #was 10
-jetAna.mcGT     = "Spring16_25nsV6_MC" # jec corrections
-jetAna.dataGT   = "Spring16_25nsV6_DATA" # jec corrections
+#jetAna.mcGT     = "Spring16_25nsV6_MC" # jec corrections
+#jetAna.dataGT   = "Spring16_25nsV6_DATA" # jec corrections
+ 
+jetAna.mcGT="Summer16_25nsV5_MC"    
+jetAna.dataGT   = "Spring16_25nsV8BCD_DATA Spring16_25nsV8E_DATA Spring16_25nsV8F_DATA Spring16_25nsV8_DATA"
+
+#jetAna.mcGT="Spring16_25nsV8_MC"    
+#jetAna.dataGT   = "Spring16_25nsV8BCD_DATA Spring16_25nsV8E_DATA Spring16_25nsV8F_DATA Spring16_25nsV8_DATA"
+
+#jetAna.mcGT="Summer16_25nsV8_MC"    
+#jetAna.dataGT   = "Summer16_25nsV8BCD_DATA Summer16_25nsV8E_DATA Summer16_25nsV8F_DATA Summer16_25nsV8_DATA"
+jetAna.runsDataJEC   = [276811, 277420, 278802]
+
 jetAna.recalibrateJets = True # True or False
 jetAna.applyL2L3Residual = True # 'Data'
 jetAna.calculateSeparateCorrections = True
@@ -121,6 +136,7 @@ tauAna.loose_vetoLeptonsPOG = False
 # Photon
 photonAna.etaCentral = 2.5
 photonAna.ptMin = 20
+#photonAna.gammaID = "POG_SPRING16_25ns_Loose_looseSieie_NoIso"
 photonAna.gammaID = "POG_SPRING15_50ns_Loose_looseSieie_NoIso"
 photonAna.do_randomCone = True
 photonAna.do_mc_match = True
@@ -213,6 +229,9 @@ MT2skim = cfg.Analyzer(
 from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_photon75, triggers_photon90, triggers_photon120, triggers_photon75ps 
 from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_photon90ps, triggers_photon120ps, triggers_photon155, triggers_photon165_HE10, triggers_photon175
 from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_doubleele33, triggers_mumu_noniso
+
+from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_met90_mht90, triggers_metNoMu90_mhtNoMu90, triggers_metNoMu120_mhtNoMu120, triggers_Jet80MET90
+
 
 
 triggerFlagsAna.triggerBits = {
@@ -443,11 +462,19 @@ elif test==1:
     #eventSelector.toSelect = [ 84142401 ]
     #sequence = cfg.Sequence([eventSelector] + sequence)
 
-    from CMGTools.RootTools.samples.samples_13TeV_RunIISpring16MiniAODv2 import *
+    from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
 
-    selectedComponents = [TTZ_LO]
+#TTJets_SingleLeptonFromTbar_ext = kreator.makeMCComponent("TTJets_SingleLeptonFromTbar_ext", "/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM", "CMS", ".*root", 831.76*(3*0.108)*(1-3*0.108) )
+
+
+    selectedComponents = [TTJets_SingleLeptonFromTbar_ext]
     for comp in selectedComponents:
-        comp.files = ['/scratch/mmasciov/002080B6-631C-E611-B6B0-0CC47A1DF80A.root']
+        comp.files = ['root://xrootd.unl.edu//store/mc/RunIISummer16MiniAODv2/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/120000/008E1775-94BD-E611-99EB-0CC47A745298.root']
+
+        #comp.files = ['/scratch/mmasciov/002080B6-631C-E611-B6B0-0CC47A1DF80A.root']
+
+
+
 #        comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/60000/7A49CB24-D01B-E611-8CC2-0CC47A57D1F8.root']
  #comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/00000/00D010B5-1EB9-E511-B950-02163E014965.root']
        #  comp.files = [          root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/3EDD874E-AA3F-E611-BED1-0090FAA57380.root']
