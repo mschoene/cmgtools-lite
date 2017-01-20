@@ -341,6 +341,7 @@ class ttHMT2Control( Analyzer ):
             # event.zllmt_mhtJetXj = event.mhtJetXj
             # event.zllmt_mhtPhiJetXj = event.mhtPhiJetXj
 
+
             # look for minimal deltaPhi between MET and four leading jets with pt>40 and |eta|<2.4                                                                                                                                
             event.zllmt_deltaPhiMin = 999.
             objects40jc = [ j for j in event.cleanJets if j.pt() > 40 and abs(j.eta())<2.5 ]

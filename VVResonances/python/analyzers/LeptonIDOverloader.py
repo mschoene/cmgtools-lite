@@ -14,6 +14,8 @@ class LeptonIDOverloader( Analyzer ):
 
 
     def heepID(self,lepton):    
+#        for leptonid in lepton.electronIDs():
+#            print leptonid.first,leptonid.second
         return lepton.electronID("heepElectronID-HEEPV60")>0.0
 
 
@@ -42,19 +44,22 @@ class LeptonIDOverloader( Analyzer ):
         return mu.isHighPtMuon(mu.associatedVertex)
 
     def muonIDHighPtIso(self,mu):    
-        return mu.isHighPtMuon(mu.associatedVertex) and mu.isolationR03().sumPt/mu.pt()<0.1
+        return mu.isHighPtMuon(mu.associatedVertex) and mu.isolationR03().sumPt/mu.pt()<0.05 # per discussion with Zuchetta go down to 0.05
 
     def muonIDTrackerHighPtIso(self,mu):    
-        return self.muonIDTrackerHighPt(mu) and mu.isolationR03().sumPt/mu.pt()<0.1
+        return self.muonIDTrackerHighPt(mu) and mu.isolationR03().sumPt/mu.pt()<0.05
 
         
     def process(self, event):
         self.readCollections( event.input )
-        
+#        for l in event.genleps:
+#            if l.pt()>30:
+#                print l.pdgId(),l.pt(),l.eta()
+
         for lepton in event.selectedLeptons:
             if abs(lepton.pdgId())==11:
                 lepton.heepID = self.heepID(lepton)
-                lepton.heepIDNoIso = self.heepID(lepton)
+                lepton.heepIDNoIso = self.heepIDNoIso(lepton)
             else:
                 lepton.highPtID = self.muonIDHighPt(lepton)
                 lepton.highPtTrackID = self.muonIDTrackerHighPt(lepton)
