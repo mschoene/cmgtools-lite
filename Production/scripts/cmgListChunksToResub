@@ -35,6 +35,11 @@ if [[ "$1" == "-p" ]]; then
     P=true; shift;
 fi;
 
+LOC=0
+if [[ "$1" == "-l" ]]; then
+    LOC=1; shift;
+fi;
+
 Q=8nh
 if [[ "$1" == "-q" ]]; then
     Q=$2; shift; shift;

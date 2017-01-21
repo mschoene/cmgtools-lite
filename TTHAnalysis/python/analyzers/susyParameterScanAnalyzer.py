@@ -79,6 +79,12 @@ class susyParameterScanAnalyzer( Analyzer ):
         for p,ms in masses.iteritems():
             avgmass = floor(sum(ms)/len(ms)+0.5)
             setattr(event, "genSusyM"+p, avgmass)
+            
+            if not self.cfg_ana.doLHE:
+                if p == "Squark" or p == "Stop" or p == "Sbottom" or p == "Gluino":
+                    event.genSusyMScan1 = avgmass
+                elif p == "Neutralino":
+                    event.genSusyMScan2 = avgmass
 
     def readLHE(self,event):
         #print " validity ", self.genLumiHandle.product().configDescription()

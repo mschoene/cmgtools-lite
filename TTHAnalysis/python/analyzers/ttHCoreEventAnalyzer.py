@@ -391,6 +391,13 @@ class ttHCoreEventAnalyzer( Analyzer ):
             thisDeltaPhi = abs( deltaPhi( j.phi(), event.met.phi() ) )
             if thisDeltaPhi < event.deltaPhiMin_Xj : event.deltaPhiMin_Xj = thisDeltaPhi
 
+        if self.cfg_comp.isMC:
+            event.deltaPhiMin_Xj_genmet = 999.
+            if event.met.genMET():
+                for n,j in enumerate(objectsXja10l5t):
+                    if n>3:  break
+                    thisDeltaPhi = abs( deltaPhi( j.phi(), event.met.genMET().phi() ) )
+                    if thisDeltaPhi < event.deltaPhiMin_Xj_genmet : event.deltaPhiMin_Xj_genmet = thisDeltaPhi
 
         for lep in event.selectedLeptons:
             if hasattr(lep,'miniAbsIsoCharged'):
@@ -425,6 +432,14 @@ class ttHCoreEventAnalyzer( Analyzer ):
 
         diffMetMht_Xj_vec = ROOT.reco.Particle.LorentzVector(event.mhtJetXj10l5tvec.px()-event.met.px(), event.mhtJetXj10l5tvec.py()-event.met.py(), 0, 0 )
         event.diffMetMht_Xj = sqrt( diffMetMht_Xj_vec.px()*diffMetMht_Xj_vec.px() + diffMetMht_Xj_vec.py()*diffMetMht_Xj_vec.py() )
+
+        if self.cfg_comp.isMC:
+            if event.met.genMET():
+                diffMetMht_Xj_genmet_vec = ROOT.reco.Particle.LorentzVector(event.mhtJetXj10l5tvec.px()-event.met.genMET().px(), event.mhtJetXj10l5tvec.py()-event.met.genMET().py(), 0, 0 )
+                event.diffMetMht_Xj_genmet = sqrt( diffMetMht_Xj_genmet_vec.px()*diffMetMht_Xj_genmet_vec.px() + diffMetMht_Xj_genmet_vec.py()*diffMetMht_Xj_genmet_vec.py() )
+            else:
+                event.diffMetMht_Xj_genmet = -999
+
         ###
 
         #Make Biased DPhi

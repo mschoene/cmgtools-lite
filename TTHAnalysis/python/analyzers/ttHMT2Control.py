@@ -127,12 +127,14 @@ class ttHMT2Control( Analyzer ):
             break # only lead photon
 
         # look for minimal deltaPhi between MET and four leading jets with pt>40 and eta<2.4                                                                                                                                      
+        gamma_objects40ja.sort(key = lambda j : j.pt(), reverse = True)        
         event.gamma_deltaPhiMin_had = 999.
         for n,j in enumerate(gamma_objects40ja):
             if n>3:  break
             thisDeltaPhi = abs( deltaPhi( j.phi(), event.gamma_met.phi() ) )
             if thisDeltaPhi < event.gamma_deltaPhiMin_had : event.gamma_deltaPhiMin_had = thisDeltaPhi
 
+        gamma_objectsXja.sort(key = lambda j : j.pt(), reverse = True)
         event.gamma_deltaPhiMin_Xj_had = 999.
         for n,j in enumerate(gamma_objectsXja):
             if n>3:  break
@@ -324,7 +326,7 @@ class ttHMT2Control( Analyzer ):
                 vetoLeptons_mt.append(vetoLeptons[1])
             else:
                 vetoLeptons_mt.append(vetoLeptons[0])
-                
+
             event.zllmt_met = ROOT.reco.Particle.LorentzVector( event.met.px(), event.met.py(), 0, 0 )
             for l in vetoLeptons_mt:
                 event.zllmt_met = ROOT.reco.Particle.LorentzVector( event.zllmt_met.px() + l.px(), event.zllmt_met.py() + l.py() , 0, 0 )
@@ -336,14 +338,16 @@ class ttHMT2Control( Analyzer ):
             event.zllmt_mhtJet40j = event.mhtJet40j
             event.zllmt_mhtPhiJet40j = event.mhtPhiJet40j
 
-#            event.zllmt_mhtJetXj = event.mhtJetXj
-#            event.zllmt_mhtPhiJetXj = event.mhtPhiJetXj
+            # event.zllmt_mhtJetXj = event.mhtJetXj
+            # event.zllmt_mhtPhiJetXj = event.mhtPhiJetXj
+
 
             # look for minimal deltaPhi between MET and four leading jets with pt>40 and |eta|<2.4                                                                                                                                
             event.zllmt_deltaPhiMin = 999.
             objects40jc = [ j for j in event.cleanJets if j.pt() > 40 and abs(j.eta())<2.5 ]
             objects40ja = [ j for j in event.cleanJetsAll if j.pt() > 40]
             event.zllmt_ht = sum([x.pt() for x in objects40jc])
+            objects40ja.sort(key = lambda j : j.pt(), reverse = True)
             for n,j in enumerate(objects40ja):
                 if n>3:  break
                 thisDeltaPhi = abs( deltaPhi( j.phi(), event.zllmt_met.phi() ) )
@@ -353,6 +357,7 @@ class ttHMT2Control( Analyzer ):
             objectsXjc = [ j for j in event.cleanJets if j.pt() > self.jetPt and abs(j.eta())<2.5 ] + [l for l in vetoLeptons if l not in vetoLeptons_mt]
             objectsXja = [ j for j in event.cleanJetsAll if j.pt() > self.jetPt] + [l for l in vetoLeptons if l not in vetoLeptons_mt]
             event.zllmt_ht_Xj = sum([x.pt() for x in objectsXjc])
+            objectsXja.sort(key = lambda j : j.pt(), reverse = True)
             for n,j in enumerate(objectsXja):
                 if n>3:  break
                 thisDeltaPhi = abs( deltaPhi( j.phi(), event.zllmt_met.phi() ) )
