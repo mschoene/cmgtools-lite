@@ -100,6 +100,40 @@ badMuonAna = cfg.Analyzer(
     packedCandidates = 'packedPFCandidates',
 )
 
+from CMGTools.TTHAnalysis.analyzers.badChargedHadronAnalyzerV2 import badChargedHadronAnalyzerV2
+badChargedHadronAnaV2 = cfg.Analyzer(
+    badChargedHadronAnalyzerV2, name = 'badChargedHadronAnaV2',
+    muons='slimmedMuons',
+    packedCandidates = 'packedPFCandidates',
+)
+
+from CMGTools.TTHAnalysis.analyzers.badMuonAnalyzerV2 import badMuonAnalyzerV2
+badMuonAnaV2 = cfg.Analyzer(
+    badMuonAnalyzerV2, name = 'badMuonAnaV2',
+    muons='slimmedMuons',
+    packedCandidates = 'packedPFCandidates',
+    minMuPt=100,
+    postFix='',
+)
+
+from CMGTools.TTHAnalysis.analyzers.badMuonAnalyzerMoriond2017 import badMuonAnalyzerMoriond2017
+badCloneMuonAnaMoriond2017 = cfg.Analyzer(
+    badMuonAnalyzerMoriond2017, name = 'badCloneMuonMoriond2017',
+    muons = 'slimmedMuons',
+    vertices         = 'offlineSlimmedPrimaryVertices',
+    minMuPt = 20,
+    selectClones = True,
+    postFix = '',
+)
+
+badMuonAnaMoriond2017 = cfg.Analyzer(
+    badMuonAnalyzerMoriond2017, name = 'badMuonMoriond2017',
+    muons = 'slimmedMuons',
+    vertices         = 'offlineSlimmedPrimaryVertices',
+    minMuPt = 20,
+    selectClones = False,
+    postFix = '',
+)
 
 # Select a list of good primary vertices (generic)
 vertexAna = cfg.Analyzer(
@@ -350,8 +384,8 @@ jetAna = cfg.Analyzer(
     recalibrateJets = True, #'MC', # True, False, 'MC', 'Data'
     applyL2L3Residual = True, # Switch to 'Data' when they will become available for Data
     recalibrationType = "AK4PFchs",
-    mcGT     = "Spring16_25nsV6_MC",
-    dataGT   = "Spring16_25nsV6_DATA",
+    mcGT     = "Spring16_23Sep2016V2_MC",
+    dataGT   = [(1,"Spring16_23Sep2016BCDV2_DATA"),(276831,"Spring16_23Sep2016EFV2_DATA"),(278802,"Spring16_23Sep2016GV2_DATA"),(280919,"Spring16_23Sep2016HV2_DATA")],
     jecPath = "${CMSSW_BASE}/src/CMGTools/RootTools/data/jec/",
     shiftJEC = 0, # set to +1 or -1 to apply +/-1 sigma shift to the nominal jet energies
     addJECShifts = False, # if true, add  "corr", "corrJECUp", and "corrJECDown" for each jet (requires uncertainties to be available!)
@@ -600,5 +634,9 @@ susyCoreSequence = [
     triggerFlagsAna,
     eventFlagsAna,
     badMuonAna,
+    badMuonAnaV2,
+    badMuonAnaMoriond2017,
+    badCloneMuonAnaMoriond2017,
     badChargedHadronAna,
+    badChargedHadronAnaV2,
 ]
