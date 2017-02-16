@@ -89,10 +89,13 @@ jetAna.jetEtaCentral = 2.4
 jetAna.jetPt = 20. #was 10
 #jetAna.mcGT     = "Spring16_25nsV6_MC" # jec corrections
 #jetAna.dataGT   = "Spring16_25nsV6_DATA" # jec corrections
- 
-jetAna.mcGT="Summer16_25nsV5_MC"    
+
+jetAna.mcGT="Summer16_23Sep2016V4_MC"
+jetAna.dataGT = [ [ -1, "Summer16_23Sep2016BCDV4_DATA"], [276831 ,"Summer16_23Sep2016EFV4_DATA"] , [278802 ,"Summer16_23Sep2016GV4_DATA"] , [ 280919  ,"Summer16_23Sep2016HV4_DATA"]  ]
+
+#jetAna.mcGT="Summer16_25nsV5_MC"    
 #jetAna.dataGT = "Spring16_23Sep2016BCDV2_DATA Spring16_23Sep2016EFV2_DATA Spring16_23Sep2016GV2_DATA  Spring16_23Sep2016HV2_DATA"
-jetAna.dataGT = [ [ -1, "Spring16_23Sep2016BCDV2_DATA"], [276811 ,"Spring16_23Sep2016EFV2_DATA"] , [278802 ,"Spring16_23Sep2016GV2_DATA"] , [ 280385  ,"Spring16_23Sep2016HV2_DATA"]  ]
+#jetAna.dataGT = [ [ -1, "Spring16_23Sep2016BCDV2_DATA"], [276831 ,"Spring16_23Sep2016EFV2_DATA"] , [278820 ,"Spring16_23Sep2016GV2_DATA"] , [ 280919  ,"Spring16_23Sep2016HV2_DATA"]  ]
 
 
 #jetAna.mcGT="Spring16_25nsV8_MC"    
@@ -393,7 +396,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-test = 1
+test = 2
 #test = 2
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
@@ -466,14 +469,14 @@ elif test==1:
     #eventSelector.toSelect = [ 84142401 ]
     #sequence = cfg.Sequence([eventSelector] + sequence)
 
-    isData = True
-    from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
-# from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
+    #isData = True
+    #from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
+    from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
 
 
-    dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
-    #json=dataDir+'/json/json_DCSONLY.txt'
-    json=dataDir+'/json/json_ichep2016.txt'
+    #dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
+    ##json=dataDir+'/json/json_DCSONLY.txt'
+   # json=dataDir+'/json/json_ichep2016.txt'
 
     
     # --------------- ALL THIS IS FOR TESTS -----------------------------------------------------
@@ -492,18 +495,18 @@ elif test==1:
 #TTJets_SingleLeptonFromTbar_ext = kreator.makeMCComponent("TTJets_SingleLeptonFromTbar_ext", "/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM", "CMS", ".*root", 831.76*(3*0.108)*(1-3*0.108) )
 
 
-    #selectedComponents = [TTJets_SingleLeptonFromTbar_ext]
-    selectedComponents = [JetHT_Run2016F_PromptReco_v1]
+    selectedComponents = [TTJets_SingleLeptonFromTbar_ext]
+    #selectedComponents = [JetHT_Run2016F_PromptReco_v1]
 
     for comp in selectedComponents:
-        comp.files = ['root://xrootd.unl.edu//store/data/Run2016F/JetHT/MINIAOD/23Sep2016-v1/100000/322B5B83-B184-E611-A5B1-0026B927862A.root']
+       # comp.files = ['root://xrootd.unl.edu//store/data/Run2016F/JetHT/MINIAOD/23Sep2016-v1/100000/322B5B83-B184-E611-A5B1-0026B927862A.root']
 
 
        # comp.isMC = False
       #  comp.isData = True
 
 
-#comp.files = ['root://xrootd.unl.edu//store/mc/RunIISummer16MiniAODv2/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/120000/008E1775-94BD-E611-99EB-0CC47A745298.root']
+        comp.files = ['root://xrootd.unl.edu//store/mc/RunIISummer16MiniAODv2/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/120000/008E1775-94BD-E611-99EB-0CC47A745298.root']
 
         #comp.files = ['/scratch/mmasciov/002080B6-631C-E611-B6B0-0CC47A1DF80A.root']
 
@@ -527,72 +530,65 @@ elif test==1:
 
 elif test==2:
 
-    from CMGTools.RootTools.samples.samples_13TeV_RunIISpring16MiniAODv2 import *
+    from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
+    #    from CMGTools.RootTools.samples.samples_13TeV_RunIISpring16MiniAODv2 import *
     # full production
 
-    selectedComponents = [ 
-        # TTJets, 
-        # # #TTJets_ext, 
-        # # #TTJets_LO,
-        # # #TT_pow_ext3, 
-        # # #TT_pow_ext4, 
+
+    selectedComponents = [
+        WW,
+        WW_ext,
+        ZZ,
+        ZZ_ext,
+        WZ,
+        WZ_ext,
+        WWW,
+        WZZ,
+        WWZ,
+        ZZZ
         # TTJets_SingleLeptonFromTbar, 
         # TTJets_SingleLeptonFromTbar_ext, 
         # TTJets_SingleLeptonFromT, 
         # TTJets_SingleLeptonFromT_ext, 
         # TTJets_DiLepton, 
         # TTJets_DiLepton_ext, 
-        # #TTLep_pow, 
-        # #TTLep_pow_ext, 
-        # #TTJets_LO_HT600to800, 
-        # #TTJets_LO_HT600to800_ext, 
-        # #TTJets_LO_HT800to1200, 
-        # #TTJets_LO_HT800to1200_ext, 
-        # #TTJets_LO_HT1200to2500, 
-        # #TTJets_LO_HT1200to2500_ext, 
-        # #TTJets_LO_HT2500toInf,
-        # #TToLeptons_tch_amcatnlo,
-        # #TToLeptons_tch_amcatnlo_ext,
-        # TToLeptons_tch_powheg,
-        # TBarToLeptons_tch_powheg,
+        # TTHnobb_pow,
+        # TTHbb_pow,
         # TToLeptons_sch_amcatnlo,
-        # TBar_tWch_lep,
-        # T_tWch_lep,
-        # ttbb,
-        # #TBar_tWch,
-        # #T_tWch,
+        # T_tch_powheg,
+        # TBar_tch_powheg,
+        # TBar_tWch_ext,
+        # T_tWch_ext,
         # #T_tWch_DS,
         # #TBar_tWch_DS,
-        # #TGJets,
+        # TGJets,
         # #TGJets_ext,
-        # #WJetsToLNu,
-        # #WJetsToLNu_LO, 
-        # #DYJetsToLL_M10to50, 
-        # #DYJetsToLL_M10to50_ext1,
-        # ##DYJetsToLL_M5to50_LO, 
-        # #DYJetsToLL_M50, 
-        # #DYJetsToLL_M50_LO, 
-        # #DYJetsToNuNu_M50,
-        # #DYJetsToLL_M50_flatPu,
+        # tZq_ll_ext,
+        # #tZq_nunu,
+        # tWll,
+        # WJetsToLNu,
+        # WJetsToLNu_LO,
+        # DYJetsToLL_M50_LO_ext,
+        # DYJetsToLL_M50_HT70to100, 
         # DYJetsToLL_M50_HT100to200,
         # DYJetsToLL_M50_HT100to200_ext,
         # DYJetsToLL_M50_HT200to400,
         # DYJetsToLL_M50_HT200to400_ext,
         # DYJetsToLL_M50_HT400to600,
         # DYJetsToLL_M50_HT400to600_ext,
-        # DYJetsToLL_M50_HT600toInf,
-        # DYJetsToLL_M50_HT600toInf_ext,
-        # DYJetsToLL_M50_HT600to800,
-        # DYJetsToLL_M50_HT800to1200,
+        # DYJetsToLL_M50_HT600to800  ,
+        # DYJetsToLL_M50_HT800to1200 ,
         # DYJetsToLL_M50_HT1200to2500,
-        # DYJetsToLL_M50_HT2500toInf,
+        # DYJetsToLL_M50_HT2500toInf ,
+        # WJetsToLNu_HT70to100,
         # WJetsToLNu_HT100to200,
         # WJetsToLNu_HT100to200_ext,
+        # WJetsToLNu_HT100to200_ext2,
         # WJetsToLNu_HT200to400,
+        # WJetsToLNu_HT200to400_ext2,
         # WJetsToLNu_HT200to400_ext,
         # WJetsToLNu_HT400to600,
         # WJetsToLNu_HT400to600_ext,
-        # # #WJetsToLNu_HT600toInf,
         # WJetsToLNu_HT600to800,
         # WJetsToLNu_HT600to800_ext,
         # WJetsToLNu_HT800to1200,
@@ -601,11 +597,6 @@ elif test==2:
         # WJetsToLNu_HT1200to2500_ext,
         # WJetsToLNu_HT2500toInf,
         # WJetsToLNu_HT2500toInf_ext,
-        # GJets_HT40to100,
-        # GJets_HT100to200,
-        # GJets_HT200to400,
-        # GJets_HT400to600,
-        # GJets_HT600toInf,
         # ZJetsToNuNu_HT100to200,
         # ZJetsToNuNu_HT100to200_ext,
         # ZJetsToNuNu_HT200to400,
@@ -613,10 +604,13 @@ elif test==2:
         # ZJetsToNuNu_HT400to600,
         # ZJetsToNuNu_HT400to600_ext,
         # ZJetsToNuNu_HT600to800,
-        ZJetsToNuNu_HT800to1200,
+        # ZJetsToNuNu_HT800to1200,
+        # #ZJetsToNuNu_HT800to1200_ext,
         # ZJetsToNuNu_HT1200to2500,
         # ZJetsToNuNu_HT1200to2500_ext,
         # ZJetsToNuNu_HT2500toInf,
+        # #ZJetsToNuNu_HT2500toInf_ext,
+        # QCD_HT50to100,
         # QCD_HT100to200,
         # QCD_HT200to300,
         # QCD_HT200to300_ext,
@@ -629,48 +623,159 @@ elif test==2:
         # QCD_HT1000to1500,
         # QCD_HT1000to1500_ext,
         # QCD_HT1500to2000,
+        # QCD_HT1500to2000_ext,
         # QCD_HT2000toInf,
-        # #WWTo2L2Nu,
-        # #WWToLNuQQ,
-        # #WWToLNuQQ_ext,
-        # #WWTo1L1Nu2Q, 
-        # #ZZTo2L2Nu,
-        # #ZZTo2L2Q,
-        # #ZZTo2Q2Nu,
-        # #ZZTo4L,
-        # #ZZTo4L_amcatnlo,
-        # #WZTo1L3Nu, 
-        # #WZTo1L1Nu2Q, 
-        # #WZTo2L2Q,
-        # #WZTo3LNu,
-        # #WZTo3LNu_amcatnlo,
-        # #VVTo2L2Nu,
-        # #WGToLNuG, 
-        # #WGJets,
-        # #ZGJets,
-        # #ZGJets_40130,
-        # #ZGTo2LG,
-        # #ZLLGJets_pt130,
-        # #WWDouble, 
-        # #WpWpJJ, 
-        # #WW, 
-        # # WZ, 
-        # # ZZ,
-        # # TTWToLNu, 
-        # # TTWToQQ,
-        # TTW_LO, 
-        # # TTZToQQ, 
-        # # TTZToLLNuNu, 
-        # # #TTLLJets_m1to10, 
+        # QCD_HT2000toInf_ext,
+        # TTWToLNu_ext,
+        # TTWToLNu_ext2,
+        # TTWToQQ,
+        # TTW_LO,
+        # TTZToQQ,
+        # TTZToLLNuNu_ext,
         # TTZ_LO,
-        # # TTGJets,
-        # # TTHnobb_ext,
-        # # TTHbb_ext3,
-        # TTHToNonbb,
-        # TTHTobb,
-        # TTTT_ext,
-        # ttbb,
-        # ttbb_ext,
+        # TTGJets,
+        # TTTT,
+        # #########
+        # # TTJets, 
+        # # # #TTJets_ext, 
+        # # # #TTJets_LO,
+        # # # #TT_pow_ext3, 
+        # # # #TT_pow_ext4, 
+        # # TTJets_SingleLeptonFromTbar, 
+        # # TTJets_SingleLeptonFromTbar_ext, 
+        # # TTJets_SingleLeptonFromT, 
+        # # TTJets_SingleLeptonFromT_ext, 
+        # # TTJets_DiLepton, 
+        # # TTJets_DiLepton_ext, 
+        # # #TTLep_pow, 
+        # # #TTLep_pow_ext, 
+        # # #TTJets_LO_HT600to800, 
+        # # #TTJets_LO_HT600to800_ext, 
+        # # #TTJets_LO_HT800to1200, 
+        # # #TTJets_LO_HT800to1200_ext, 
+        # # #TTJets_LO_HT1200to2500, 
+        # # #TTJets_LO_HT1200to2500_ext, 
+        # # #TTJets_LO_HT2500toInf,
+        # # #TToLeptons_tch_amcatnlo,
+        # # #TToLeptons_tch_amcatnlo_ext,
+        # # TToLeptons_tch_powheg,
+        # # TBarToLeptons_tch_powheg,
+        # # TToLeptons_sch_amcatnlo,
+        # # TBar_tWch_lep,
+        # # T_tWch_lep,
+        # # ttbb,
+        # # #TBar_tWch,
+        # # #T_tWch,
+        # # #T_tWch_DS,
+        # # #TBar_tWch_DS,
+        # # #TGJets,
+        # # #TGJets_ext,
+        # # #WJetsToLNu,
+        # # #WJetsToLNu_LO, 
+        # # #DYJetsToLL_M10to50, 
+        # # #DYJetsToLL_M10to50_ext1,
+        # # ##DYJetsToLL_M5to50_LO, 
+        # # #DYJetsToLL_M50, 
+        # # #DYJetsToLL_M50_LO, 
+        # # #DYJetsToNuNu_M50,
+        # # #DYJetsToLL_M50_flatPu,
+        # # DYJetsToLL_M50_HT100to200,
+        # # DYJetsToLL_M50_HT100to200_ext,
+        # # DYJetsToLL_M50_HT200to400,
+        # # DYJetsToLL_M50_HT200to400_ext,
+        # # DYJetsToLL_M50_HT400to600,
+        # # DYJetsToLL_M50_HT400to600_ext,
+        # # DYJetsToLL_M50_HT600toInf,
+        # # DYJetsToLL_M50_HT600toInf_ext,
+        # # DYJetsToLL_M50_HT600to800,
+        # # DYJetsToLL_M50_HT800to1200,
+        # # DYJetsToLL_M50_HT1200to2500,
+        # # DYJetsToLL_M50_HT2500toInf,
+        # # WJetsToLNu_HT100to200,
+        # # WJetsToLNu_HT100to200_ext,
+        # # WJetsToLNu_HT200to400,
+        # # WJetsToLNu_HT200to400_ext,
+        # # WJetsToLNu_HT400to600,
+        # # WJetsToLNu_HT400to600_ext,
+        # # # #WJetsToLNu_HT600toInf,
+        # # WJetsToLNu_HT600to800,
+        # # WJetsToLNu_HT600to800_ext,
+        # # WJetsToLNu_HT800to1200,
+        # # WJetsToLNu_HT800to1200_ext,
+        # # WJetsToLNu_HT1200to2500,
+        # # WJetsToLNu_HT1200to2500_ext,
+        # # WJetsToLNu_HT2500toInf,
+        # # WJetsToLNu_HT2500toInf_ext,
+        # # GJets_HT40to100,
+        # # GJets_HT100to200,
+        # # GJets_HT200to400,
+        # # GJets_HT400to600,
+        # # GJets_HT600toInf,
+        # # ZJetsToNuNu_HT100to200,
+        # # ZJetsToNuNu_HT100to200_ext,
+        # # ZJetsToNuNu_HT200to400,
+        # # ZJetsToNuNu_HT200to400_ext,
+        # # ZJetsToNuNu_HT400to600,
+        # # ZJetsToNuNu_HT400to600_ext,
+        # # ZJetsToNuNu_HT600to800,
+        # # ZJetsToNuNu_HT800to1200,
+        # # ZJetsToNuNu_HT1200to2500,
+        # # ZJetsToNuNu_HT1200to2500_ext,
+        # # ZJetsToNuNu_HT2500toInf,
+        # # QCD_HT100to200,
+        # # QCD_HT200to300,
+        # # QCD_HT200to300_ext,
+        # # QCD_HT300to500,
+        # # QCD_HT300to500_ext,
+        # # QCD_HT500to700,
+        # # QCD_HT500to700_ext,
+        # # QCD_HT700to1000,
+        # # QCD_HT700to1000_ext,
+        # # QCD_HT1000to1500,
+        # # QCD_HT1000to1500_ext,
+        # # QCD_HT1500to2000,
+        # # QCD_HT2000toInf,
+        # # #WWTo2L2Nu,
+        # # #WWToLNuQQ,
+        # # #WWToLNuQQ_ext,
+        # # #WWTo1L1Nu2Q, 
+        # # #ZZTo2L2Nu,
+        # # #ZZTo2L2Q,
+        # # #ZZTo2Q2Nu,
+        # # #ZZTo4L,
+        # # #ZZTo4L_amcatnlo,
+        # # #WZTo1L3Nu, 
+        # # #WZTo1L1Nu2Q, 
+        # # #WZTo2L2Q,
+        # # #WZTo3LNu,
+        # # #WZTo3LNu_amcatnlo,
+        # # #VVTo2L2Nu,
+        # # #WGToLNuG, 
+        # # #WGJets,
+        # # #ZGJets,
+        # # #ZGJets_40130,
+        # # #ZGTo2LG,
+        # # #ZLLGJets_pt130,
+        # # #WWDouble, 
+        # # #WpWpJJ, 
+        # # #WW, 
+        # # # WZ, 
+        # # # ZZ,
+        # # # TTWToLNu, 
+        # # # TTWToQQ,
+        # # TTW_LO, 
+        # # # TTZToQQ, 
+        # # # TTZToLLNuNu, 
+        # # # #TTLLJets_m1to10, 
+        # # TTZ_LO,
+        # # # TTGJets,
+        # # # TTHnobb_ext,
+        # # # TTHbb_ext3,
+        # # TTHToNonbb,
+        # # TTHTobb,
+        # # TTTT_ext,
+        # # ttbb,
+        # # ttbb_ext,
         ]
 
 
@@ -702,7 +807,8 @@ elif test==3:
     from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
 
     dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
-    json=dataDir+'/json/json_DCSONLY.txt'
+    json=dataDir+'/json/json_ReReco_final.txt'
+    #json=dataDir+'/json/json_DCSONLY.txt'
     #json=dataDir+'/json/json_ichep2016.txt'
 
     
@@ -746,7 +852,16 @@ elif test==3:
         #selectedComponents  = dataSamples_Run2016E_ReReco23Sep
         #selectedComponents  = dataSamples_Run2016F_ReReco23Sep
         #selectedComponents  = dataSamples_Run2016G_ReReco23Sep
-        selectedComponents  = dataSamples_23Sep2016PlusPrompt
+
+        selectedComponents  = dataSamples_Run2016H_v2 + dataSamples_Run2016H_v3
+#        selectedComponents  = dataSamples_Run2016G_23Sep2016
+#        selectedComponents  = dataSamples_Run2016F_23Sep2016
+#        selectedComponents  = dataSamples_Run2016E_23Sep2016
+#        selectedComponents  = dataSamples_Run2016D_23Sep2016
+#        selectedComponents  = dataSamples_Run2016C_23Sep2016
+#        selectedComponents  = dataSamples_Run2016B_23Sep2016
+
+        #        selectedComponents  = dataSamples_23Sep2016PlusPrompt
         #selectedComponents  = dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3
         #selectedComponents  = dataSamples_Run2016B_ReReco23Sep + dataSamples_Run2016C_ReReco23Sep + dataSamples_Run2016D_ReReco23Sep + dataSamples_Run2016E_ReReco23Sep + dataSamples_Run2016F_ReReco23Sep + dataSamples_Run2016G_ReReco23Sep + dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3
     else:
@@ -763,9 +878,9 @@ elif test==3:
 
     for comp in selectedComponents:
         comp.json=json
+        comp.splitFactor = 1000
         comp.files=comp.files[:]
         comp.triggers = allTriggers
-
 
     # Here I add the skim to the sequence.
     # It should be uncommented for non _forQCD samples. It should be commented for _forQCD samples

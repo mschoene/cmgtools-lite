@@ -21,8 +21,15 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     ##--------------------------------------------------
     ## Filters
     ##--------------------------------------------------
+    NTupleVariable("Flag_badMuonMoriond2017",  lambda ev: ev.badMuonMoriond2017, int, help="bad muon found in event (Moriond 2017 filter)?"),                          
+    NTupleVariable("Flag_badCloneMuonMoriond2017",  lambda ev: ev.badCloneMuonMoriond2017, int, help="clone muon found in event (Moriond 2017 filter)?"),
+
     NTupleVariable("Flag_badChargedHadronFilter", lambda ev: ev.badChargedHadron, int, help="bad charged hadron filter decision"),
     NTupleVariable("Flag_badMuonFilter"         , lambda ev: ev.badMuon         , int, help="bad muon filter decision"),
+
+    NTupleVariable("Flag_badChargedHadronFilterV2",  lambda ev: ev.badChargedHadronV2, int, help="badChargedHadron filter result"),
+    NTupleVariable("Flag_badMuonFilterV2",  lambda ev: ev.badMuonV2, int, help="badMuon filter result"),
+
     #NTupleVariable("Flag_badMuonFilterV2"       , lambda ev: ev.badMuonV2       , int, help="bad muon filter V2 decision"),
     #    ##--------------------------------------------------
     #    ## MET filter information (temporary)
