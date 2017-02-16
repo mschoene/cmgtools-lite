@@ -499,11 +499,11 @@ elif test==1:
     #selectedComponents = [JetHT_Run2016F_PromptReco_v1]
 
     for comp in selectedComponents:
+
        # comp.files = ['root://xrootd.unl.edu//store/data/Run2016F/JetHT/MINIAOD/23Sep2016-v1/100000/322B5B83-B184-E611-A5B1-0026B927862A.root']
 
-
-       # comp.isMC = False
-      #  comp.isData = True
+        # comp.isMC = False
+        #  comp.isData = True
 
 
         comp.files = ['root://xrootd.unl.edu//store/mc/RunIISummer16MiniAODv2/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/120000/008E1775-94BD-E611-99EB-0CC47A745298.root']
