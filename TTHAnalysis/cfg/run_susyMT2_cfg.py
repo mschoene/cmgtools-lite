@@ -326,7 +326,7 @@ for key,value in triggerFlagsAna.triggerBits.items():
 
 ##  FILTERS DEFINITION
 eventFlagsAna.triggerBits = {
-# recommended filters for 80X
+    # recommended filters for 80X
     "HBHENoiseFilter" : [ "Flag_HBHENoiseFilter" ], 
     "HBHENoiseIsoFilter" : [ "Flag_HBHENoiseIsoFilter" ], 
     "CSCTightHalo2015Filter" : [ "Flag_CSCTightHalo2015Filter" ],
@@ -334,8 +334,11 @@ eventFlagsAna.triggerBits = {
     "goodVertices" : [ "Flag_goodVertices" ],
     "eeBadScFilter" : [ "Flag_eeBadScFilter" ],
     # Halo filter to be used
-    "globalTightHalo2016Filter" : [ "Flag_globalTightHalo2016Filter" ],
-}
+    "globalTightHalo2016Filter" : [ "Flag_globalTightHalo2016Filter" ],    
+    "badMuons" : [ "Flag_badMuons" ],
+    "duplicateMuons" : [ "Flag_duplicateMuons" ],
+    "noBadMuons" : [ "Flag_noBadMuons" ],
+    }
 
 
 #-------- SEQUENCE
@@ -396,7 +399,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-test = 2
+test = 1
 #test = 2
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
