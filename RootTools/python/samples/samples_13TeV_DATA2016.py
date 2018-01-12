@@ -389,6 +389,15 @@ samples = dataSamples_PromptReco
 ### Summary of 03Feb2017
 dataSamples_03Feb2017 = dataSamples_Run2016B_03Feb2017_v2 + dataSamples_Run2016C_03Feb2017 + dataSamples_Run2016D_03Feb2017 + dataSamples_Run2016E_03Feb2017 + dataSamples_Run2016F_03Feb2017 + dataSamples_Run2016G_03Feb2017 + dataSamples_Run2016H_03Feb2017_v2 + dataSamples_Run2016H_03Feb2017_v3
 
+dataSamples_Run2016B_ReReco23Sep_V12_forQCD = [JetHT_Run2016B_23Sep2016, MET_Run2016B_23Sep2016_v2, SingleElectron_Run2016B_23Sep2016_v2]
+dataSamples_Run2016B_ReReco23Sep_V3_forQCD = [JetHT_Run2016B_23Sep2016_v3, MET_Run2016B_23Sep2016_v3, SingleElectron_Run2016B_23Sep2016_v3]
+dataSamples_Run2016C_ReReco23Sep_forQCD = [JetHT_Run2016C_23Sep2016, MET_Run2016C_23Sep2016, SingleElectron_Run2016C_23Sep2016]
+dataSamples_Run2016D_ReReco23Sep_forQCD = [JetHT_Run2016D_23Sep2016, MET_Run2016D_23Sep2016, SingleElectron_Run2016D_23Sep2016]
+dataSamples_Run2016E_ReReco23Sep_forQCD = [JetHT_Run2016E_23Sep2016, MET_Run2016E_23Sep2016, SingleElectron_Run2016E_23Sep2016]
+dataSamples_Run2016F_ReReco23Sep_forQCD = [JetHT_Run2016F_23Sep2016, MET_Run2016F_23Sep2016, SingleElectron_Run2016F_23Sep2016]
+dataSamples_Run2016G_ReReco23Sep_forQCD = [JetHT_Run2016G_23Sep2016, MET_Run2016G_23Sep2016, SingleElectron_Run2016G_23Sep2016]
+
+#dataSamples = dataSamples_PromptReco + dataSamples_23Sep2016
 
 dataSamples = dataSamples_PromptReco + dataSamples_23Sep2016 + dataSamples_03Feb2017
 samples = dataSamples
