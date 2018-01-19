@@ -100,6 +100,22 @@ badMuonAna = cfg.Analyzer(
     packedCandidates = 'packedPFCandidates',
 )
 
+# from CMGTools.TTHAnalysis.analyzers.badChargedHadronAnalyzerV2 import badChargedHadronAnalyzerV2
+# badChargedHadronAnaV2 = cfg.Analyzer(
+#     badChargedHadronAnalyzerV2, name = 'badChargedHadronAnaV2',
+#     muons='slimmedMuons',
+#     packedCandidates = 'packedPFCandidates',
+# )
+
+# from CMGTools.TTHAnalysis.analyzers.badMuonAnalyzerV2 import badMuonAnalyzerV2
+# badMuonAnaV2 = cfg.Analyzer(
+#     badMuonAnalyzerV2, name = 'badMuonAnaV2',
+#     muons='slimmedMuons',
+#     packedCandidates = 'packedPFCandidates',
+#     minMuPt=100,
+#     postFix='',
+# )
+
 from CMGTools.TTHAnalysis.analyzers.badMuonAnalyzerMoriond2017 import badMuonAnalyzerMoriond2017
 badCloneMuonAnaMoriond2017 = cfg.Analyzer(
     badMuonAnalyzerMoriond2017, name = 'badCloneMuonMoriond2017',
@@ -118,7 +134,6 @@ badMuonAnaMoriond2017 = cfg.Analyzer(
     selectClones = False,
     postFix = '',
 )
-
 
 # Select a list of good primary vertices (generic)
 vertexAna = cfg.Analyzer(
@@ -339,7 +354,9 @@ isoTrackAna = cfg.Analyzer(
     doSecondVeto = False,
     #####
     doPrune = True,
-    do_mc_match = False # note: it will in any case try it only on MC, not on data
+    do_mc_match = False, # note: it will in any case try it only on MC, not on data
+    ####
+    useCorrectedMET = False,
     )
 
 
@@ -353,7 +370,10 @@ jetAna = cfg.Analyzer(
     jetPt = 25.,
     jetEta = 4.7,
     jetEtaCentral = 2.4,
-    cleanJetsFromLeptons = True,
+    #NOT in central
+    doJetCleaning = True,
+    #CENTRALcmglite-central/80X
+    #cleanJetsFromLeptons = True,
     jetLepDR = 0.4,
     jetLepArbitration = (lambda jet,lepton : lepton), # you can decide which to keep in case of overlaps; e.g. if the jet is b-tagged you might want to keep the jet
     cleanSelectedLeptons = True, #Whether to clean 'selectedLeptons' after disambiguation. Treat with care (= 'False') if running Jetanalyzer more than once
@@ -449,7 +469,7 @@ from CMGTools.TTHAnalysis.analyzers.ttHFatJetAnalyzer import ttHFatJetAnalyzer
 ttHFatJetAna = cfg.Analyzer(
     ttHFatJetAnalyzer, name = 'ttHFatJetAnalyzer',
     jetCol = 'slimmedJetsAK8',
-    jetPt = 170.,
+    jetPt = 100.,
     jetEta = 2.4,
     jetLepDR = 0.4,
     # v--- not implemented for AK8
@@ -461,6 +481,35 @@ ttHFatJetAna = cfg.Analyzer(
     #recalibrateJets = False,
     #shiftJEC = 0, # set to +1 or -1 to get +/-1 sigma shifts
     )
+
+# JetCleaner
+from PhysicsTools.Heppy.analyzers.objects.JetCleaner import JetCleaner
+jetCleanAna = cfg.Analyzer(
+    JetCleaner, name = 'JetCleaner',
+    jetPt = 20.,
+    jetEta = 4.7,
+    jetEtaCentral = 2.4,
+    relaxJetId = False,
+    doPuId = False,
+    minLepPt = 10,
+    jetLepDR = 0.4,
+    cleanSelectedLeptons = True,
+    jetLepArbitration = (lambda jet,lepton : lepton),
+    jetGammaDR = 0.4,
+    minGammaPt = 20.,
+    gammaEtaCentral = 2.4,
+    cleanFromLepAndGammaSimultaneously = True,
+    jetGammaLepDR = 0.4,
+    alwaysCleanPhotons = False,
+    cleanGenJetsFromPhoton = False,
+    cleanJetsFromFirstPhoton = True,
+    cleanJetsFromIsoTracks = True,
+    cleanJetsFromTaus = False,
+    do_mc_match = True,
+    collectionPostFix = "",
+)
+
+
 
 
 # Secondary vertex analyzer
@@ -587,7 +636,9 @@ susyCoreSequence = [
     triggerFlagsAna,
     eventFlagsAna,
     badMuonAna,
+    #    badMuonAnaV2,
     badMuonAnaMoriond2017,
     badCloneMuonAnaMoriond2017,
     badChargedHadronAna,
+    #    badChargedHadronAnaV2,
 ]

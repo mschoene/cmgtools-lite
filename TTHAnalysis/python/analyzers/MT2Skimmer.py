@@ -50,6 +50,9 @@ class MT2Skimmer( Analyzer ):
         zll_mt2 = event.mt2_Xj_zll
         zll_met_pt = event.zll_met_pt
 
+        ngamma = sum( [g.pt()>=20 for g in event.selectedPhotons])
+
+        GGsignalSkim = ( ngamma>1 )
 
         signalSkim = ( (ht > 200 and nJet30 >= 1 and ( (nJet30>=2 and mt2>200.) or nJet30==1 ) ) 
                           and ((ht<1000. and met_pt>200.) or (ht>1000 and  met_pt>30)) )
@@ -66,8 +69,8 @@ class MT2Skimmer( Analyzer ):
                     (nJet30==2 and met_pt>200. and ht>200. and nLep==0 and diffMetMht < 0.5*met_pt and deltaPhiMin<0.3) 
                     )
 
+        ret = ( signalSkim or gammaSkim or zllSkim or qcdSkim or GGsignalSkim )
 
-        ret = ( signalSkim or gammaSkim or zllSkim or qcdSkim )
 
         if ret: self.counters.counter('events').inc('accepted events')
         return ret

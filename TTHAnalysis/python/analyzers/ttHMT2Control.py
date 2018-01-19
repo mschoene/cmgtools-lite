@@ -157,6 +157,121 @@ class ttHMT2Control( Analyzer ):
 
 
 
+
+
+    ############## gg Version, clean jets of all photons
+    def makeGgObjects(self, event):
+
+        import ROOT
+
+        event.gg_p4 = ROOT.reco.Particle.LorentzVector( 0, 0, 0, 0 )
+    
+        ## with Central Jets                                                                                                                                                                                                      
+        gg_objects25 = [ j for j in event.gg_cleanJets if j.pt() > 25 ] + event.selectedLeptons
+        gg_objects30 = [ j for j in event.gg_cleanJets if j.pt() > 30 ] + event.selectedLeptons
+        gg_objects40  = [ j for j in event.gg_cleanJets if j.pt() > 40 and abs(j.eta()) < 2.5 ] + [ l for l in event.selectedLeptons if l.pt() > 10 and abs(l.eta()) < 2.5 ]
+        gg_objectsX  = [ j for j in event.gg_cleanJets if j.pt() > self.jetPt and abs(j.eta()) < 2.5 ] + [ l for l in event.selectedLeptons if l.pt() > 10 and abs(l.eta()) < 2.5 ]
+        # for the gg + jets variables we use do not take care about the leptons, we consider jets that do not overlap with the first jets
+        gg_objects40j = [ j for j in event.gg_cleanJets if j.pt() > 40 and abs(j.eta()) < 2.5 ]
+        gg_objects40ja = [ j for j in event.gg_cleanJetsAll if j.pt() > 40 ]
+        gg_objectsXj = [ j for j in event.gg_cleanJets if j.pt() > self.jetPt and abs(j.eta()) < 2.5 ]
+        gg_objectsXja = [ j for j in event.gg_cleanJetsAll if j.pt() > self.jetPt ]
+       
+        event.gg_htJet25 = sum([x.pt() for x in gg_objects25])
+        event.gg_mhtJet25vec = ROOT.reco.Particle.LorentzVector(-1.*(sum([x.px() for x in gg_objects25])) , -1.*(sum([x.py() for x in gg_objects25])), 0, 0 )
+        event.gg_mhtPhiJet25 = event.mhtJet25vec.phi()
+        event.gg_mhtJet25 = event.mhtJet25vec.pt()
+
+        event.gg_htJet30 = sum([x.pt() for x in gg_objects30])
+        event.gg_mhtJet30vec = ROOT.reco.Particle.LorentzVector(-1.*(sum([x.px() for x in gg_objects30])) , -1.*(sum([x.py() for x in gg_objects30])), 0, 0 )
+        event.gg_mhtJet30 = event.mhtJet30vec.pt()
+        event.gg_mhtPhiJet30 = event.mhtJet30vec.phi()
+
+        event.gg_htJet40 = sum([x.pt() for x in gg_objects40])
+        event.gg_mhtJet40vec = ROOT.reco.Particle.LorentzVector(-1.*(sum([x.px() for x in gg_objects40])) , -1.*(sum([x.py() for x in gg_objects40])), 0, 0 )
+        event.gg_mhtJet40 = event.gg_mhtJet40vec.pt()
+        event.gg_mhtPhiJet40 = event.gg_mhtJet40vec.phi()
+
+        event.gg_htJetX = sum([x.pt() for x in gg_objectsX])
+        event.gg_mhtJetXvec = ROOT.reco.Particle.LorentzVector(-1.*(sum([x.px() for x in gg_objectsX])) , -1.*(sum([x.py() for x in gg_objectsX])), 0, 0 )
+        event.gg_mhtJetX = event.gg_mhtJetXvec.pt()
+        event.gg_mhtPhiJetX = event.gg_mhtJetXvec.phi()
+
+        event.gg_htJet40j = sum([x.pt() for x in gg_objects40j])
+        event.gg_mhtJet40jvec = ROOT.reco.Particle.LorentzVector(-1.*(sum([x.px() for x in gg_objects40j])) , -1.*(sum([x.py() for x in gg_objects40j])), 0, 0 )
+        event.gg_mhtJet40j = event.gg_mhtJet40jvec.pt()
+        event.gg_mhtPhiJet40j = event.gg_mhtJet40jvec.phi()
+
+        event.gg_htJetXj = sum([x.pt() for x in gg_objectsXj])
+        event.gg_mhtJetXjvec = ROOT.reco.Particle.LorentzVector(-1.*(sum([x.px() for x in gg_objectsXj])) , -1.*(sum([x.py() for x in gg_objectsXj])), 0, 0 )
+        event.gg_mhtJetXj = event.gg_mhtJetXjvec.pt()
+        event.gg_mhtPhiJetXj = event.gg_mhtJetXjvec.phi()
+
+        event.gg_htJet40ja = sum([x.pt() for x in gg_objects40ja])
+        event.gg_mhtJet40javec = ROOT.reco.Particle.LorentzVector(-1.*(sum([x.px() for x in gg_objects40ja])) , -1.*(sum([x.py() for x in gg_objects40ja])), 0, 0 )
+        event.gg_mhtJet40ja = event.gg_mhtJet40javec.pt()
+        event.gg_mhtPhiJet40ja = event.gg_mhtJet40javec.phi()
+
+        event.gg_htJetXja = sum([x.pt() for x in gg_objectsXja])
+        event.gg_mhtJetXjavec = ROOT.reco.Particle.LorentzVector(-1.*(sum([x.px() for x in gg_objectsXja])) , -1.*(sum([x.py() for x in gg_objectsXja])), 0, 0 )
+        event.gg_mhtJetXja = event.gg_mhtJetXjavec.pt()
+        event.gg_mhtPhiJetXja = event.gg_mhtJetXjavec.phi()
+
+
+        # MET + photon
+                                     
+        event.gg_met = ROOT.reco.Particle.LorentzVector( event.met.px(), event.met.py(), 0, 0 )
+        event.gg_metNoPU = ROOT.reco.Particle.LorentzVector( event.metNoPU.px(), event.metNoPU.py(), 0, 0 )
+        for gg in event.selectedPhotons:
+            event.gg_met = ROOT.reco.Particle.LorentzVector( event.gg_met.px() + gg.px(), event.gg_met.py() + gg.py() , 0, 0 )
+            event.gg_metNoPU = ROOT.reco.Particle.LorentzVector( event.gg_metNoPU.px() + gg.px(), event.gg_metNoPU.py() + gg.py() , 0, 0 )
+            break # only lead photon
+
+        # look for minimal deltaPhi between MET and four leading jets with pt>40 and eta<2.4
+
+        gg_objects40ja.sort(key = lambda j : j.pt(), reverse = True)        
+        event.gg_deltaPhiMin_had = 999.
+        for n,j in enumerate(gg_objects40ja):
+            if n>3:  break
+            thisDeltaPhi = abs( deltaPhi( j.phi(), event.gg_met.phi() ) )
+            if thisDeltaPhi < event.gg_deltaPhiMin_had : event.gg_deltaPhiMin_had = thisDeltaPhi
+
+        gg_objectsXja.sort(key = lambda j : j.pt(), reverse = True)
+        event.gg_deltaPhiMin_Xj_had = 999.
+        for n,j in enumerate(gg_objectsXja):
+            if n>3:  break
+            thisDeltaPhi = abs( deltaPhi( j.phi(), event.gg_met.phi() ) )
+            if thisDeltaPhi < event.gg_deltaPhiMin_Xj_had : event.gg_deltaPhiMin_Xj_had = thisDeltaPhi
+
+
+        # absolute value of the vectorial difference between met and mht                                                                                                                                                          
+        gg_diffMetMht_had_vec = ROOT.reco.Particle.LorentzVector(event.gg_mhtJet40jvec.px()-event.gg_met.px(), event.gg_mhtJet40jvec.py()-event.gg_met.py(), 0, 0 )
+        event.gg_diffMetMht_had = sqrt( gg_diffMetMht_had_vec.px()*gg_diffMetMht_had_vec.px() + gg_diffMetMht_had_vec.py()*gg_diffMetMht_had_vec.py() )
+
+        gg_diffMetMht_vec = ROOT.reco.Particle.LorentzVector(event.gg_mhtJet40vec.px()-event.gg_met.px(), event.gg_mhtJet40vec.py()-event.gg_met.py(), 0, 0 )
+        event.gg_diffMetMht = sqrt( gg_diffMetMht_vec.px()*gg_diffMetMht_vec.px() + gg_diffMetMht_vec.py()*gg_diffMetMht_vec.py() )
+
+        gg_diffMetMht_Xj_had_vec = ROOT.reco.Particle.LorentzVector(event.gg_mhtJetXjvec.px()-event.gg_met.px(), event.gg_mhtJetXjvec.py()-event.gg_met.py(), 0, 0 )
+        event.gg_diffMetMht_Xj_had = sqrt( gg_diffMetMht_Xj_had_vec.px()*gg_diffMetMht_Xj_had_vec.px() + gg_diffMetMht_Xj_had_vec.py()*gg_diffMetMht_Xj_had_vec.py() )
+
+        gg_diffMetMht_Xj_vec = ROOT.reco.Particle.LorentzVector(event.gg_mhtJetXvec.px()-event.gg_met.px(), event.gg_mhtJetXvec.py()-event.gg_met.py(), 0, 0 )
+        event.gg_diffMetMht_Xj = sqrt( gg_diffMetMht_Xj_vec.px()*gg_diffMetMht_Xj_vec.px() + gg_diffMetMht_Xj_vec.py()*gg_diffMetMht_Xj_vec.py() )
+
+
+        if len(event.selectedPhotons)>=2:
+            # di-lepton invariant mass
+            for gg in event.selectedPhotons:
+                #        print gg
+                if gg<2:
+                    event.gg_p4 += gg.p4()
+
+
+
+
+
+
+
+
     def makeZllObjects(self, event):
 
         import ROOT
@@ -389,7 +504,8 @@ class ttHMT2Control( Analyzer ):
         self.readCollections( event.input )
         
         self.makeGammaObjects(event)                                                                                                                                                                                             
-        self.makeZllObjects(event)
+        self.makeGgObjects(event)                                                                                                                                                                                             
+        self.makeZllObjects(event)                                                                                                                                 
 
         self.makeRLObjects(event)
         
