@@ -795,6 +795,60 @@ EWKZToLL2Jets,
 EWKZToNuNu2Jets,
 ]
 
+
+QCD_Pt30to40_MGG80toInf  = kreator.makeMCComponent("QCD_Pt30to40_MGG80toInf", "/QCD_Pt-30to40_DoubleEMEnriched_MGG-80toInf_TuneCUETP8M1_13TeV_Pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+QCD_Pt30toInf_MGG40to80 = kreator.makeMCComponent("QCD_Pt30toInf_MGG40to80", "/QCD_Pt-30toInf_DoubleEMEnriched_MGG-40to80_TuneCUETP8M1_13TeV_Pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+#wrong name: QCD_Pt30to40_MGG40to80 = kreator.makeMCComponent("QCD_Pt30to40_MGG40to80", "/QCD_Pt-30toInf_DoubleEMEnriched_MGG-40to80_TuneCUETP8M1_13TeV_Pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+QCD_Pt40toInf_MGG80toInf  = kreator.makeMCComponent("QCD_Pt40toInf_MGG80toInf", "/QCD_Pt-40toInf_DoubleEMEnriched_MGG-80toInf_TuneCUETP8M1_13TeV_Pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+
+GJet_Pt20to40_MGG80toInf = kreator.makeMCComponent("GJet_Pt20to40_MGG80toInf", "/GJet_Pt-20to40_DoubleEMEnriched_MGG-80toInf_TuneCUETP8M1_13TeV_Pythia8/RunIISummer16MiniAODv2-PUMoriond17_backup_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+GJet_Pt20toInf_MGG40to80 = kreator.makeMCComponent("GJet_Pt20toInf_MGG40to80", "/GJet_Pt-20toInf_DoubleEMEnriched_MGG-40to80_TuneCUETP8M1_13TeV_Pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+GJet_Pt40toInf_MGG80toInf = kreator.makeMCComponent("GJet_Pt40toInf_MGG80toInf", "/GJet_Pt-40toInf_DoubleEMEnriched_MGG-80toInf_TuneCUETP8M1_13TeV_Pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+
+DiPhotonJetsBox_MGG80toInf = kreator.makeMCComponent("DiPhotonJetsBox_MGG80toInf", "/DiPhotonJetsBox_MGG-80toInf_13TeV-Sherpa/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+
+
+DiPhotonJetsBox_MGG80toInf_amcatnlo = kreator.makeMCComponent("DiPhotonJetsBox_MGG80toInf_amcatnlo", "/DiPhotonJets_MGG-80toInf_13TeV_amcatnloFXFX_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+#/DiPhotonJetsBox_M40_80-Sherpa/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM
+#/DiPhotonJets_MGG-80toInf_13TeV_amcatnloFXFX_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM
+
+GluGluHToGG_M125 = kreator.makeMCComponent("GluGluHToGG_M125", "/GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/MINIAODSIM", "CMS", ".*root", 0 )
+VBFHToGG_M125_ext = kreator.makeMCComponent("VBFHToGG_M125_ext", "/VBFHToGG_M125_13TeV_amcatnlo_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM", "CMS", ".*root", 0 )
+VBFHToGG_M125_ext2 = kreator.makeMCComponent("VBFHToGG_M125_ext2", "/VBFHToGG_M125_13TeV_amcatnlo_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/MINIAODSIM", "CMS", ".*root", 0 )
+VHToGG_M125 = kreator.makeMCComponent("VHToGG_M125", "/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+ttHJetToGG_M125 = kreator.makeMCComponent("ttHJetToGG_M125", "/ttHJetToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8_v2/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+ttHToGG_M125 = kreator.makeMCComponent("ttHToGG_M125", "/ttHToGG_M125_13TeV_powheg_pythia8_v2/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+bbHToGG_M125_4FS_yb2 = kreator.makeMCComponent("bbHToGG_M125_4FS_yb2", "/bbHToGG_M-125_4FS_yb2_13TeV_amcatnlo/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+bbHToGG_M125_4FS_ybyt = kreator.makeMCComponent("bbHToGG_M125_4FS_ybyt", "/bbHToGG_M-125_4FS_ybyt_13TeV_amcatnlo/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+THQ_ctcvcp_HToGG = kreator.makeMCComponent("THQ_ctcvcp_HToGG", "/THQ_ctcvcp_HToGG_13TeV-madgraph-pythia8_TuneCUETP8M1/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+THW_ctcvcp_HToGG = kreator.makeMCComponent("THW_ctcvcp_HToGG", "/THW_ctcvcp_HToGG_13TeV-madgraph-pythia8_TuneCUETP8M1/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", "CMS", ".*root", 0 )
+
+#/THQ_HToGG_13TeV-madgraph-pythia8_TuneCUETP8M1/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM
+
+#/THW_HToGG_13TeV-madgraph-pythia8_TuneCUETP8M1/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM
+
+
+# MT2gg = [
+#     QCD_Pt30to40_MGG80toInf,
+#     QCD_Pt30toInf_MGG40to80,
+#     QCD_Pt40toInf_MGG80toInf,
+#     GJet_Pt20to40_MGG80toInf,
+#     GJet_Pt20toInf_MGG40to80,
+#     GJet_Pt40toInf_MGG80toInf,
+#     DiPhotonJetsBox_MGG80toInf,
+#     DiPhotonJetsBox_MGG80toInf_amcatnlo,
+#     GluGluHToGG_M125,
+#     VBFHToGG_M125_ext,
+#     VBFHToGG_M125_ext2, 
+#     VHToGG_M125,
+#     ttHJetToGG_M125,
+#     ttHToGG_M125,
+#     bbHToGG_M125_4FS_yb2,
+#     bbHToGG_M125_4FS_ybyt,
+#     THQ_ctcvcp_HToGG,
+#     THW_ctcvcp_HToGG
+#     ]
+
 ### ----------------------------- summary ----------------------------------------
 
 mcSamples = TTs + SingleTop + VJets + DYJetsM50HT + DYJetsM5to50HT + DYNJets + WJetsToLNuHT + WJetsToLNuPT + WNJets + GJetsHT + ZJetsToNuNuHT + QCDHT + QCDPtbcToE + QCDPt + QCDPtEMEnriched + [QCD_Mu15] + QCD_Mu5 +  DiBosons + TriBosons + TTV + Higgs + Rares + EWKV2Jets # + [TChiSlepSnu,T1tttt_2016,T5qqqqVV_2016]

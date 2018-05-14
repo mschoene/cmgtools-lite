@@ -4,6 +4,7 @@ from CMGTools.Production.dataset import createDataset, createMyDataset
 import re
 
 class ComponentCreator(object):
+#    def makeMCComponent(self,name,dataset,user,pattern,xSec=1,useAAA=True):
     def makeMCComponent(self,name,dataset,user,pattern,xSec=1,useAAA=False):
         
          component = cfg.MCComponent(
@@ -173,7 +174,8 @@ class ComponentCreator(object):
         component.run_range = run_range
         return component
 
-    def getFiles(self, dataset, user, pattern, useAAA=False, run_range=None, json=None):
+    def getFiles(self, dataset, user, pattern, useAAA=True, run_range=None, json=None):
+#    def getFiles(self, dataset, user, pattern, useAAA=False, run_range=None, json=None):
         # print 'getting files for', dataset,user,pattern
         ds = createDataset( user, dataset, pattern, readcache=True, run_range=run_range, json=json )
         files = ds.listOfGoodFiles()
