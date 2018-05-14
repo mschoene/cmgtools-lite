@@ -23,12 +23,7 @@ class Event:
         self._entry = entry
         self._sync()
     def _sync(self):
-        if self._tree.entry != self._entry:
-            if (self._tree.entry == self._entry-1):
-                self._tree._ttreereader.Next()
-            else:
-                self._tree._ttreereader.SetEntry(self._entry)
-            self._tree.entry = self._entry
+        self._tree.gotoEntry(self._entry)
     def __getattr__(self,name):
         if name in self.__dict__: return self.__dict__[name]
         return TRAT.readBranch(self._tree, name)
@@ -113,8 +108,10 @@ class EventLoop:
             for i in xrange(tree.GetEntries()) if eventRange == None else eventRange:
                 if maxEvents > 0 and i >= maxEvents-1: break
                 e = Event(tree,i)
-                if cut != None and not e.eval(cut): 
-                    continue
+                if cut != None:
+                    evno = e.evt # force some eval of a plain branch (apparently this is needed)
+                    cutres = e.eval(cut)
+                    if not cutres: continue
                 ret = True
                 for m in modules: 
                     ret = m.analyze(e)

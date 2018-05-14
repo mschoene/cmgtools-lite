@@ -34,7 +34,7 @@ python samplefile.py list [samples]:
 python samplefile.py summary [samples]:   
         two equivalent commands that prints a list of samples, with number of files, events, equivalent luminosity, etc
 
-python samplefile.py genXSecAna [samples] [ --pretend ] [ --verbose ]:  
+python samplefile.py genXSecAna [samples] [ --pretend ] [ --verbose ] [ --AAA ]:  
         check the cross sections using genXSecAna on one of the files
 
 python samplefile.py checkdecl:  
@@ -83,7 +83,7 @@ python samplefile.py checkdecl:
                 print "Checking",d.name," ",
                 checker.checkComp(d, verbose=True)
    if "list" in args or "summary" in args:
-        from CMGTools.HToZZ4L.tools.configTools import printSummary
+        from CMGTools.RootTools.samples.configTools import printSummary
         printSummary(selsamples)
    if "genXSecAna" in args:
         import subprocess, re;
@@ -97,7 +97,15 @@ python samplefile.py checkdecl:
             if "--pretend" in args: 
                 print "Would check ",d.name," aka ",d.dataset
                 continue
+            if "--AAA" in args:
+                from CMGTools.Production.changeComponentAccessMode import convertComponent
+                convertComponent(d, "root://cms-xrd-global.cern.ch/%s")
+            else: # use LFNs
+                d.files = [ re.sub(".*(/store/.*)(?:\\?.*)?","\\1",f) for f in d.files[:] ]
             print "Sample %s: XS(sample file) = %g pb, ... " % (d.name,d.xSection),
+            if len(d.files) == 0: 
+                print "\n\033[01;31m ERROR: no files in sample, so cannot run the analyzer \033[00m"
+                continue
             if "--verbose" in args: 
                 print "\n ".join(["cmsRun", os.environ['CMSSW_BASE']+"/src/genXSecAna.py", "inputFiles=%s" % d.files[0], "maxEvents=-1"])
             xsecAnaOut = subprocess.check_output(["cmsRun", os.environ['CMSSW_BASE']+"/src/genXSecAna.py", "inputFiles=%s" % d.files[0], "maxEvents=-1"], stderr=subprocess.STDOUT)
@@ -119,7 +127,17 @@ python samplefile.py checkdecl:
             elif 0.8 < kfactor and kfactor < 1.4: (col,stat) = '\033[01;36m', "OK?" 
             elif 0.5 < kfactor and kfactor < 2.0: (col,stat) = '\033[01;33m', "WARNING" 
             else:                                 (col,stat) = '\033[01;31m', "ERROR"
-            print "XS(genAnalyzer) = %g +/- %g pb : %s kFactor = %g %s\033[00m" % (xs, xserr, col, kfactor, stat)
+            m = re.search(r"After filter: final fraction of events with negative weights = (\S+) \+- (\S+)", xsecAnaOut)
+            if m:
+                fnegv, fnegerr =  (float(m.group(1)), float(m.group(2)))
+                fneg = "  f(negw): %.3f +- %.3f " % (fnegv, fnegerr)
+                if getattr(d,'fracNegWeights',None) != None:
+                    if abs(d.fracNegWeights - fnegv) < 0.02:
+                        fneg += "(%.3f in sample file, \033[01;36mOK\033[00m)" % d.fracNegWeights
+                    else:
+                        fneg += "(%.3f in sample file, \033[01;33mWARNING\033[00m)" % d.fracNegWeights
+            else: fneg = ""
+            print "XS(genAnalyzer) = %g +/- %g pb : %s kFactor = %g %s\033[00m%s" % (xs, xserr, col, kfactor, stat, fneg)
    if "checkdecl" in args:
         if localobjs == None: raise RuntimeError("you have to runMain(samples,localobjs=locals())")
         import PhysicsTools.HeppyCore.framework.config as cfg
