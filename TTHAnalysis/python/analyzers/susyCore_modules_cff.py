@@ -198,6 +198,19 @@ susyScanAna = cfg.Analyzer(
     useLumiInfo=True
     )
 
+
+from PhysicsTools.Heppy.analyzers.objects.LeptonCleaner import LeptonCleaner
+# Lepton Analyzer (generic)
+lepCleaner = cfg.Analyzer(
+    LeptonCleaner, name="leptonCleaner",
+    # input collections
+    minLepPt = 15,
+    lepSelCut = lambda lep : True,
+    eleGammaDR = 1.0,
+    muGammaDR = 0.5,
+    collectionPostFix = ""
+    )
+
 # Lepton Analyzer (generic)
 lepAna = cfg.Analyzer(
     LeptonAnalyzer, name="leptonAnalyzer",
@@ -289,7 +302,7 @@ photonAna = cfg.Analyzer(
     doPhotonScaleCorrections=False, 
     ptMin = 15,
     etaMax = 2.5,
-    gammaID = "POG_PHYS14_25ns_Loose",
+    gammaID = "POG_Spring17_Loose",
     rhoPhoton = 'fixedGridRhoFastjetAll',
     gamma_isoCorr = 'rhoArea',
     conversionSafe_eleVeto = False,

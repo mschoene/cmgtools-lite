@@ -18,6 +18,7 @@ from RecoEgamma.PhotonIdentification.PhotonMVAValueMapProducer_cfi import *
 #and subsequently add these producers to the main sequence, like (order is important!)
 #process.p = cms.Path(process.photonIDValueMapProducer * process.photonMVAValueMapProducer * process.myAnalyzer)
 
+is2016 = False
 
 
 ##------------------------------------------
@@ -47,7 +48,8 @@ lepAna.loose_electron_isoCut = lambda electron : electron.miniRelIso < 0.1
 #lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING16_25ns_v1_ConvVetoDxyDz_Veto"
 #lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
 #lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto"
-lepAna.loose_electron_id  = "MVA_ID_NonTrig_Spring16_VLooseSI"
+#lepAna.loose_electron_id  = "MVA_ID_NonTrig_Spring16_VLooseSI"
+lepAna.loose_electron_id  = "MVA_ID_NonTrig_Spring16_VetoRazor"
 lepAna.loose_electron_lostHits = 999. # no cut
 lepAna.loose_electron_dxy    = 999.
 lepAna.loose_electron_dz     = 999.
@@ -55,7 +57,8 @@ lepAna.loose_electron_dz     = 999.
 #lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING16_25ns_v1_ConvVetoDxyDz_Veto"
 #lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
 #lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto"
-lepAna.inclusive_electron_id  = "MVA_ID_NonTrig_Spring16_VLooseSI"
+#lepAna.inclusive_electron_id  = "MVA_ID_NonTrig_Spring16_VLooseSI"
+lepAna.inclusive_electron_id  = "MVA_ID_NonTrig_Spring16_VetoRazor"
 lepAna.inclusive_electron_lostHits = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dxy    = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dz     = 999. # no cut since embedded in ID
@@ -64,7 +67,8 @@ lepAna.mu_isoCorr = "deltaBeta"
 lepAna.ele_isoCorr = "deltaBeta"
 #lepAna.ele_tightId = "Cuts_SPRING16_25ns_v1_ConvVetoDxyDz"
 #lepAna.ele_tightId = "Cuts_SPRING15_25ns_v1_ConvVetoDxyDz"
-lepAna.ele_tightId = "MVA_ID_NonTrig_Spring16_VLooseSI"
+lepAna._ele_tightId  = "MVA_ID_NonTrig_Spring16_VetoRazor"
+#lepAna.ele_tightId = "MVA_ID_NonTrig_Spring16_VLooseSI"
 lepAna.notCleaningElectrons = True
 lepAna.doMiniIsolation = True
 lepAna.miniIsolationPUCorr = 'rhoArea'
@@ -105,8 +109,11 @@ jetAna.jetPt = 20. #was 10
 #jetAna.mcGT     = "Spring16_25nsV6_MC" # jec corrections
 #jetAna.dataGT   = "Spring16_25nsV6_DATA" # jec corrections
 
-jetAna.mcGT="Summer16_23Sep2016V4_MC"
-jetAna.dataGT = [ [ -1, "Summer16_23Sep2016BCDV4_DATA"], [276831 ,"Summer16_23Sep2016EFV4_DATA"] , [278802 ,"Summer16_23Sep2016GV4_DATA"] , [ 280919  ,"Summer16_23Sep2016HV4_DATA"]  ]
+jetAna.mcGT="Fall17_17Nov2017_V6_MC"
+jetAna.dataGT = [ [ -1, "Fall17_17Nov2017B_V6_DATA"], [299337 ,"Fall17_17Nov2017C_V6_DATA"] , [302030 ,"Fall17_17Nov2017D_V6_DATA"] , [ 303435  ,"Fall17_17Nov2017E_V6_DATA"], [ 304911  ,"Fall17_17Nov2017F_V6_DATA"]  ]
+
+#jetAna.mcGT="Summer16_23Sep2016V4_MC"
+#jetAna.dataGT = [ [ -1, "Summer16_23Sep2016BCDV4_DATA"], [276831 ,"Summer16_23Sep2016EFV4_DATA"] , [278802 ,"Summer16_23Sep2016GV4_DATA"] , [ 280919  ,"Summer16_23Sep2016HV4_DATA"]  ]
 
 #jetAna.mcGT="Summer16_25nsV5_MC"    
 #jetAna.dataGT = "Spring16_23Sep2016BCDV2_DATA Spring16_23Sep2016EFV2_DATA Spring16_23Sep2016GV2_DATA  Spring16_23Sep2016HV2_DATA"
@@ -176,8 +183,9 @@ isoTrackAna.doIsoAnnulus = True
 
 # recalibrate MET
 #metAna.recalibrate = False # 'type1' or False
-#metCollection     = "slimmedMETsMuEGClean",
-#noPUMetCollection = "slimmedMETsMuEGClean",
+#if is2016:
+#    metCollection     = "slimmedMETsMuEGClean",
+#    noPUMetCollection = "slimmedMETsMuEGClean",
 # change back to this
 metAna.recalibrate = 'type1' # 'type1' or False
 metAna.old74XMiniAODs = False # get right Raw MET on old 74X MiniAODs
@@ -234,9 +242,13 @@ ttHTopoJetAna = cfg.Analyzer(
 
 from PhysicsTools.Heppy.analyzers.eventtopology.MT2Analyzer import MT2Analyzer
 
+#metname = "slimmedMETs"
+#if is2016:
+#    metname = "slimmedMETsMuEGClean" 
+    
+
 MT2Ana = cfg.Analyzer(
     MT2Analyzer, name = 'MT2Analyzer',
-    # metCollection     = "slimmedMETsMuEGClean", 
     metCollection     = "slimmedMETs",
     doOnlyDefault = True,
     jetPt = mt2JPt, 
@@ -272,11 +284,10 @@ from CMGTools.RootTools.samples.triggers_13TeV_Spring16 import triggers_met90_mh
 
 triggerFlagsAna.triggerBits = {
 #diphoton signal triggers
-'DiPhoton30' : ["HLT_Diphoton30_18_R9Id_OR_IsoCaloId_AND_HE_R9Id_Mass90_v*"],
+'DiPhoton30' : ["HLT_Diphoton30_18_R9Id_OR_IsoCaloId_AND_HE_R9Id_Mass90_v*","HLT_Diphoton30_18_R9Id_OR_IsoCaloId_AND_HE_R9Id_Mass95_v*" ],
 
 'DiPhoton30_2017' : ["HLT_Diphoton30_22_R9Id_OR_IsoCaloId_AND_HE_R9Id_Mass90_v*","HLT_Diphoton30_22_R9Id_OR_IsoCaloId_AND_HE_R9Id_Mass95_v*"],
 
-# test trigger path that accepts aaaaaall 'HLTbla' : ["HLT*"],
 
 # signal triggers 
 'PFHT800' : ["HLT_PFHT800_v*"],
@@ -444,8 +455,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-#test = 1
-test = 3
+test = 2
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
 runPreprocessor = False
@@ -539,9 +549,6 @@ elif test==1:
     #comp.files = ['root://xrootd.unl.edu//store/data/Run2016C/HTMHT/MINIAOD/PromptReco-v2/000/275/420/00000/4AD126B0-F539-E611-AD77-02163E013390.root'
 #/store/data/Run2016C/HTMHT/MINIAOD/PromptReco-v2/000/275/658/00000/227E1B3A-A53B-E611-A53E-02163E0136C4.root'
 #'/afs/cern.ch/user/m/mangano/work/datasets/data/80X/HTMHT.root'
-
-
-
    
 #TTJets_SingleLeptonFromTbar_ext = kreator.makeMCComponent("TTJets_SingleLeptonFromTbar_ext", "/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM", "CMS", ".*root", 831.76*(3*0.108)*(1-3*0.108) )
 
@@ -549,32 +556,18 @@ elif test==1:
     #    selectedComponents = [TTJets_SingleLeptonFromTbar_ext]
     selectedComponents = [DiPhotonJetsBox_MGG80toInf_amcatnlo]
 
-    #selectedComponents = [JetHT_Run2016F_PromptReco_v1]
-    # selectedComponents = [MET_Run2016E_03Feb2017]
 
     for comp in selectedComponents:
- 
-       # comp.files = ['root://xrootd.unl.edu//store/data/Run2016F/JetHT/MINIAOD/23Sep2016-v1/100000/322B5B83-B184-E611-A5B1-0026B927862A.root']
+        
+        # comp.files = ['root://xrootd.unl.edu//store/data/Run2016F/JetHT/MINIAOD/23Sep2016-v1/100000/322B5B83-B184-E611-A5B1-0026B927862A.root']
 
         #comp.isMC = False
-        #    comp.isData = True
+        #comp.isData = True
         
+        comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall17MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/20000/028340E8-D442-E811-813C-0025905B8560.root']
+
         #comp.files = ['root://xrootd.unl.edu//store/data/Run2016E/MET/MINIAOD/03Feb2017-v1/110000/0A011AB6-82EB-E611-92FC-001E674FAEBF.root']
-
-
-        #        comp.files = ['root://xrootd.unl.edu//store/mc/RunIISummer16MiniAODv2/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/120000/008E1775-94BD-E611-99EB-0CC47A745298.root']
-
-        comp.files = ['root://xrootd.unl.edu//store/mc/RunIISummer16MiniAODv2/DiPhotonJets_MGG-80toInf_13TeV_amcatnloFXFX_pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/120000/12D62993-E7C6-E611-B1A4-002590DE6E3E.root'] 
-        #comp.files = ['root://xrootd.unl.edu//store/user/namin/mc/T2ttZH_mStop-800_mLSP-1_mChi-200_MINIAOD/MINIAOD_99.root'] #   file:testFile.root']
-
-        #comp.files = ['/scratch/mmasciov/002080B6-631C-E611-B6B0-0CC47A1DF80A.root']
-        #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/60000/7A49CB24-D01B-E611-8CC2-0CC47A57D1F8.root']
- #comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/00000/00D010B5-1EB9-E511-B950-02163E014965.root']
-       #comp.files = [root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/3EDD874E-AA3F-E611-BED1-0090FAA57380.root']
-       # #,  root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/44DB2EF3-AA3F-E611-8B32-0090FAA57780.root', root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/6828DCF2-AA3F-E611-82FF-001F2908CFBC.root', root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/AA9DE7DA-AA3F-E611-AAB8-0090FAA58194.root', root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/B683ABDE-AA3F-E611-A763-0CC47A1DF7FE.root', root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/D84F85B7-AA3F-E611-B15F-001F2908BE42.root', root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/DE9896D9-AA3F-E611-9F3E-002590D0AFA4.root' ]
-#        # comp.splitFactor = 1200
-
-#    comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to aply trigger skimming
+        #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISummer16MiniAODv2/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/120000/008E1775-94BD-E611-99EB-0CC47A745298.root']
 
 
     # # Tree configuration for JEC variations
@@ -584,289 +577,69 @@ elif test==1:
     #     treeProducer.collections = MT2forJECstudies_collections
 
 
-
 elif test==2:
 
-    from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
+    #    from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
+    from CMGTools.RootTools.samples.samples_13TeV_RunIIFall17MiniAOD import *
     #    from CMGTools.RootTools.samples.samples_13TeV_RunIISpring16MiniAODv2 import *
     # full production
 
-    selectedComponents = MT2gg
+    if is2016:
+        photonAna.gammaID = "POG_Spring16_Loose"
 
     # MT2gg = [
-    #     QCD_Pt30to40_MGG80toInf,
-    #     QCD_Pt30to40_MGG40to80,
-    #     QCD_Pt40toInf_MGG80toInf,
-    #     GJet_Pt20to40_MGG80toInf,
-    #     GJet_Pt20toInf_MGG40to80,
-    #     GJet_Pt40toInf_MGG80toInf,
-    #     DiPhotonJetsBox_MGG80toInf,
     #     GluGluHToGG_M125,
-    #     VBFHToGG_M125_ext,
-    #     VBFHToGG_M125_ext2, 
+    #     THQ_ctcvcp_HToGG_M125,
+    #     THW_ctcvcp_HToGG_M125,
+    #     VBFHToGG_M_125_13TeV,
+    #     VBFHToGG_M125,
     #     VHToGG_M125,
-    #     ttHJetToGG_M125,
+    #     WminusH_HToGG_WToAll_M125,
+    #     WplusH_HToGG_WToAll_M125,
+    #     ZH_HToGG_ZToAll_M125,
+    #     ggZH_HToGG_ZToLL_M125,
+    #     ggZH_HToGG_ZToNuNu_M125,
+    #     ggZH_HToGG_ZToQQ_M125,
     #     ttHToGG_M125,
-    #     bbHToGG_M125_4FS_yb2,
-    #     bbHToGG_M125_4FS_ybyt,
-    #     THQ_ctcvcp_HToGG,
-    #     THW_ctcvcp_HToGG
+    #     DiPhotonJetsBox_MGG_80toInf,
+    #     GJet_Pt_20to40_MGG_80toInf,
+    #     GJet_Pt_20toInf_MGG_40to80,
+    #     GJet_Pt_40toInf_MGG_80toInf,
+    #     QCD_Pt_30to40_MGG_80toInf,
+    #     QCD_Pt_30toInf_MGG_40to80,
     #     ]
 
+        #    MT2gg = [
+    #     #QCD_Pt30to40_MGG80toInf,
+    #     # QCD_Pt30toInf_MGG40to80,
+    #     # QCD_Pt40toInf_MGG80toInf,
+    #     # GJet_Pt20to40_MGG80toInf,
+    #     # GJet_Pt20toInf_MGG40to80,
+    #     # GJet_Pt40toInf_MGG80toInf,
+    #     # DiPhotonJetsBox_MGG80toInf,
+    #         GluGluHToGG_M125,
+    #     # VBFHToGG_M125_ext,
+    #     # VBFHToGG_M125_ext2, 
+    #     # VHToGG_M125,
+    #     # ttHJetToGG_M125,
+    #     # ttHToGG_M125,
+    #     # bbHToGG_M125_4FS_yb2,
+    #     # bbHToGG_M125_4FS_ybyt,
+    #     # THQ_ctcvcp_HToGG,
+    #     # THW_ctcvcp_HToGG,
+    #    ]
 
-    # selectedComponents = [
-    #     WW,
-    #     WW_ext,
-    #     ZZ,
-    #     ZZ_ext,
-    #     WZ,
-    #     WZ_ext,
-    #     WWW,
-    #     WZZ,
-    #     WWZ,
-    #     ZZZ
-    #     # TTJets_SingleLeptonFromTbar, 
-    #     # TTJets_SingleLeptonFromTbar_ext, 
-    #     # TTJets_SingleLeptonFromT, 
-    #     # TTJets_SingleLeptonFromT_ext, 
-    #     # TTJets_DiLepton, 
-    #     # TTJets_DiLepton_ext, 
-    #     # TTHnobb_pow,
-    #     # TTHbb_pow,
-    #     # TToLeptons_sch_amcatnlo,
-    #     # T_tch_powheg,
-    #     # TBar_tch_powheg,
-    #     # TBar_tWch_ext,
-    #     # T_tWch_ext,
-    #     # #T_tWch_DS,
-    #     # #TBar_tWch_DS,
-    #     # TGJets,
-    #     # #TGJets_ext,
-    #     # tZq_ll_ext,
-    #     # #tZq_nunu,
-    #     # tWll,
-    #     # WJetsToLNu,
-    #     # WJetsToLNu_LO,
-    #     # DYJetsToLL_M50_LO_ext,
-    #     # DYJetsToLL_M50_HT70to100, 
-    #     # DYJetsToLL_M50_HT100to200,
-    #     # DYJetsToLL_M50_HT100to200_ext,
-    #     # DYJetsToLL_M50_HT200to400,
-    #     # DYJetsToLL_M50_HT200to400_ext,
-    #     # DYJetsToLL_M50_HT400to600,
-    #     # DYJetsToLL_M50_HT400to600_ext,
-    #     # DYJetsToLL_M50_HT600to800  ,
-    #     # DYJetsToLL_M50_HT800to1200 ,
-    #     # DYJetsToLL_M50_HT1200to2500,
-    #     # DYJetsToLL_M50_HT2500toInf ,
-    #     # WJetsToLNu_HT70to100,
-    #     # WJetsToLNu_HT100to200,
-    #     # WJetsToLNu_HT100to200_ext,
-    #     # WJetsToLNu_HT100to200_ext2,
-    #     # WJetsToLNu_HT200to400,
-    #     # WJetsToLNu_HT200to400_ext2,
-    #     # WJetsToLNu_HT200to400_ext,
-    #     # WJetsToLNu_HT400to600,
-    #     # WJetsToLNu_HT400to600_ext,
-    #     # WJetsToLNu_HT600to800,
-    #     # WJetsToLNu_HT600to800_ext,
-    #     # WJetsToLNu_HT800to1200,
-    #     # WJetsToLNu_HT800to1200_ext,
-    #     # WJetsToLNu_HT1200to2500,
-    #     # WJetsToLNu_HT1200to2500_ext,
-    #     # WJetsToLNu_HT2500toInf,
-    #     # WJetsToLNu_HT2500toInf_ext,
-    #     # ZJetsToNuNu_HT100to200,
-    #     # ZJetsToNuNu_HT100to200_ext,
-    #     # ZJetsToNuNu_HT200to400,
-    #     # ZJetsToNuNu_HT200to400_ext,
-    #     # ZJetsToNuNu_HT400to600,
-    #     # ZJetsToNuNu_HT400to600_ext,
-    #     # ZJetsToNuNu_HT600to800,
-    #     # ZJetsToNuNu_HT800to1200,
-    #     # #ZJetsToNuNu_HT800to1200_ext,
-    #     # ZJetsToNuNu_HT1200to2500,
-    #     # ZJetsToNuNu_HT1200to2500_ext,
-    #     # ZJetsToNuNu_HT2500toInf,
-    #     # #ZJetsToNuNu_HT2500toInf_ext,
-    #     # QCD_HT50to100,
-    #     # QCD_HT100to200,
-    #     # QCD_HT200to300,
-    #     # QCD_HT200to300_ext,
-    #     # QCD_HT300to500,
-    #     # QCD_HT300to500_ext,
-    #     # QCD_HT500to700,
-    #     # QCD_HT500to700_ext,
-    #     # QCD_HT700to1000,
-    #     # QCD_HT700to1000_ext,
-    #     # QCD_HT1000to1500,
-    #     # QCD_HT1000to1500_ext,
-    #     # QCD_HT1500to2000,
-    #     # QCD_HT1500to2000_ext,
-    #     # QCD_HT2000toInf,
-    #     # QCD_HT2000toInf_ext,
-    #     # TTWToLNu_ext,
-    #     # TTWToLNu_ext2,
-    #     # TTWToQQ,
-    #     # TTW_LO,
-    #     # TTZToQQ,
-    #     # TTZToLLNuNu_ext,
-    #     # TTZ_LO,
-    #     # TTGJets,
-    #     # TTTT,
-    #     # #########
-    #     # # TTJets, 
-    #     # # # #TTJets_ext, 
-    #     # # # #TTJets_LO,
-    #     # # # #TT_pow_ext3, 
-    #     # # # #TT_pow_ext4, 
-    #     # # TTJets_SingleLeptonFromTbar, 
-    #     # # TTJets_SingleLeptonFromTbar_ext, 
-    #     # # TTJets_SingleLeptonFromT, 
-    #     # # TTJets_SingleLeptonFromT_ext, 
-    #     # # TTJets_DiLepton, 
-    #     # # TTJets_DiLepton_ext, 
-    #     # # #TTLep_pow, 
-    #     # # #TTLep_pow_ext, 
-    #     # # #TTJets_LO_HT600to800, 
-    #     # # #TTJets_LO_HT600to800_ext, 
-    #     # # #TTJets_LO_HT800to1200, 
-    #     # # #TTJets_LO_HT800to1200_ext, 
-    #     # # #TTJets_LO_HT1200to2500, 
-    #     # # #TTJets_LO_HT1200to2500_ext, 
-    #     # # #TTJets_LO_HT2500toInf,
-    #     # # #TToLeptons_tch_amcatnlo,
-    #     # # #TToLeptons_tch_amcatnlo_ext,
-    #     # # TToLeptons_tch_powheg,
-    #     # # TBarToLeptons_tch_powheg,
-    #     # # TToLeptons_sch_amcatnlo,
-    #     # # TBar_tWch_lep,
-    #     # # T_tWch_lep,
-    #     # # ttbb,
-    #     # # #TBar_tWch,
-    #     # # #T_tWch,
-    #     # # #T_tWch_DS,
-    #     # # #TBar_tWch_DS,
-    #     # # #TGJets,
-    #     # # #TGJets_ext,
-    #     # # #WJetsToLNu,
-    #     # # #WJetsToLNu_LO, 
-    #     # # #DYJetsToLL_M10to50, 
-    #     # # #DYJetsToLL_M10to50_ext1,
-    #     # # ##DYJetsToLL_M5to50_LO, 
-    #     # # #DYJetsToLL_M50, 
-    #     # # #DYJetsToLL_M50_LO, 
-    #     # # #DYJetsToNuNu_M50,
-    #     # # #DYJetsToLL_M50_flatPu,
-    #     # # DYJetsToLL_M50_HT100to200,
-    #     # # DYJetsToLL_M50_HT100to200_ext,
-    #     # # DYJetsToLL_M50_HT200to400,
-    #     # # DYJetsToLL_M50_HT200to400_ext,
-    #     # # DYJetsToLL_M50_HT400to600,
-    #     # # DYJetsToLL_M50_HT400to600_ext,
-    #     # # DYJetsToLL_M50_HT600toInf,
-    #     # # DYJetsToLL_M50_HT600toInf_ext,
-    #     # # DYJetsToLL_M50_HT600to800,
-    #     # # DYJetsToLL_M50_HT800to1200,
-    #     # # DYJetsToLL_M50_HT1200to2500,
-    #     # # DYJetsToLL_M50_HT2500toInf,
-    #     # # WJetsToLNu_HT100to200,
-    #     # # WJetsToLNu_HT100to200_ext,
-    #     # # WJetsToLNu_HT200to400,
-    #     # # WJetsToLNu_HT200to400_ext,
-    #     # # WJetsToLNu_HT400to600,
-    #     # # WJetsToLNu_HT400to600_ext,
-    #     # # # #WJetsToLNu_HT600toInf,
-    #     # # WJetsToLNu_HT600to800,
-    #     # # WJetsToLNu_HT600to800_ext,
-    #     # # WJetsToLNu_HT800to1200,
-    #     # # WJetsToLNu_HT800to1200_ext,
-    #     # # WJetsToLNu_HT1200to2500,
-    #     # # WJetsToLNu_HT1200to2500_ext,
-    #     # # WJetsToLNu_HT2500toInf,
-    #     # # WJetsToLNu_HT2500toInf_ext,
-    #     # # GJets_HT40to100,
-    #     # # GJets_HT100to200,
-    #     # # GJets_HT200to400,
-    #     # # GJets_HT400to600,
-    #     # # GJets_HT600toInf,
-    #     # # ZJetsToNuNu_HT100to200,
-    #     # # ZJetsToNuNu_HT100to200_ext,
-    #     # # ZJetsToNuNu_HT200to400,
-    #     # # ZJetsToNuNu_HT200to400_ext,
-    #     # # ZJetsToNuNu_HT400to600,
-    #     # # ZJetsToNuNu_HT400to600_ext,
-    #     # # ZJetsToNuNu_HT600to800,
-    #     # # ZJetsToNuNu_HT800to1200,
-    #     # # ZJetsToNuNu_HT1200to2500,
-    #     # # ZJetsToNuNu_HT1200to2500_ext,
-    #     # # ZJetsToNuNu_HT2500toInf,
-    #     # # QCD_HT100to200,
-    #     # # QCD_HT200to300,
-    #     # # QCD_HT200to300_ext,
-    #     # # QCD_HT300to500,
-    #     # # QCD_HT300to500_ext,
-    #     # # QCD_HT500to700,
-    #     # # QCD_HT500to700_ext,
-    #     # # QCD_HT700to1000,
-    #     # # QCD_HT700to1000_ext,
-    #     # # QCD_HT1000to1500,
-    #     # # QCD_HT1000to1500_ext,
-    #     # # QCD_HT1500to2000,
-    #     # # QCD_HT2000toInf,
-    #     # # #WWTo2L2Nu,
-    #     # # #WWToLNuQQ,
-    #     # # #WWToLNuQQ_ext,
-    #     # # #WWTo1L1Nu2Q, 
-    #     # # #ZZTo2L2Nu,
-    #     # # #ZZTo2L2Q,
-    #     # # #ZZTo2Q2Nu,
-    #     # # #ZZTo4L,
-    #     # # #ZZTo4L_amcatnlo,
-    #     # # #WZTo1L3Nu, 
-    #     # # #WZTo1L1Nu2Q, 
-    #     # # #WZTo2L2Q,
-    #     # # #WZTo3LNu,
-    #     # # #WZTo3LNu_amcatnlo,
-    #     # # #VVTo2L2Nu,
-    #     # # #WGToLNuG, 
-    #     # # #WGJets,
-    #     # # #ZGJets,
-    #     # # #ZGJets_40130,
-    #     # # #ZGTo2LG,
-    #     # # #ZLLGJets_pt130,
-    #     # # #WWDouble, 
-    #     # # #WpWpJJ, 
-    #     # # #WW, 
-    #     # # # WZ, 
-    #     # # # ZZ,
-    #     # # # TTWToLNu, 
-    #     # # # TTWToQQ,
-    #     # # TTW_LO, 
-    #     # # # TTZToQQ, 
-    #     # # # TTZToLLNuNu, 
-    #     # # # #TTLLJets_m1to10, 
-    #     # # TTZ_LO,
-    #     # # # TTGJets,
-    #     # # # TTHnobb_ext,
-    #     # # # TTHbb_ext3,
-    #     # # TTHToNonbb,
-    #     # # TTHTobb,
-    #     # # TTTT_ext,
-    #     # # ttbb,
-    #     # # ttbb_ext,
-    #     ]
 
+    selectedComponents = MT2hgg 
 
     for comp in selectedComponents:
         comp.splitFactor = 1200
         comp.fineSplitFactor = 4 # to run two jobs per file
         comp.files = comp.files[:]
-        #comp.files = comp.files[:1]
+#        comp.files = comp.files[:1]
         #comp.files = comp.files[57:58]  # to process only file [57]  
         # triggers on MC
         #comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
-
 
     # Tree configuration for JEC variations
     if jetAna.shiftJEC > 0.5 or jetAna.shiftJEC < -0.5:
@@ -883,15 +656,15 @@ elif test==3:
     # python heppy_crab.py -c ../run_susyMT2_cfg.py --AAAconfig=full -s T3_CH_PSI -d crab -v MT2_8_0_5 -l data30May_v1 -u mt2.root,RLTInfo.root
 
     isData = True
-#    from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
+    #from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
     from CMGTools.RootTools.samples.samples_13TeV_DATA2017 import *
 
     dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
-    #json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
-#    json=dataDir+'/json/json_ReReco_final_2016Run.txt'
-    json=dataDir+'/json/json_PromptReco_Run2017.txt'
-    #json=dataDir+'/json/json_DCSONLY.txt'
-    #json=dataDir+'/json/json_ichep2016.txt'
+    # wont run with crab like this json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
+    #    json=dataDir+'/json/json_ReReco_final_2016Run.txt'
+    #    json=dataDir+'/json/json_PromptReco_Run2017.txt'
+    json=dataDir+'/json/json_EOY_reReco_2017Run.txt'
+
 
     
     # --------------- ALL THIS IS FOR TESTS -----------------------------------------------------
@@ -903,22 +676,6 @@ elif test==3:
     #comp.files = ['root://xrootd.unl.edu//store/data/Run2016C/HTMHT/MINIAOD/PromptReco-v2/000/275/420/00000/4AD126B0-F539-E611-AD77-02163E013390.root'
 #/store/data/Run2016C/HTMHT/MINIAOD/PromptReco-v2/000/275/658/00000/227E1B3A-A53B-E611-A53E-02163E0136C4.root'
 #'/afs/cern.ch/user/m/mangano/work/datasets/data/80X/HTMHT.root'
-
-#/store/data/Run2017A/DoubleEG/MINIAOD/PromptReco-v2/000/296/168/00000/801DBC71-594C-E711-9E8E-02163E019E08.root
-
-                  #'/scratch/mangano/80X/DoubleEG.root',
-                  #'/scratch/mangano/80X/DoubleMuon.root',
-                  #'/scratch/mangano/80X/HTMHT.root',
-                  #'/scratch/mangano/80X/JetHT.root',
-                  #'/scratch/mangano/80X/MET.root',
-                  ##'/scratch/mangano/80X/MuonEG_v2.root',
-                  #'/scratch/mangano/80X/SingleElectron.root',
-                  #'/scratch/mangano/80X/SingleMuon.root',
-                  #'/scratch/mangano/80X/SinglePhoton.root'
-    #              ]
-    #json='./testJson.txt'
-    #selectedComponents = [comp]
-
     #For runnin on a single dataset
     #selectedComponents  = [JetHT_Run2016B_PromptReco_v2]
     # --------------------------------------------------------------------
@@ -926,71 +683,34 @@ elif test==3:
 
     isForQCD = False
 
+    if is2016:
+        photonAna.gammaID = "POG_Spring16_Loose"
+        json=dataDir+'/json/json_ReReco_final_2016Run.txt'
 
     # --------------- HERE IS THE PART YOU SHOULD PAY ATTENTION TO --------------------------------------------
     #For running on the full list of samples
     if not isForQCD:
-        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V12
-        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V3
-        #selectedComponents  = dataSamples_Run2016C_ReReco23Sep
-        #selectedComponents  = dataSamples_Run2016D_ReReco23Sep
-        #selectedComponents  = dataSamples_Run2016E_ReReco23Sep
-        #selectedComponents  = dataSamples_Run2016F_ReReco23Sep
-        #selectedComponents  = dataSamples_Run2016G_ReReco23Sep
         
-        #selectedComponents  = dataSamples_Run2016B_03Feb2017_v2 
-        #selectedComponents  = dataSamples_Run2016C_03Feb2017 
-        #selectedComponents  = dataSamples_Run2016D_03Feb2017
-        #selectedComponents  = dataSamples_Run2016E_03Feb2017
-        #selectedComponents  = dataSamples_Run2016F_03Feb2017
-        #selectedComponents  = dataSamples_Run2016G_03Feb2017 
-        #selectedComponents  = dataSamples_Run2016H_03Feb2017_v2 + dataSamples_Run2016H_03Feb2017_v3
-
-#        selectedComponents  = dataSamples_Run2017_DoubleEG
-#        selectedComponents  = [ DoubleEG_Run2017B_PromptReco_v2 ]
-
+#        selectedComponents  = [ DoubleEG_Run2017F_17Nov2017_v1 ]
         selectedComponents  = dataSamples_Run2017_DoubleEG_reReco
-        # selectedComponents  = [DoubleEG_Run2016B_03Feb2017_v2,
-        #                        DoubleEG_Run2016C_03Feb2017,
-        #                        DoubleEG_Run2016D_03Feb2017,
-        #                        DoubleEG_Run2016E_03Feb2017,
-        #                        DoubleEG_Run2016F_03Feb2017,
-        #                        DoubleEG_Run2016G_03Feb2017,
-        #                        DoubleEG_Run2016H_03Feb2017_v2,
-        #                        DoubleEG_Run2016H_03Feb2017_v3]
 
 
-
-#        selectedComponents  = [DoubleEG_Run2016B_03Feb2017_v2]
-
-#        selectedComponents  = dataSamples_Run2016H_v2 + dataSamples_Run2016H_v3
-#        selectedComponents  = dataSamples_Run2016G_23Sep2016
-#        selectedComponents  = dataSamples_Run2016F_23Sep2016
-#        selectedComponents  = dataSamples_Run2016E_23Sep2016
-#        selectedComponents  = dataSamples_Run2016D_23Sep2016
-#        selectedComponents  = dataSamples_Run2016C_23Sep2016
-#        selectedComponents  = dataSamples_Run2016B_23Sep2016
-
-        #        selectedComponents  = dataSamples_23Sep2016PlusPrompt
-        #selectedComponents  = dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3
-        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep + dataSamples_Run2016C_ReReco23Sep + dataSamples_Run2016D_ReReco23Sep + dataSamples_Run2016E_ReReco23Sep + dataSamples_Run2016F_ReReco23Sep + dataSamples_Run2016G_ReReco23Sep + dataSamples_Run2016H_PromptV2 + dataSamples_Run2016H_PromptV3
- #   else:
-        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V12_forQCD
-        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V3_forQCD
-        #selectedComponents  = dataSamples_Run2016C_ReReco23Sep_forQCD
-        #selectedComponents  = dataSamples_Run2016D_ReReco23Sep_forQCD
-        #selectedComponents  = dataSamples_Run2016E_ReReco23Sep_forQCD
-        #selectedComponents  = dataSamples_Run2016F_ReReco23Sep_forQCD
-        #selectedComponents  = dataSamples_Run2016G_ReReco23Sep_forQCD
-        #selectedComponents  = dataSamples_Run2016H_PromptV2_forQCD + dataSamples_Run2016H_PromptV3_forQCD
-        #selectedComponents  = dataSamples_Run2016B_ReReco23Sep_V12_forQCD + dataSamples_Run2016B_ReReco23Sep_V3_forQCD + dataSamples_Run2016C_ReReco23Sep_forQCD + dataSamples_Run2016D_ReReco23Sep_forQCD + dataSamples_Run2016E_ReReco23Sep_forQCD + dataSamples_Run2016F_ReReco23Sep_forQCD + dataSamples_Run2016G_ReReco23Sep_forQCD + dataSamples_Run2016H_PromptV2_forQCD + dataSamples_Run2016H_PromptV3_forQCD
+        # if is2016:
+        #     selectedComponents  = [DoubleEG_Run2016B_03Feb2017_v2,
+        #                            DoubleEG_Run2016C_03Feb2017,
+        #                            DoubleEG_Run2016D_03Feb2017,
+        #                            DoubleEG_Run2016E_03Feb2017,
+        #                            DoubleEG_Run2016F_03Feb2017,
+        #                            DoubleEG_Run2016G_03Feb2017,
+        #                            DoubleEG_Run2016H_03Feb2017_v2,
+        #                            DoubleEG_Run2016H_03Feb2017_v3]
 
  
     for comp in selectedComponents:
         comp.json=json
         comp.splitFactor = 1000
         comp.files=comp.files[:]
-#        comp.files=comp.files[:]
+#        comp.files=comp.files[50:51]
         comp.triggers = allTriggers
 
     # Here I add the skim to the sequence.

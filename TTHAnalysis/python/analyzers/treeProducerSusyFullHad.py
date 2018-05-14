@@ -93,7 +93,8 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
 
     NTupleVariable("nJet20BadFastsim", lambda ev: sum([j.pt() > 20 and (j.mcJet.pt() if getattr(j,"mcJet",None) else 0.)==0. and j.chargedHadronEnergyFraction()<0.1 for j in ev.cleanJets]), int, help="Number of bad (fast-sim) jets with pt > 20, |eta|<2.5 (FASTSIM VETO)"),
 
-    NTupleVariable("nBJet20deepcsv", lambda ev: sum([j.pt()>20 for j in ev.cleanJets if (( j.btag('pfDeepCSVJetTags:probb') +j.btag('pfDeepCSVJetTags:probbb') )>= 0.6324  ) ]), int, help="Number of jets with pt > 20 passing deepCSV medium"),
+    NTupleVariable("nBJet20deepcsv", lambda ev: sum([j.pt()>20 for j in ev.cleanJets if (( j.btag('pfDeepCSVJetTags:probb') +j.btag('pfDeepCSVJetTags:probbb') )>= 0.4941  ) ]), int, help="Number of jets with pt > 20 passing deepCSV medium"),
+#    NTupleVariable("nBJet20deepcsv", lambda ev: sum([j.pt()>20 for j in ev.cleanJets if (( j.btag('pfDeepCSVJetTags:probb') +j.btag('pfDeepCSVJetTags:probbb') )>= 0.6324  ) ]), int, help="Number of jets with pt > 20 passing deepCSV medium"),
 
     NTupleVariable("nBJet40", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 40]), int, help="Number of jets with pt > 40 passing cMVAv2 medium"),
     NTupleVariable("nBJet30", lambda ev: sum([j.btagWP("CSVv2IVFM") for j in ev.cleanJets if j.pt() > 30]), int, help="Number of jets with pt > 25 passing cMVAv2 medium"),
@@ -136,6 +137,10 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("zll_mt2", lambda ev: ev.mt2_Xj_zll, float, help="mt2(j1,j2,met) with zll added to met, only hadrons"),
     NTupleVariable("zllmt_mt2", lambda ev: ev.mt2_Xj_zllmt, float, help="mt2(j1,j2,met) with zll (1 lepton only)  added to met, only hadrons"),
     NTupleVariable("rl_mt2", lambda ev: ev.mt2_Xj_rl, float, help="mt2(j1,j2,met) with 1 lepton added to met, only hadrons"),
+
+    NTupleVariable("gg_mt2", lambda ev: ev.mt2_Xj_gg, float, help="mt2(j1,j2,met) with 2photons added to met"),
+
+    NTupleVariable("hgg_mt2", lambda ev: ev.mt2_Xj_hgg, float, help="mt2(Hgg+j1,j2,met) with 2photons added as Higgs to objects to met"),
 
 
     ##--------------------------------------------------

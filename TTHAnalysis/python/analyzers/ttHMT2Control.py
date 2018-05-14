@@ -164,6 +164,8 @@ class ttHMT2Control( Analyzer ):
 
         import ROOT
 
+        photons = [ l for l in event.selectedPhotons if l.pt() > 20 and abs(l.eta()) < 2.5 ]
+
         event.gg_p4 = ROOT.reco.Particle.LorentzVector( 0, 0, 0, 0 )
     
         ## with Central Jets                                                                                                                                                                                                      
@@ -257,19 +259,11 @@ class ttHMT2Control( Analyzer ):
         gg_diffMetMht_Xj_vec = ROOT.reco.Particle.LorentzVector(event.gg_mhtJetXvec.px()-event.gg_met.px(), event.gg_mhtJetXvec.py()-event.gg_met.py(), 0, 0 )
         event.gg_diffMetMht_Xj = sqrt( gg_diffMetMht_Xj_vec.px()*gg_diffMetMht_Xj_vec.px() + gg_diffMetMht_Xj_vec.py()*gg_diffMetMht_Xj_vec.py() )
 
-
-        if len(event.selectedPhotons)>=2:
-            # di-lepton invariant mass
-            for gg in event.selectedPhotons:
-                #        print gg
-                if gg<2:
-                    event.gg_p4 += gg.p4()
-
-
-
-
-
-
+        # di-lepton invariant mass
+        if len( photons )>1:
+            for n,gg in enumerate(photons):
+                if n>=2: break
+                event.gg_p4 += ROOT.reco.Particle.LorentzVector( gg.px(), gg.py(), gg.pz(), gg.energy() )
 
 
     def makeZllObjects(self, event):
