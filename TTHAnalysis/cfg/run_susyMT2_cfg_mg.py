@@ -1,3 +1,4 @@
+
 import PhysicsTools.HeppyCore.framework.config as cfg
 
 # Comment this line if you want the diagnostic folders produced along with the output root file
