@@ -48,7 +48,6 @@ def checkStatusTask(task):
               "fail":0,
               "total":0,
               }
-    
     for line in log.splitlines(): #("\n"):
         
         if "Task name" in line:
@@ -59,7 +58,7 @@ def checkStatusTask(task):
         if "timed out" in line: #error of communication, bypass
             return taskName, ext, jobInfos
 
-        if len(line.split("("))>1 and "/" in line:
+        if len(line.split("("))>1 and "/" in line and 'Warning' not in line:
             tmp=line.split("(")[1][:-1]
             nJobs=int(tmp.split("/")[0])
             jobInfos["total"] = int(tmp.split("/")[1])
@@ -79,7 +78,7 @@ def checkStatusTask(task):
     return taskName, ext, jobInfos
 
 def crabResubmit(task):
-    os.system("crab resubmit -d "+task)
+    os.system("crab resubmit --maxjobruntime 2880 -d "+task)
     #p = subprocess.Popen(['crab','resubmit', '-d',task],
     #                     stdout=subprocess.PIPE, 
     #                     stderr=subprocess.PIPE)
@@ -98,13 +97,12 @@ def prepareReport(tasks):
     summary={}
     for task in tasks:
         name, ext, jobInfos=checkStatusTask(task)
-        #print name, ext, jobInfos
+        print 'Processing ', name, ext, jobInfos
         isData=False
         for ds in dataSetsNames: 
             if ds in name:
                 isData=True
                 break
-        
             #("$%2.2f"%CBYields[sig][cat]
         summary[name]= ("%-70s"%name)+"("+("%-7s"%ext)+") | "
         for t in types:
@@ -118,7 +116,6 @@ def prepareReport(tasks):
 
         if name+"_"+ext not in cnts.keys():
             cnts[name+"_"+ext] = [0, "run" ]
-
         if (jobInfos["done"]/jobInfos["total"]>0.95 and not isData) or (jobInfos["done"]==jobInfos["total"] and isData):
             errorState=-2
             messages[name]="DATASET "+name+" : production DONE\n"
@@ -179,7 +176,6 @@ def crabAutoTool(reset=False, regTasks="crab_*/*"):
  
     pipe = subprocess.Popen("ls -d "+regTasks, shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     tasks = [l.strip("\n") for l in pipe.stdout.readlines()]
-
     #get permanent counters
     if reset:
         os.system("rm "+cmsswBase+"/src/CMGTools/TTHAnalysis/cfg/crab/.counterCrab")
@@ -190,17 +186,12 @@ def crabAutoTool(reset=False, regTasks="crab_*/*"):
             cnts[ line.split()[0] ]=[0, "run"]
             cnts[ line.split()[0] ][0] = int(line.split()[1])
             cnts[ line.split()[0] ][1] = line.split()[2]
-            #print "initialization ==>> ",  line.split()[0]
-
     report = prepareReport(tasks)
-    sendMailTo(report)
-    #print report
-
+    #sendMailTo(report)
     outCnt = open(cmsswBase+'/src/CMGTools/TTHAnalysis/cfg/crab/.counterCrab','w')
     for task in cnts.keys():
         outCnt.write(task+'\t'+str(cnts[task][0])+'\t'+cnts[task][1]+"\n") # python will convert \n to os.linesep
     outCnt.close()
-    
     #ending cron job if all datasets are processed
     nDone=len(cnts)
     for i in cnts.keys():
