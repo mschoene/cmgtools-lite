@@ -120,10 +120,10 @@ class ttHMT2Control( Analyzer ):
 
          # MET + photon                                                                                                                                                                                                           
         event.gamma_met = ROOT.reco.Particle.LorentzVector( event.met.px(), event.met.py(), 0, 0 )
-        event.gamma_metNoPU = ROOT.reco.Particle.LorentzVector( event.metNoPU.px(), event.metNoPU.py(), 0, 0 )
+#        event.gamma_metNoPU = ROOT.reco.Particle.LorentzVector( event.metNoPU.px(), event.metNoPU.py(), 0, 0 )
         for gamma in event.selectedPhotons:
             event.gamma_met = ROOT.reco.Particle.LorentzVector( event.gamma_met.px() + gamma.px(), event.gamma_met.py() + gamma.py() , 0, 0 )
-            event.gamma_metNoPU = ROOT.reco.Particle.LorentzVector( event.gamma_metNoPU.px() + gamma.px(), event.gamma_metNoPU.py() + gamma.py() , 0, 0 )
+#            event.gamma_metNoPU = ROOT.reco.Particle.LorentzVector( event.gamma_metNoPU.px() + gamma.px(), event.gamma_metNoPU.py() + gamma.py() , 0, 0 )
             break # only lead photon
 
         # look for minimal deltaPhi between MET and four leading jets with pt>40 and eta<2.4                                                                                                                                      
@@ -223,10 +223,10 @@ class ttHMT2Control( Analyzer ):
         # MET + photon
                                      
         event.gg_met = ROOT.reco.Particle.LorentzVector( event.met.px(), event.met.py(), 0, 0 )
-        event.gg_metNoPU = ROOT.reco.Particle.LorentzVector( event.metNoPU.px(), event.metNoPU.py(), 0, 0 )
+#        event.gg_metNoPU = ROOT.reco.Particle.LorentzVector( event.metNoPU.px(), event.metNoPU.py(), 0, 0 )
         for gg in event.selectedPhotons:
             event.gg_met = ROOT.reco.Particle.LorentzVector( event.gg_met.px() + gg.px(), event.gg_met.py() + gg.py() , 0, 0 )
-            event.gg_metNoPU = ROOT.reco.Particle.LorentzVector( event.gg_metNoPU.px() + gg.px(), event.gg_metNoPU.py() + gg.py() , 0, 0 )
+#            event.gg_metNoPU = ROOT.reco.Particle.LorentzVector( event.gg_metNoPU.px() + gg.px(), event.gg_metNoPU.py() + gg.py() , 0, 0 )
             break # only lead photon
 
         # look for minimal deltaPhi between MET and four leading jets with pt>40 and eta<2.4

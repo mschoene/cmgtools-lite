@@ -455,7 +455,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-test = 2
+test = 1
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
 runPreprocessor = False
@@ -532,7 +532,8 @@ elif test==1:
 
     #isData = True
     #from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
-    from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
+    #from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
+    from CMGTools.RootTools.samples.samples_13TeV_DATA2017 import *
 
 
     #dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
@@ -554,17 +555,25 @@ elif test==1:
 
 
     #    selectedComponents = [TTJets_SingleLeptonFromTbar_ext]
-    selectedComponents = [DiPhotonJetsBox_MGG80toInf_amcatnlo]
+    selectedComponents = [DoubleEG_Run2017F_17Nov2017]
 
 
     for comp in selectedComponents:
         
         # comp.files = ['root://xrootd.unl.edu//store/data/Run2016F/JetHT/MINIAOD/23Sep2016-v1/100000/322B5B83-B184-E611-A5B1-0026B927862A.root']
 
-        #comp.isMC = False
-        #comp.isData = True
-        
+#        comp.isMC = False
+#        comp.isData = True
+
+        comp.isMC = True
+        comp.isData = False
+
         comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall17MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/20000/028340E8-D442-E811-813C-0025905B8560.root']
+
+#        comp.files = ['root://xrootd.unl.edu//store/data/Run2017B/DoubleEG/MINIAOD/17Nov2017-v1/20000/065312BE-A3D5-E711-A0C7-0CC47A1E0DCC.root']
+#        comp.files = ['root://xrootd.unl.edu//store/data/Run2017C/DoubleEG/MINIAOD/31Mar2018-v1/00000/0037909D-AB37-E811-BB0D-7CD30ABD2EEA.root']
+
+#        comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall17MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/20000/028340E8-D442-E811-813C-0025905B8560.root']
 
         #comp.files = ['root://xrootd.unl.edu//store/data/Run2016E/MET/MINIAOD/03Feb2017-v1/110000/0A011AB6-82EB-E611-92FC-001E674FAEBF.root']
         #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISummer16MiniAODv2/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/120000/008E1775-94BD-E611-99EB-0CC47A745298.root']
@@ -683,28 +692,17 @@ elif test==3:
 
     isForQCD = False
 
-    if is2016:
-        photonAna.gammaID = "POG_Spring16_Loose"
-        json=dataDir+'/json/json_ReReco_final_2016Run.txt'
+#    if is2016:
+#        photonAna.gammaID = "POG_Spring16_Loose"
+#        json=dataDir+'/json/json_ReReco_final_2016Run.txt'
 
     # --------------- HERE IS THE PART YOU SHOULD PAY ATTENTION TO --------------------------------------------
     #For running on the full list of samples
-    if not isForQCD:
         
-#        selectedComponents  = [ DoubleEG_Run2017F_17Nov2017_v1 ]
-        selectedComponents  = dataSamples_Run2017_DoubleEG_reReco
+    #        selectedComponents  = [ DoubleEG_Run2017F_17Nov2017_v1 ]
+    #        selectedComponents  = dataSamples_Run2017_DoubleEG_reReco
 
-
-        # if is2016:
-        #     selectedComponents  = [DoubleEG_Run2016B_03Feb2017_v2,
-        #                            DoubleEG_Run2016C_03Feb2017,
-        #                            DoubleEG_Run2016D_03Feb2017,
-        #                            DoubleEG_Run2016E_03Feb2017,
-        #                            DoubleEG_Run2016F_03Feb2017,
-        #                            DoubleEG_Run2016G_03Feb2017,
-        #                            DoubleEG_Run2016H_03Feb2017_v2,
-        #                            DoubleEG_Run2016H_03Feb2017_v3]
-
+    selectedComponents  = doubleEG_31Mar2018
  
     for comp in selectedComponents:
         comp.json=json
@@ -712,20 +710,9 @@ elif test==3:
         comp.files=comp.files[:]
 #        comp.files=comp.files[50:51]
         comp.triggers = allTriggers
-
-    # Here I add the skim to the sequence.
-    # It should be uncommented for non _forQCD samples. It should be commented for _forQCD samples
-    if not isForQCD:
-        sequence.insert(sequence.index(treeProducer), MT2skim)
+        
+    sequence.insert(sequence.index(treeProducer), MT2skim)
     
-
-    # Tree configuration for QCD studies
-    # It should be commented for non _forQCD samples. It should be uncommented for _forQCD samples
-    if isForQCD:
-        treeProducer.globalVariables = MT2forQCDStudies_globalVariables
-        treeProducer.globalObjects = MT2forQCDStudies_globalObjects
-        treeProducer.collections = MT2forQCDStudies_collections
-
 
 elif test==4:
 

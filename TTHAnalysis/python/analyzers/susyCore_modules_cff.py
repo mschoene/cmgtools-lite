@@ -631,6 +631,7 @@ susyCoreSequence = [
     ttHLepSkim,
     #ttHLepMCAna,
     photonAna,
+    lepCleaner,
     isoTrackAna,
     jetAna,
     #ttHFatJetAna,  # out of core sequence for now
