@@ -19,8 +19,6 @@ isForQCD = bool(getHeppyOption('isForQCD', False))
 year = str(getHeppyOption('year', "2017")) # year of data taking
 
 
-
-
 ##------------------------------------------
 ##  Load all modules and override standards if needed
 ##------------------------------------------
@@ -51,21 +49,21 @@ lepAna.loose_electron_eta    = 2.4
 lepAna.loose_electron_relIso = 0.15
 lepAna.loose_electron_isoCut = lambda electron : electron.miniRelIso < 0.1
 
-lepAna.loose_electron_id  = 'POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto' # this seems outdated, yet it's what was used for Moriond 2017
-if year=='2017': lepAna.loose_electron_id  = 'POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto' # DON'T KNOW WHAT DEFINITION TO USE
+lepAna.loose_electron_id  = 'POG_Cuts_ID_FALL17_94X_v1_ConvVetoDxyDz_Veto' # this seems outdated, yet it's what was used for Moriond 2017
+if year=='2017': lepAna.loose_electron_id  = 'POG_Cuts_ID_FALL17_94X_v1_ConvVetoDxyDz_Veto' # DON'T KNOW WHAT DEFINITION TO USE
 lepAna.loose_electron_lostHits = 999. # no cut
 lepAna.loose_electron_dxy    = 999.
 lepAna.loose_electron_dz     = 999.
 
-lepAna.inclusive_electron_id  = 'POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto' # this seems outdated, yet it's what was used for Moriond 2017
-if year=='2017': lepAna.inclusive_electron_id  = 'POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto' # DON'T KNOW WHAT DEFINITION TO USE
+lepAna.inclusive_electron_id  = 'POG_Cuts_ID_FALL17_94X_v1_ConvVetoDxyDz_Veto' # this seems outdated, yet it's what was used for Moriond 2017
+if year=='2017': lepAna.inclusive_electron_id  = 'POG_Cuts_ID_FALL17_94X_v1_ConvVetoDxyDz_Veto' # DON'T KNOW WHAT DEFINITION TO USE
 lepAna.inclusive_electron_lostHits = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dxy    = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dz     = 999. # no cut since embedded in ID
 
 lepAna.mu_isoCorr = 'deltaBeta'
 lepAna.ele_isoCorr = 'deltaBeta'
-lepAna.ele_tightId = 'POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto' # not really used apparently (?)
+lepAna.ele_tightId = 'POG_Cuts_ID_FALL17_94X_v1_ConvVetoDxyDz_Veto' # not really used apparently (?)
 lepAna.notCleaningElectrons = True
 lepAna.doMiniIsolation = True
 lepAna.miniIsolationPUCorr = 'rhoArea'
@@ -386,6 +384,7 @@ treeProducer = cfg.Analyzer(
      collections = susyFullHad_collections, # collection of objects
      defaultFloatType = 'F',
      treename = 'mt2'
+     #treename = 'Events'
 )
 
 
@@ -439,18 +438,24 @@ kreator = ComponentCreator()
 # ------------------------------------------------------------------------------------------- #
 if doFull==False and doMC:
   if doLocal:
-    dataset_nickname = 'WJetsToLNu_HT-800To1200'
+    dataset_nickname = 'DYJetsToLL_M-50_HT-600to800'
+    #dataset_nickname = 'WJetsToLNu_HT-600To800'
     #local_files = ['SMS-T2qq__A_FILE.root']
     #local_files = ['ZJetsToNuNu_HT-800To1200_13TeV-madgraph_PU2017_12Apr2018_94X_mc2017_realistic_v14-v1__A_FILE.root']
     #local_files = ['ZJetsToNuNu_HT-800To1200_13TeV-madgraph_PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v3__A_FILE.root']
-    local_files = ['WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v2__A_FILE.root']
-    path='/scratch/mratti/MT2_test_samples/80X'
+    #local_files = ['WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v2__A_FILE.root']
+    #local_files = ['WJetsToLNu_HT-600To800_RunIIFall17MiniAODv2_6C1F14E2-1C63-E811-8E3A-C4346BC78E90.root']
+    local_files = ['DYJetsToLL_M-50_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8_RunIIFall17MiniAODv2_661A6637-B042-E811-8EC7-0CC47A4D7634.root']
+    #path = '/scratch/mratti/MT2_test_samples/94X/miniForNanoValid/Wlv_600_800/'
+    path = '/scratch/mratti/MT2_test_samples/94X/miniForNanoValid/DYJetsToLL_M-50_HT-600to800/'
+    #path='/scratch/mratti/MT2_test_samples/80X'
     comp = kreator.makePrivateMCComponent(name=dataset_nickname, dataset=path, files=local_files)
     selectedComponents = [comp]
   else:
     ZJetsToNuNu_HT800to1200 = kreator.makeMCComponent('ZJetsToNuNu_HT800to1200', '/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v3/MINIAODSIM', 'CMS', '.*root',1.474*1.23)
-    WJetsToLNu_HT100to200 = kreator.makeMCComponent('WJetsToLNu_HT100to200', '/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v3/MINIAODSIM', 'CMS', '.*root',1345*1.21)
-    selectedComponents = [ZJetsToNuNu_HT800to1200,WJetsToLNu_HT100to200]
+    #WJetsToLNu_HT100to200 = kreator.makeMCComponent('WJetsToLNu_HT100to200', '/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v3/MINIAODSIM', 'CMS', '.*root',1345*1.21)
+    #selectedComponents = [ZJetsToNuNu_HT800to1200,WJetsToLNu_HT100to200]
+    selectedComponents = [ZJetsToNuNu_HT800to1200]
 
     for comp in selectedComponents:
         comp.splitFactor = 1200
@@ -497,10 +502,18 @@ if doFull and doData:
   if year == '2017':
     from CMGTools.RootTools.samples.samples_13TeV_DATA2017 import dataSamples_31Mar2018
     selectedComponents = dataSamples_31Mar2018
+    #MET_Run2017F_31Mar2018 = kreator.makeDataComponent("MET_Run2017F_31Mar2018", "/MET/Run2017F-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
+    #selectedComponents = [MET_Run2017F_31Mar2018]
+    #JetHT_Run2017B = kreator.makeDataComponent("JetHT_Run2017B_31Mar2018", "/JetHT/Run2017B-31Mar2018-v1/MINIAOD", "CMS", ".*root", json) 
+    #HTMHT_Run2017D = kreator.makeDataComponent("HTMHT_Run2017D_31Mar2018", "/HTMHT/Run2017D-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
+    #selectedComponents = [JetHT_Run2017B]
 
   for comp in selectedComponents:
     comp.json=json[year]
     comp.triggers = allTriggers
+    # Split factor multiplied 
+    comp.splitFactor = 200
+    #comp.files = comp.files[1] # just the second file
 
   #if not isForQCD:
   #  sequence.insert(sequence.index(treeProducer), MT2skim)
@@ -572,3 +585,13 @@ config = cfg.Config( components = selectedComponents,
 #        treeProducer.globalVariables = MT2forJECstudies_globalVariables
 #        treeProducer.globalObjects = MT2forJECstudies_globalObjects
 #        treeProducer.collections = MT2forJECstudies_collections
+
+
+if __name__ == '__main__':
+
+  from PhysicsTools.HeppyCore.framework.looper import Looper 
+  looper = Looper( 'test', config, nPrint = 0, nEvents=10000) 
+  looper.loop()
+  looper.write()
+
+

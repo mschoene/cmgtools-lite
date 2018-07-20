@@ -316,6 +316,8 @@ susyFullHad_collections = {
         # put more here
         "selectedLeptons" : NTupleCollection("lep", leptonTypeSusy, 50, help="Leptons after the preselection", filter=lambda l : l.pt()>10 ),
         "selectedTaus"    : NTupleCollection("tau", tauTypeSusy, 50, help="Taus after the preselection"),
+        "allJetsUsedForMET"    : NTupleCollection("Jet", jetTypeSusyExtra, 100, help="Calibrated jets, no selection, hopefully sorted by pt"),
+        "jets"    : NTupleCollection("Jet_id", jetTypeSusyExtra, 100, help="Calibrated jets, jet id applied, hopefully sorted by pt"),
         "cleanJetsAll"       : NTupleCollection("jet", jetTypeSusyExtra, 100, help="all jets (w/ x-cleaning, w/ ID applied w/o PUID applied pt>20 |eta|<5.2) , sorted by pt", filter=lambda l : l.pt()>20  ),
         "gg_cleanJetsAll"       : NTupleCollection("gg_jet", jetTypeSusyExtra, 100, help="all jets (w/ x-cleaning, w/ ID applied w/o PUID applied pt>20 |eta|<5.2) , sorted by pt", filter=lambda l : l.pt()>20  ),
         "cleanJetsFailIdAll"       : NTupleCollection("jetFailId", jetTypeSusyExtra, 100, help="all jets (w/ x-cleaning, w/o ID applied w/o PUID applied pt>20 |eta|<5.2) , sorted by pt", filter=lambda l : l.pt()>20 ),
