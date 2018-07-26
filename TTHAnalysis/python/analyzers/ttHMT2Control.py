@@ -62,6 +62,18 @@ class ttHMT2Control( Analyzer ):
                 if mtwLep < 100:
                     event.nLepLowMT +=1
 
+        reco_leptons = [ l for l in event.selectedLeptons if l.pt() > 10]
+        pf_leptons = event.selectedIsoCleanTrack
+        for lepton in reco_leptons:
+          mtwLep = mtw(lepton, event.met)
+          if mtwLep < 100:
+            event.nRecoLepLowMT += 1
+
+        for lepton in  pf_leptons:
+          mtwLep = mtw(lepton, event.met)
+          if mtwLep < 100:
+            event.nPFLep5LowMTclean +=1
+
     def makeGammaObjects(self, event):
 
         import ROOT
@@ -506,7 +518,9 @@ class ttHMT2Control( Analyzer ):
         self.makeZllMTObjects(event)
 
         event.nLepLowMT =0
+        event.nRecoLepLowMT =0
         event.nPFLep5LowMT = 0
+        event.nPFLep5LowMTclean = 0
         event.nPFHad10LowMT = 0
         event.mtw=-999 
         event.mtwTau=-999

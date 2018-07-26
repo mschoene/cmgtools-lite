@@ -119,8 +119,10 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     
     NTupleVariable("minMTBMet", lambda ev: ev.minMTBMet, float, help="min Mt(b,met)"),
     NTupleVariable("nPFLep5LowMT", lambda ev: ev.nPFLep5LowMT, int, help="number of PF leptons (e,mu) with pt > 5, reliso < 0.2, MT < 100 "),
+    NTupleVariable("nPFLep5LowMTclean", lambda ev: ev.nPFLep5LowMTclean, int, help="number of PF leptons (e,mu) with pt > 5, reliso < 0.2, MT < 100 after x-cleaning with POG leptons"),
     NTupleVariable("nPFHad10LowMT", lambda ev: ev.nPFHad10LowMT, int, help="number of PF hadrons with pt > 10, reliso < 0.1, MT < 100 "),
     NTupleVariable("nLepLowMT", lambda ev: ev.nLepLowMT, int, help="number of leptons (POGID and isoTrack ) with MT < 100 "),
+    NTupleVariable("nRecoLepLowMT", lambda ev: ev.nRecoLepLowMT, int, help="number of leptons (POGID) with MT < 100 "),
 
     NTupleVariable("nisrMatch", lambda ev: ev.nisrMatch, int, help="number of clean jets matched to ISR"),
 
