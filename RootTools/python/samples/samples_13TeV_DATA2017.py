@@ -94,15 +94,15 @@ samples = dataSamples
 
 
 
-DoubleEG_Run2017F_31Mar2018_v1 = kreator.makeDataComponent("Double_EGRun2017F_31Mar2018_v1", "/DoubleEG/Run2017F-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
-#DoubleEG_Run2017F_09May2018_v1 = kreator.makeDataComponent("Double_EGRun2017F_09May2018_v1", "/DoubleEG/Run2017F-09May2018-v1/MINIAOD", "CMS", ".*root", json)
-DoubleEG_Run2017E_31Mar2018_v1 = kreator.makeDataComponent("Double_EGRun2017E_31Mar2018_v1", "/DoubleEG/Run2017E-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
-DoubleEG_Run2017D_31Mar2018_v1 = kreator.makeDataComponent("Double_EGRun2017D_31Mar2018_v1", "/DoubleEG/Run2017D-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
-DoubleEG_Run2017C_31Mar2018_v1 = kreator.makeDataComponent("Double_EGRun2017C_31Mar2018_v1", "/DoubleEG/Run2017C-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
+DoubleEG_Run2017F_31Mar2018_v1 = kreator.makeDataComponent("DoubleEG_Run2017F_31Mar2018_v1", "/DoubleEG/Run2017F-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
+#DoubleEG_Run2017F_09May2018_v1 = kreator.makeDataComponent("DoubleEG_Run2017F_09May2018_v1", "/DoubleEG/Run2017F-09May2018-v1/MINIAOD", "CMS", ".*root", json)
+DoubleEG_Run2017E_31Mar2018_v1 = kreator.makeDataComponent("DoubleEG_Run2017E_31Mar2018_v1", "/DoubleEG/Run2017E-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
+DoubleEG_Run2017D_31Mar2018_v1 = kreator.makeDataComponent("DoubleEG_Run2017D_31Mar2018_v1", "/DoubleEG/Run2017D-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
+DoubleEG_Run2017C_31Mar2018_v1 = kreator.makeDataComponent("DoubleEG_Run2017C_31Mar2018_v1", "/DoubleEG/Run2017C-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
 DoubleEG_Run2017B_31Mar2018_v1 = kreator.makeDataComponent("DoubleEG_Run2017B_31Mar2018_v1", "/DoubleEG/Run2017B-31Mar2018-v1/MINIAOD", "CMS", ".*root", json)
 
 
-doubleEG_31Mar2018 = [DoubleEG_Run2017F_31Mar2018_v1 + DoubleEG_Run2017E_31Mar2018_v1 + DoubleEG_Run2017D_31Mar2018_v1 + DoubleEG_Run2017C_31Mar2018_v1 + DoubleEG_Run2017B_31Mar2018_v1]
+doubleEG_31Mar2018 = [DoubleEG_Run2017F_31Mar2018_v1, DoubleEG_Run2017E_31Mar2018_v1, DoubleEG_Run2017D_31Mar2018_v1, DoubleEG_Run2017C_31Mar2018_v1, DoubleEG_Run2017B_31Mar2018_v1]
 
 
 # ---------------------------------------------------------------------

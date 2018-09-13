@@ -4,7 +4,8 @@ from CMGTools.Production.dataset import createDataset, createMyDataset
 import re
 
 class ComponentCreator(object):
-    def makeMCComponent(self,name,dataset,user,pattern,xSec=1,useAAA=False,unsafe=False,fracNegWeights=None):
+    def makeMCComponent(self,name,dataset,user,pattern,xSec=1,useAAA=True,unsafe=False,fracNegWeights=None):
+        #    def makeMCComponent(self,name,dataset,user,pattern,xSec=1,useAAA=False,unsafe=False,fracNegWeights=None):
          component = cfg.MCComponent(
              dataset=dataset,
              name = name,
@@ -181,7 +182,8 @@ class ComponentCreator(object):
         component.splitFactor = 100
         return component
 
-    def getFiles(self, dataset, user, pattern, useAAA=False, run_range=None, json=None, unsafe = False):
+    def getFiles(self, dataset, user, pattern, useAAA=True, run_range=None, json=None, unsafe = False):
+        #    def getFiles(self, dataset, user, pattern, useAAA=False, run_range=None, json=None, unsafe = False):
         # print 'getting files for', dataset,user,pattern
         ds = createDataset( user, dataset, pattern, readcache=True, run_range=run_range, json=json, unsafe = unsafe )
         files = ds.listOfGoodFiles()

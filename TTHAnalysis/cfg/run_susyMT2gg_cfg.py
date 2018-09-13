@@ -49,16 +49,17 @@ lepAna.loose_electron_isoCut = lambda electron : electron.miniRelIso < 0.1
 #lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
 #lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto"
 #lepAna.loose_electron_id  = "MVA_ID_NonTrig_Spring16_VLooseSI"
-lepAna.loose_electron_id  = "MVA_ID_NonTrig_Spring16_VetoRazor"
+lepAna.loose_electron_id  = "MVA_ID_NonTrig_94X_VLoose"
 lepAna.loose_electron_lostHits = 999. # no cut
 lepAna.loose_electron_dxy    = 999.
 lepAna.loose_electron_dz     = 999.
+
 
 #lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING16_25ns_v1_ConvVetoDxyDz_Veto"
 #lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
 #lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto"
 #lepAna.inclusive_electron_id  = "MVA_ID_NonTrig_Spring16_VLooseSI"
-lepAna.inclusive_electron_id  = "MVA_ID_NonTrig_Spring16_VetoRazor"
+lepAna.inclusive_electron_id  = "MVA_ID_NonTrig_94X_VLoose"
 lepAna.inclusive_electron_lostHits = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dxy    = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dz     = 999. # no cut since embedded in ID
@@ -67,17 +68,23 @@ lepAna.mu_isoCorr = "deltaBeta"
 lepAna.ele_isoCorr = "deltaBeta"
 #lepAna.ele_tightId = "Cuts_SPRING16_25ns_v1_ConvVetoDxyDz"
 #lepAna.ele_tightId = "Cuts_SPRING15_25ns_v1_ConvVetoDxyDz"
-lepAna._ele_tightId  = "MVA_ID_NonTrig_Spring16_VetoRazor"
+lepAna._ele_tightId  = "MVA_ID_NonTrig_94X_VLoose"
 #lepAna.ele_tightId = "MVA_ID_NonTrig_Spring16_VLooseSI"
 lepAna.notCleaningElectrons = True
 lepAna.doMiniIsolation = True
 lepAna.miniIsolationPUCorr = 'rhoArea'
 #lepAna.ele_effectiveAreas = 'Spring16_25ns_v1'             #new default 
 #lepAna.mu_effectiveAreas = 'Spring16_25ns_v1'              #new default
-lepAna.ele_effectiveAreas = 'Spring15_25ns_v1'             #new default 
-lepAna.mu_effectiveAreas = 'Spring15_25ns_v1'              #new default
-lepAna.rhoMuon= 'fixedGridRhoFastjetCentralNeutral',      #new default
-lepAna.rhoElectron = 'fixedGridRhoFastjetCentralNeutral', #new default
+
+lepAna.ele_effectiveAreas = 'Fall17'             #new default 
+lepAna.mu_effectiveAreas = 'Fall17'              #new default
+lepAna.rhoMuon= 'fixedGridRhoFastjetAll',      #new default
+lepAna.rhoElectron = 'fixedGridRhoFastjetAll', #new default
+
+#lepAna.ele_effectiveAreas = 'Spring15_25ns_v1'             #new default 
+#lepAna.mu_effectiveAreas = 'Spring15_25ns_v1'              #new default
+#lepAna.rhoMuon= 'fixedGridRhoFastjetCentralNeutral',      #new default
+#lepAna.rhoElectron = 'fixedGridRhoFastjetCentralNeutral', #new default
 lepAna.doIsoAnnulus = True
 
 #era="25ns"
@@ -114,10 +121,6 @@ jetAna.dataGT = [ [ -1, "Fall17_17Nov2017B_V6_DATA"], [299337 ,"Fall17_17Nov2017
 
 #jetAna.mcGT="Summer16_23Sep2016V4_MC"
 #jetAna.dataGT = [ [ -1, "Summer16_23Sep2016BCDV4_DATA"], [276831 ,"Summer16_23Sep2016EFV4_DATA"] , [278802 ,"Summer16_23Sep2016GV4_DATA"] , [ 280919  ,"Summer16_23Sep2016HV4_DATA"]  ]
-
-#jetAna.mcGT="Summer16_25nsV5_MC"    
-#jetAna.dataGT = "Spring16_23Sep2016BCDV2_DATA Spring16_23Sep2016EFV2_DATA Spring16_23Sep2016GV2_DATA  Spring16_23Sep2016HV2_DATA"
-#jetAna.dataGT = [ [ -1, "Spring16_23Sep2016BCDV2_DATA"], [276831 ,"Spring16_23Sep2016EFV2_DATA"] , [278820 ,"Spring16_23Sep2016GV2_DATA"] , [ 280919  ,"Spring16_23Sep2016HV2_DATA"]  ]
 
 
 # jetAna.recalibrateJets = False # False or False
@@ -174,7 +177,7 @@ photonAna.ptMin = 20
 #photonAna.gammaID = "POG_Spring16_Loose"
 photonAna.gammaID = "POG_Spring17_Loose"
 #photonAna.gammaID = "POG_Spring16_Medium"
-photonAna.do_randomCone = True
+photonAna.do_randomCone = False
 photonAna.do_mc_match = True
 
 # Isolated Track
@@ -204,6 +207,7 @@ ttHCoreEventAna.jetPt = mt2JPt
 ##  CONTROL VARIABLES
 ##------------------------------------------ 
 
+#comment forSherpa
 from PhysicsTools.Heppy.analyzers.gen.LHEAnalyzer import LHEAnalyzer
 LHEAna = LHEAnalyzer.defaultConfig
 
@@ -428,16 +432,17 @@ susyCoreSequence.insert(susyCoreSequence.index(isoTrackAna)+1,jetCleanAna)
 
 sequence = cfg.Sequence(
     susyCoreSequence+[
-    LHEAna,
-#
-    TauDecayAna,
-#
-    ttHMT2Control,
-    MT2Ana,
-    ttHTopoJetAna,
-    ttHIsrJetAna,
-    treeProducer,
-    ])
+        #comment forSherpa    LHEAna,
+        LHEAna,
+        #
+        TauDecayAna,
+        #
+        ttHMT2Control,
+        MT2Ana,
+        ttHTopoJetAna,
+        ttHIsrJetAna,
+        treeProducer,
+        ])
 
 
 ###---- to switch off the compression
@@ -469,16 +474,12 @@ if test==0:
     # --- They may not be in synch anymore 
     from CMGTools.RootTools.samples.ComponentCreator import ComponentCreator
     kreator = ComponentCreator()
-    #testComponent =  kreator.makeMCComponent("ZJetsToNuNu_HT800t1200", "/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v3/MINIAODSIM", "CMS", ".*root",1.474*1.23)
-
-    #testComponent = kreator.makeMCComponent("ZJetsToNuNu_HT400to600", "/ZJetsToNuNu_HT-400To600_13TeV-madgraph/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM", "CMS", ".*root",10.94*1.23)
     testComponent = kreator.makeMCComponent("testComponent", "/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/MINIAODSIM", "CMS", ".*root",489.9)
 
 
     samples=[testComponent]
 
     json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
-    #json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
 
     dataDir = os.environ['CMSSW_BASE']+"/src/CMGTools/TTHAnalysis/data"
 
@@ -497,26 +498,12 @@ if test==0:
     #eventSelector.toSelect = [ 442430994 ]
     #sequence = cfg.Sequence([eventSelector] + sequence)
     comp=testComponent
-    # 80X TTJets SingleLeptFromT for synch with SnT
-    #comp.files = ['file:/afs/cern.ch/user/m/mangano/public/MECCA/dataset/80X/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_109B2CAB-1205-E611-A9BE-0CC47A0AD6C4.root']
-    #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv1/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/00000/109B2CAB-1205-E611-A9BE-0CC47A0AD6C4.root']
-
-    # 80X data
-    #comp.files = ['file:/afs/cern.ch/user/m/mangano/work/datasets/data/80X/HTMHT.root']
-    #comp.files = ['file:/afs/cern.ch/user/m/mangano/work/public/MECCA/HTMHT.root']
-
 
     comp.files = ['file:/afs/cern.ch/user/c/casal/public/96E8E959-E191-E611-8593-002590DB9232.root']
     
-    #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/10000/90E502FD-ED22-E611-83D8-02163E0152D9.root',
-    #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/10000/A4CBB64E-EE22-E611-A0F5-02163E0161D0.root']
-
-    #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/3EDD874E-AA3F-E611-BED1-0090FAA57380.root', 'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/44DB2EF3-AA3F-E611-8B32-0090FAA57780.root',             'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/6828DCF2-AA3F-E611-82FF-001F2908CFBC.root',             'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/AA9DE7DA-AA3F-E611-AAB8-0090FAA58194.root',             'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/B683ABDE-AA3F-E611-A763-0CC47A1DF7FE.root',             'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/D84F85B7-AA3F-E611-B15F-001F2908BE42.root',             'root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv2/ZJetsToNuNu_HT-400To600_13TeV-madgraph/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/20000/DE9896D9-AA3F-E611-9F3E-002590D0AFA4.root'            ]
-
-
     selectedComponents = [comp]
     #comp.splitFactor = 10
-#    comp.fineSplitFactor = 100
+    #    comp.fineSplitFactor = 100
 
     #for comp in selectedComponents:
     #    comp.splitFactor = 1200
@@ -540,6 +527,7 @@ elif test==1:
     ##json=dataDir+'/json/json_DCSONLY.txt'
    # json=dataDir+'/json/json_ichep2016.txt'
 
+    json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
     
     # --------------- ALL THIS IS FOR TESTS -----------------------------------------------------
     # Warning: this only works when running (e.g. locally) and having access to afs
@@ -562,22 +550,20 @@ elif test==1:
         
         # comp.files = ['root://xrootd.unl.edu//store/data/Run2016F/JetHT/MINIAOD/23Sep2016-v1/100000/322B5B83-B184-E611-A5B1-0026B927862A.root']
 
-#        comp.isMC = False
-#        comp.isData = True
+        comp.isMC = False
+        comp.isData = True
+#        comp.isMC = True
+#        comp.isData = False
 
-        comp.isMC = True
-        comp.isData = False
-
-        comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall17MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/20000/028340E8-D442-E811-813C-0025905B8560.root']
-
-#        comp.files = ['root://xrootd.unl.edu//store/data/Run2017B/DoubleEG/MINIAOD/17Nov2017-v1/20000/065312BE-A3D5-E711-A0C7-0CC47A1E0DCC.root']
-#        comp.files = ['root://xrootd.unl.edu//store/data/Run2017C/DoubleEG/MINIAOD/31Mar2018-v1/00000/0037909D-AB37-E811-BB0D-7CD30ABD2EEA.root']
+        comp.files = ['root://xrootd.unl.edu//store/data/Run2016G/DoubleEG/MINIAOD/03Feb2017-v1/80000/FEA99FAC-F6EA-E611-9BE7-003048F5B69C.root']
 
 #        comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall17MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/20000/028340E8-D442-E811-813C-0025905B8560.root']
 
+        #        comp.files = ['root://xrootd.unl.edu//store/data/Run2017B/DoubleEG/MINIAOD/17Nov2017-v1/20000/065312BE-A3D5-E711-A0C7-0CC47A1E0DCC.root']
+        #        comp.files = ['root://xrootd.unl.edu//store/data/Run2017C/DoubleEG/MINIAOD/31Mar2018-v1/00000/0037909D-AB37-E811-BB0D-7CD30ABD2EEA.root']
+        #        comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall17MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/20000/028340E8-D442-E811-813C-0025905B8560.root']
         #comp.files = ['root://xrootd.unl.edu//store/data/Run2016E/MET/MINIAOD/03Feb2017-v1/110000/0A011AB6-82EB-E611-92FC-001E674FAEBF.root']
         #comp.files = ['root://xrootd.unl.edu//store/mc/RunIISummer16MiniAODv2/TTJets_SingleLeptFromTbar_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/120000/008E1775-94BD-E611-99EB-0CC47A745298.root']
-
 
     # # Tree configuration for JEC variations
     # if jetAna.shiftJEC > 0.5 or jetAna.shiftJEC < -0.5:
@@ -586,69 +572,25 @@ elif test==1:
     #     treeProducer.collections = MT2forJECstudies_collections
 
 
+
 elif test==2:
 
-    #    from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
-    from CMGTools.RootTools.samples.samples_13TeV_RunIIFall17MiniAOD import *
-    #    from CMGTools.RootTools.samples.samples_13TeV_RunIISpring16MiniAODv2 import *
-    # full production
 
-    if is2016:
-        photonAna.gammaID = "POG_Spring16_Loose"
 
-    # MT2gg = [
-    #     GluGluHToGG_M125,
-    #     THQ_ctcvcp_HToGG_M125,
-    #     THW_ctcvcp_HToGG_M125,
-    #     VBFHToGG_M_125_13TeV,
-    #     VBFHToGG_M125,
-    #     VHToGG_M125,
-    #     WminusH_HToGG_WToAll_M125,
-    #     WplusH_HToGG_WToAll_M125,
-    #     ZH_HToGG_ZToAll_M125,
-    #     ggZH_HToGG_ZToLL_M125,
-    #     ggZH_HToGG_ZToNuNu_M125,
-    #     ggZH_HToGG_ZToQQ_M125,
-    #     ttHToGG_M125,
-    #     DiPhotonJetsBox_MGG_80toInf,
-    #     GJet_Pt_20to40_MGG_80toInf,
-    #     GJet_Pt_20toInf_MGG_40to80,
-    #     GJet_Pt_40toInf_MGG_80toInf,
-    #     QCD_Pt_30to40_MGG_80toInf,
-    #     QCD_Pt_30toInf_MGG_40to80,
-    #     ]
-
-        #    MT2gg = [
-    #     #QCD_Pt30to40_MGG80toInf,
-    #     # QCD_Pt30toInf_MGG40to80,
-    #     # QCD_Pt40toInf_MGG80toInf,
-    #     # GJet_Pt20to40_MGG80toInf,
-    #     # GJet_Pt20toInf_MGG40to80,
-    #     # GJet_Pt40toInf_MGG80toInf,
-    #     # DiPhotonJetsBox_MGG80toInf,
-    #         GluGluHToGG_M125,
-    #     # VBFHToGG_M125_ext,
-    #     # VBFHToGG_M125_ext2, 
-    #     # VHToGG_M125,
-    #     # ttHJetToGG_M125,
-    #     # ttHToGG_M125,
-    #     # bbHToGG_M125_4FS_yb2,
-    #     # bbHToGG_M125_4FS_ybyt,
-    #     # THQ_ctcvcp_HToGG,
-    #     # THW_ctcvcp_HToGG,
-    #    ]
-
+    # FULLSIM submission
+    #    from CMGTools.RootTools.samples.samples_13TeV_RunIIFall17MiniAOD import *
+    from CMGTools.RootTools.samples.samples_13TeV_RunIIFall17MiniAODv2 import *
 
     selectedComponents = MT2hgg 
 
+
     for comp in selectedComponents:
-        comp.splitFactor = 1200
-        comp.fineSplitFactor = 4 # to run two jobs per file
+#        comp.files=comp.files[5:6]
+        #  comp.fineSplitFactor = 4 # to run two jobs per file
         comp.files = comp.files[:]
-#        comp.files = comp.files[:1]
-        #comp.files = comp.files[57:58]  # to process only file [57]  
+        comp.splitFactor = 1200
         # triggers on MC
-        #comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
+        #comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming`
 
     # Tree configuration for JEC variations
     if jetAna.shiftJEC > 0.5 or jetAna.shiftJEC < -0.5:
@@ -690,12 +632,6 @@ elif test==3:
     # --------------------------------------------------------------------
 
 
-    isForQCD = False
-
-#    if is2016:
-#        photonAna.gammaID = "POG_Spring16_Loose"
-#        json=dataDir+'/json/json_ReReco_final_2016Run.txt'
-
     # --------------- HERE IS THE PART YOU SHOULD PAY ATTENTION TO --------------------------------------------
     #For running on the full list of samples
         
@@ -708,7 +644,7 @@ elif test==3:
         comp.json=json
         comp.splitFactor = 1000
         comp.files=comp.files[:]
-#        comp.files=comp.files[50:51]
+        #comp.files=comp.files[50:51]
         comp.triggers = allTriggers
         
     sequence.insert(sequence.index(treeProducer), MT2skim)
@@ -767,7 +703,7 @@ if doSpecialSettingsForMECCA:
     # jetAna.do_mc_match = False
     lepAna.do_mc_match = False
     isoTrackAna.do_mc_match = False
-    ###genAna.makeLHEweights = False ### Such option does not exist (anymore)
+    genAna.makeLHEweights = False ### Such option does not exist (anymore)
 
 if isData:
     for comp in samples:

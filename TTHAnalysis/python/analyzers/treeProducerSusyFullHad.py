@@ -9,12 +9,16 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     ## Generator information
     ##--------------------------------------------------
 ##    NTupleVariable("genQScale", lambda ev : ev.genQScale, help="Generator level binning quantity, QScale"),
+#comment forSherpa    NTupleVariable("LHEweight_original", lambda ev: ev.LHE_originalWeight if  hasattr(ev,'LHE_originalWeight') else  0, mcOnly=True, help="original LHE weight"),
     NTupleVariable("LHEweight_original", lambda ev: ev.LHE_originalWeight if  hasattr(ev,'LHE_originalWeight') else  0, mcOnly=True, help="original LHE weight"),
+
     NTupleVariable("genRecoil_pt", lambda ev: ev.GenRecoil_pt if  hasattr(ev,'GenRecoil_pt') else  -99, float, help="total pt of particles with status 62"),
     NTupleVariable("top_pt", lambda ev: ev.toppt if  hasattr(ev,'toppt') else  -99, float, help="pt of top"),
     NTupleVariable("anti_top_pt", lambda ev: ev.antitoppt if  hasattr(ev,'antitoppt') else  -99, float, help="pt of anti-top"),
 
     ### Gen HT (for stiching)
+    #comment forSherpa   NTupleVariable("lheHT", lambda ev : ev.lheHT if hasattr(ev, 'lheHT') else -99, help="H_{T} computed from quarks and gluons in Heppy LHEAnalyzer"),
+    #comment forSherpa   NTupleVariable("lheHTIncoming", lambda ev : ev.lheHTIncoming if hasattr(ev, 'lheHTIncoming') else -99, help="H_{T} computed from quarks and gluons in Heppy LHEAnalyzer (only LHE status<0 as mothers)"),
     NTupleVariable("lheHT", lambda ev : ev.lheHT if hasattr(ev, 'lheHT') else -99, help="H_{T} computed from quarks and gluons in Heppy LHEAnalyzer"),
     NTupleVariable("lheHTIncoming", lambda ev : ev.lheHTIncoming if hasattr(ev, 'lheHTIncoming') else -99, help="H_{T} computed from quarks and gluons in Heppy LHEAnalyzer (only LHE status<0 as mothers)"),
     
@@ -324,5 +328,7 @@ susyFullHad_collections = {
         "selectedPhotons"    : NTupleCollection("gamma", photonTypeSusy, 50, help="photons with pt>20 and loose cut based ID"),
         "selectedIsoTrack"    : NTupleCollection("isoTrack", isoTrackType, 50, help="isoTrack, sorted by pt"),
         "genParticles" : NTupleCollection("genPart", genParticleWithMotherId, 300, help="all pruned genparticles"),
+        #comment forSherpa        "LHE_weights"    : NTupleCollection("LHEweight",  weightsInfoType, 1000, help="LHE weight info"),
         "LHE_weights"    : NTupleCollection("LHEweight",  weightsInfoType, 1000, help="LHE weight info"),
+
 }            

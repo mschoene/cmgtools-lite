@@ -18,6 +18,7 @@ import re
 class ttHhistoCounterAnalyzer( Analyzer ):
     def __init__(self, cfg_ana, cfg_comp, looperName ):
         super(ttHhistoCounterAnalyzer,self).__init__(cfg_ana,cfg_comp,looperName) 
+#forSherpa        self.doLHE = getattr(cfg_ana, 'doLHE', False)
         self.doLHE = getattr(cfg_ana, 'doLHE', True)
         self.cfg_ana = cfg_ana
         self.isInitSMS = False

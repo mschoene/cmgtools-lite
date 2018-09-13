@@ -186,6 +186,7 @@ pdfwAna = cfg.Analyzer(
 from CMGTools.TTHAnalysis.analyzers.susyParameterScanAnalyzer import susyParameterScanAnalyzer
 susyScanAna = cfg.Analyzer(
     susyParameterScanAnalyzer, name="susyParameterScanAnalyzer",
+    #forSherpa    doLHE=False,
     doLHE=True,
     useLumiInfo=True
     )
@@ -614,6 +615,7 @@ susyTauMatchAna = cfg.Analyzer(
 
 # Core sequence of all common modules
 susyCoreSequence = [
+    #forSherpa    lheWeightAna,
     lheWeightAna,
     pileUpAna,
     skimAnalyzer,
@@ -624,6 +626,7 @@ susyCoreSequence = [
     genHiggsAna,
     genHFAna,
     pdfwAna,
+    #forSherpa    susyScanAna,
     susyScanAna,
     vertexAna,
     lepAna,
