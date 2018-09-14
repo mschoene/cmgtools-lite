@@ -49,7 +49,8 @@ lepAna.loose_electron_isoCut = lambda electron : electron.miniRelIso < 0.1
 #lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
 #lepAna.loose_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto"
 #lepAna.loose_electron_id  = "MVA_ID_NonTrig_Spring16_VLooseSI"
-lepAna.loose_electron_id  = "MVA_ID_NonTrig_94X_VLoose"
+#lepAna.loose_electron_id  = "MVA_ID_NonTrig_94X_VLoose"
+lepAna.loose_electron_id  = "POG_Cuts_ID_FALL17_94X_v1_ConvVetoDxyDz_Tight"
 lepAna.loose_electron_lostHits = 999. # no cut
 lepAna.loose_electron_dxy    = 999.
 lepAna.loose_electron_dz     = 999.
@@ -59,7 +60,8 @@ lepAna.loose_electron_dz     = 999.
 #lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto_full5x5"
 #lepAna.inclusive_electron_id  = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVetoDxyDz_Veto"
 #lepAna.inclusive_electron_id  = "MVA_ID_NonTrig_Spring16_VLooseSI"
-lepAna.inclusive_electron_id  = "MVA_ID_NonTrig_94X_VLoose"
+#lepAna.inclusive_electron_id  = "MVA_ID_NonTrig_94X_VLoose"
+lepAna.inclusive_electron_id  = "POG_Cuts_ID_FALL17_94X_v1_ConvVetoDxyDz_Tight"
 lepAna.inclusive_electron_lostHits = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dxy    = 999. # no cut since embedded in ID
 lepAna.inclusive_electron_dz     = 999. # no cut since embedded in ID
@@ -68,7 +70,8 @@ lepAna.mu_isoCorr = "deltaBeta"
 lepAna.ele_isoCorr = "deltaBeta"
 #lepAna.ele_tightId = "Cuts_SPRING16_25ns_v1_ConvVetoDxyDz"
 #lepAna.ele_tightId = "Cuts_SPRING15_25ns_v1_ConvVetoDxyDz"
-lepAna._ele_tightId  = "MVA_ID_NonTrig_94X_VLoose"
+#lepAna.ele_tightId  = "MVA_ID_NonTrig_94X_VLoose"
+lepAna.ele_tightId = "Cuts_FALL17_94X_v1_ConvVetoDxyDz"
 #lepAna.ele_tightId = "MVA_ID_NonTrig_Spring16_VLooseSI"
 lepAna.notCleaningElectrons = True
 lepAna.doMiniIsolation = True
@@ -85,7 +88,8 @@ lepAna.rhoElectron = 'fixedGridRhoFastjetAll', #new default
 #lepAna.mu_effectiveAreas = 'Spring15_25ns_v1'              #new default
 #lepAna.rhoMuon= 'fixedGridRhoFastjetCentralNeutral',      #new default
 #lepAna.rhoElectron = 'fixedGridRhoFastjetCentralNeutral', #new default
-lepAna.doIsoAnnulus = True
+#lepAna.doIsoAnnulus = True
+lepAna.doIsoAnnulus = False
 
 #era="25ns"
 #sync=False
@@ -527,7 +531,7 @@ elif test==1:
     ##json=dataDir+'/json/json_DCSONLY.txt'
    # json=dataDir+'/json/json_ichep2016.txt'
 
-    json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
+
     
     # --------------- ALL THIS IS FOR TESTS -----------------------------------------------------
     # Warning: this only works when running (e.g. locally) and having access to afs
@@ -550,14 +554,14 @@ elif test==1:
         
         # comp.files = ['root://xrootd.unl.edu//store/data/Run2016F/JetHT/MINIAOD/23Sep2016-v1/100000/322B5B83-B184-E611-A5B1-0026B927862A.root']
 
-        comp.isMC = False
-        comp.isData = True
-#        comp.isMC = True
-#        comp.isData = False
+#        comp.isMC = False
+#        comp.isData = True
+        comp.isMC = True
+        comp.isData = False
 
-        comp.files = ['root://xrootd.unl.edu//store/data/Run2016G/DoubleEG/MINIAOD/03Feb2017-v1/80000/FEA99FAC-F6EA-E611-9BE7-003048F5B69C.root']
+       # comp.files = ['root://xrootd.unl.edu//store/data/Run2016G/DoubleEG/MINIAOD/03Feb2017-v1/80000/FEA99FAC-F6EA-E611-9BE7-003048F5B69C.root']
 
-#        comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall17MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/20000/028340E8-D442-E811-813C-0025905B8560.root']
+        comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall17MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/20000/028340E8-D442-E811-813C-0025905B8560.root']
 
         #        comp.files = ['root://xrootd.unl.edu//store/data/Run2017B/DoubleEG/MINIAOD/17Nov2017-v1/20000/065312BE-A3D5-E711-A0C7-0CC47A1E0DCC.root']
         #        comp.files = ['root://xrootd.unl.edu//store/data/Run2017C/DoubleEG/MINIAOD/31Mar2018-v1/00000/0037909D-AB37-E811-BB0D-7CD30ABD2EEA.root']
