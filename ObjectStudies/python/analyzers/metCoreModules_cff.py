@@ -315,6 +315,29 @@ metAnaScaleDown = metAna.clone(name="metAnalyzerScaleDown",
     collectionPostFix = "_jecDown",
     )
 
+metModifiedMETAna = cfg.Analyzer(
+    METAnalyzer, name="metModifiedMETAnalyzer",
+    metCollection     = "slimmedMETsModifiedMET",
+    noPUMetCollection = "slimmedMETsModifiedMET",    
+    copyMETsByValue = False,
+    doTkMet = False,
+    includeTkMetCHS = False,
+    includeTkMetPVLoose = False,
+    includeTkMetPVTight = False,
+    doMetNoPU = False,
+    doMetNoMu = False,
+    doMetNoEle = False,
+    doMetNoPhoton = False,
+    recalibrate = True, # or "type1", or True
+    applyJetSmearing = False, # does nothing unless the jet smearing is turned on in the jet analyzer
+    old74XMiniAODs = False, # set to True to get the correct Raw MET when running on old 74X MiniAODs
+    jetAnalyzerPostFix = "",
+    candidates='packedPFCandidates',
+    candidatesTypes='std::vector<pat::PackedCandidate>',
+    dzMax = 0.1,
+    collectionPostFix = "ModifiedMET",
+)
+
 
 metPuppiAna = cfg.Analyzer(
     METAnalyzer, name="metAnalyzerPuppi",
@@ -585,6 +608,7 @@ metCoreSequence = [
     jetPuppiAnaScaleUp,
     jetPuppiAnaScaleDown,
 ##### met modules below
+#    metAnaModifiedMET,
     metAna,
     metAnaScaleUp,
     metAnaScaleDown,

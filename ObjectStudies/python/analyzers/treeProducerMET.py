@@ -32,8 +32,8 @@ met_globalVariables = [
     NTupleVariable("badCloneMuonMoriond2017_maxPt",  lambda ev: max(mu.pt() for mu in ev.badCloneMuonMoriond2017_badMuons) if not ev.badCloneMuonMoriond2017 else 0, help="max pt of any clone muon found in event (Moriond 2017 filter)"),
     NTupleVariable("badNotCloneMuonMoriond2017_maxPt",  lambda ev: max((mu.pt() if mu not in ev.badCloneMuonMoriond2017_badMuons else 0) for mu in ev.badMuonMoriond2017_badMuons) if not ev.badMuonMoriond2017 else 0, help="max pt of any bad non-clone muon found in event (Moriond 2017 filter)"),
 
-    NTupleVariable("metPuppi_EGCorX", lambda ev : ev.met_EGCorXPuppi if  hasattr(ev,'met_EGCorXPuppi') else  0 , help="Puppi EGCorX"),
-    NTupleVariable("metPuppi_EGCorY", lambda ev : ev.met_EGCorYPuppi if  hasattr(ev,'met_EGCorYPuppi') else  0 , help="Puppi EGCorY"),
+#    NTupleVariable("metPuppi_EGCorX", lambda ev : ev.met_EGCorXPuppi if  hasattr(ev,'met_EGCorXPuppi') else  0 , help="Puppi EGCorX"),
+#    NTupleVariable("metPuppi_EGCorY", lambda ev : ev.met_EGCorYPuppi if  hasattr(ev,'met_EGCorYPuppi') else  0 , help="Puppi EGCorY"),
 
    # ----------------------- jet info  --------------------------------------------------------------------- #
 
@@ -61,10 +61,10 @@ met_globalVariables = [
 #    NTupleVariable("metNoHF_uPara_zll", lambda ev : ev.metNoHF.upara_zll if hasattr(ev,'metNoHF') and hasattr(ev,'zll_p4') else -999 , help="recoil MET"),
 #    NTupleVariable("metNoHF_uPerp_zll", lambda ev : ev.metNoHF.uperp_zll if hasattr(ev,'metNoHF') and hasattr(ev,'zll_p4') else -999 , help="recoil MET"),
 
-    NTupleVariable("metPuppi_uPara_zll", lambda ev : ev.metPuppi.upara_zll if hasattr(ev,'metPuppi') and hasattr(ev,'zll_p4') else -999 , help="recoil MET puppi"),
-    NTupleVariable("metPuppi_uPerp_zll", lambda ev : ev.metPuppi.uperp_zll if hasattr(ev,'metPuppi') and hasattr(ev,'zll_p4') else -999 , help="recoil MET puppi"),
+#    NTupleVariable("metPuppi_uPara_zll", lambda ev : ev.metPuppi.upara_zll if hasattr(ev,'metPuppi') and hasattr(ev,'zll_p4') else -999 , help="recoil MET puppi"),
+#    NTupleVariable("metPuppi_uPerp_zll", lambda ev : ev.metPuppi.uperp_zll if hasattr(ev,'metPuppi') and hasattr(ev,'zll_p4') else -999 , help="recoil MET puppi"),
 
-    NTupleVariable("metPuppi_sig", lambda ev : ev.met_sigPuppi, help="met significance, filled when running preprocessor"),
+#    NTupleVariable("metPuppi_sig", lambda ev : ev.met_sigPuppi, help="met significance, filled when running preprocessor"),
 
     NTupleVariable("met_raw_uPara_zll", lambda ev : ev.met_raw.upara_zll if  hasattr(ev,'zll_p4') else -999 , help="recoil MET raw"),
     NTupleVariable("met_raw_uPerp_zll", lambda ev : ev.met_raw.uperp_zll if  hasattr(ev,'zll_p4') else -999 , help="recoil MET raw"),
@@ -188,21 +188,21 @@ met_globalVariables = [
 #    NTupleVariable("tkmetPuppiOtherDeltaZ_pt", lambda ev : ev.tkMetPuppiOtherDeltaZ.pt() if  hasattr(ev,'tkMetPuppiOtherDeltaZ') else  0, help="TK Puppi E_{T}^{miss} fromPV>0 pt"),
 #    NTupleVariable("tkmetPuppiOtherDeltaZ_phi", lambda ev : ev.tkMetPuppiOtherDeltaZ.phi() if  hasattr(ev,'tkMetPuppiOtherDeltaZ') else  0, help="TK Puppi E_{T}^{miss} fromPV>0 phi"),
 
-    NTupleVariable("puppiMetCh_pt", lambda ev : ev.puppiMetCh.pt(), help="TK E_{T}^{miss} Puppi Charged pt"),
-    NTupleVariable("puppiMetCh_phi", lambda ev : ev.puppiMetCh.phi(), help="TK E_{T}^{miss} Puppi Charged phi"),
-    NTupleVariable("puppiMetCh_sumEt", lambda ev : ev.puppiMetCh.sumEt, help="TK E_{T}^{miss} Puppi Charged sumEt"),
+    # NTupleVariable("puppiMetCh_pt", lambda ev : ev.puppiMetCh.pt(), help="TK E_{T}^{miss} Puppi Charged pt"),
+    # NTupleVariable("puppiMetCh_phi", lambda ev : ev.puppiMetCh.phi(), help="TK E_{T}^{miss} Puppi Charged phi"),
+    # NTupleVariable("puppiMetCh_sumEt", lambda ev : ev.puppiMetCh.sumEt, help="TK E_{T}^{miss} Puppi Charged sumEt"),
 
-    NTupleVariable("puppiMetPh_pt", lambda ev : ev.puppiMetPh.pt(), help="TK E_{T}^{miss} Puppi PH pt"),
-    NTupleVariable("puppiMetPh_phi", lambda ev : ev.puppiMetPh.phi(), help="TK E_{T}^{miss} Puppi PH phi"),
-    NTupleVariable("puppiMetPh_sumEt", lambda ev : ev.puppiMetPh.sumEt, help="TK E_{T}^{miss} Puppi PH sumEt"),
+    # NTupleVariable("puppiMetPh_pt", lambda ev : ev.puppiMetPh.pt(), help="TK E_{T}^{miss} Puppi PH pt"),
+    # NTupleVariable("puppiMetPh_phi", lambda ev : ev.puppiMetPh.phi(), help="TK E_{T}^{miss} Puppi PH phi"),
+    # NTupleVariable("puppiMetPh_sumEt", lambda ev : ev.puppiMetPh.sumEt, help="TK E_{T}^{miss} Puppi PH sumEt"),
 
-    NTupleVariable("puppiMetNh_pt", lambda ev : ev.puppiMetNh.pt(), help="TK E_{T}^{miss} Puppi NH pt"),
-    NTupleVariable("puppiMetNh_phi", lambda ev : ev.puppiMetNh.phi(), help="TK E_{T}^{miss} Puppi NH phi"),
-    NTupleVariable("puppiMetNh_sumEt", lambda ev : ev.puppiMetNh.sumEt, help="TK E_{T}^{miss} Puppi NH sumEt"),
+    # NTupleVariable("puppiMetNh_pt", lambda ev : ev.puppiMetNh.pt(), help="TK E_{T}^{miss} Puppi NH pt"),
+    # NTupleVariable("puppiMetNh_phi", lambda ev : ev.puppiMetNh.phi(), help="TK E_{T}^{miss} Puppi NH phi"),
+    # NTupleVariable("puppiMetNh_sumEt", lambda ev : ev.puppiMetNh.sumEt, help="TK E_{T}^{miss} Puppi NH sumEt"),
 
-    NTupleVariable("puppiMetHF_pt", lambda ev : ev.puppiMetHF.pt(), help="TK E_{T}^{miss} Puppi HF pt"),
-    NTupleVariable("puppiMetHF_phi", lambda ev : ev.puppiMetHF.phi(), help="TK E_{T}^{miss} Puppi HF phi"),
-    NTupleVariable("puppiMetHF_sumEt", lambda ev : ev.puppiMetHF.sumEt, help="TK E_{T}^{miss} Puppi HF sumEt"),
+    # NTupleVariable("puppiMetHF_pt", lambda ev : ev.puppiMetHF.pt(), help="TK E_{T}^{miss} Puppi HF pt"),
+    # NTupleVariable("puppiMetHF_phi", lambda ev : ev.puppiMetHF.phi(), help="TK E_{T}^{miss} Puppi HF phi"),
+    # NTupleVariable("puppiMetHF_sumEt", lambda ev : ev.puppiMetHF.sumEt, help="TK E_{T}^{miss} Puppi HF sumEt"),
 
     ]
 
@@ -211,7 +211,8 @@ met_globalObjects = {
 #    "met_jecUp" : NTupleObject("met_jecUp", metType, help="PF E_{T}^{miss}, after type 1 corrections with JEC up variation"),
 #    "met_jecDown" : NTupleObject("met_jecDown", metType, help="PF E_{T}^{miss}, after type 1 corrections with JEC down variation"),
 #    "metNoHF" : NTupleObject("metNoHF", metType, help="PF E_{T}^{miss}, after type 1 corrections (NoHF)"),
-    "metPuppi" : NTupleObject("metPuppi", metType, help="PF E_{T}^{miss}, after type 1 corrections (Puppi)"),
+    "metModifiedMET" : NTupleObject("metModifiedMET", metType, help="PF E_{T}^{miss}, after type 1 corrections (ModifiedMET)"),
+#    "metPuppi" : NTupleObject("metPuppi", metType, help="PF E_{T}^{miss}, after type 1 corrections (Puppi)"),
 #    "metPuppi_jecUp" : NTupleObject("metPuppi_jecUp", metType, help="PF E_{T}^{miss}, after type 1 corrections with JEC up variation (Puppi)"),
 #    "metPuppi_jecDown" : NTupleObject("metPuppi_jecDown", metType, help="PF E_{T}^{miss}, after type 1 corrections with JEC down variation (Puppi)"),
 #    "metraw" : NTupleObject("metraw", metType, help="PF E_{T}^{miss}"),

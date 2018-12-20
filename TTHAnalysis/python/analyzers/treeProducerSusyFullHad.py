@@ -152,6 +152,7 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("gg_mt2", lambda ev: ev.mt2_Xj_gg, float, help="mt2(j1,j2,met) with 2photons added to met"),
 
     NTupleVariable("hgg_mt2", lambda ev: ev.mt2_Xj_hgg, float, help="mt2(Hgg+j1,j2,met) with 2photons added as Higgs to objects to met"),
+    NTupleVariable("hgg_stdMET_mt2", lambda ev: ev.mt2_Xj_hgg_stdMET, float, help="mt2(Hgg_StdMET+j1,j2,met) with 2photons added as Higgs to objects to met"),
 
 
     ##--------------------------------------------------
@@ -241,6 +242,13 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("gg_eta", lambda ev : ev.gg_p4.Eta() if ev.gg_p4.P()!=0 else -999., help="Eta of di-gamma system"),
     NTupleVariable("gg_phi", lambda ev : ev.gg_p4.Phi() if ev.gg_p4.P()!=0 else -999., help="Phi of di-gamma system"),
     NTupleVariable("gg_mass", lambda ev : ev.gg_p4.M() if ev.gg_p4.P()!=0 else -999., help="Invariant mass of di-gamma system"),
+
+    NTupleVariable("ggC_pt", lambda ev : ev.ggC_p4.Pt() if ev.ggC_p4.P()!=0 else -999., help="Pt of di-gamma system"),
+    NTupleVariable("ggC_eta", lambda ev : ev.ggC_p4.Eta() if ev.ggC_p4.P()!=0 else -999., help="Eta of di-gamma system"),
+    NTupleVariable("ggC_phi", lambda ev : ev.ggC_p4.Phi() if ev.ggC_p4.P()!=0 else -999., help="Phi of di-gamma system"),
+    NTupleVariable("ggC_mass", lambda ev : ev.ggC_p4.M() if ev.ggC_p4.P()!=0 else -999., help="Invariant mass of di-gamma system"),
+
+
     # NTupleVariable("gg_minMTBMet", lambda ev: ev.gg_minMTBMet, float, help="min Mt(b,met) for gg, same as in main search"),
     
 
@@ -343,6 +351,7 @@ susyFullHad_collections = {
 ##        "cleanJetsAll"       : NTupleCollection("jet",   jetTypeExtra, 100, help="all jets (w/ x-cleaning, w/ ID applied w/o PUID applied pt>10 |eta|<5.2) , sorted by pt", filter=lambda l : l.pt()>25  ),
 #        "fatJets"         : NTupleCollection("fatJet", fatJetType, 15, help="Cental jets after full selection and cleaning, sorted by pt"),
         "selectedPhotons"    : NTupleCollection("gamma", photonTypeSusy, 50, help="photons with pt>20 and loose cut based ID"),
+        "selectedPhotonsWideEta"    : NTupleCollection("gammaWideEta", photonTypeSusy, 50, help="photons with pt>20 and loose cut based ID, no eta selection"),
         "selectedIsoTrack"    : NTupleCollection("isoTrack", isoTrackType, 50, help="isoTrack, sorted by pt"),
         "genParticles" : NTupleCollection("genPart", genParticleWithMotherId, 300, help="all pruned genparticles"),
         #comment forSherpa        "LHE_weights"    : NTupleCollection("LHEweight",  weightsInfoType, 1000, help="LHE weight info"),

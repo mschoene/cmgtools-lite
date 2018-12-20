@@ -265,6 +265,15 @@ class ttHMT2Control( Analyzer ):
                 if n>=2: break
                 event.gg_p4 += ROOT.reco.Particle.LorentzVector( gg.px(), gg.py(), gg.pz(), gg.energy() )
 
+        # mass of diphoto system constructed with central(barrel only) photons
+        photons_barrel = [ l for l in event.selectedPhotons if l.pt() > 20 and abs(l.superCluster().eta()) <= 1.4442 ]
+        event.ggC_p4 = ROOT.reco.Particle.LorentzVector( 0, 0, 0, 0 )
+
+        if len( photons_barrel )>1:
+            for n,gg in enumerate(photons_barrel):
+                if n>=2: break
+                event.ggC_p4 += ROOT.reco.Particle.LorentzVector( gg.px(), gg.py(), gg.pz(), gg.energy() )
+    
 
     def makeZllObjects(self, event):
 

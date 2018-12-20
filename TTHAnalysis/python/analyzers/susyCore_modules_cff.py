@@ -9,6 +9,8 @@ from PhysicsTools.Heppy.analyzers.objects.all import *
 from PhysicsTools.Heppy.analyzers.gen.all import *
 import os
 
+from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import *
+
 from CMGTools.TTHAnalysis.analyzers.ttHhistoCounterAnalyzer import ttHhistoCounterAnalyzer
 susyCounter = cfg.Analyzer(
     ttHhistoCounterAnalyzer, name="ttHhistoCounterAnalyzer",
@@ -186,7 +188,8 @@ pdfwAna = cfg.Analyzer(
 from CMGTools.TTHAnalysis.analyzers.susyParameterScanAnalyzer import susyParameterScanAnalyzer
 susyScanAna = cfg.Analyzer(
     susyParameterScanAnalyzer, name="susyParameterScanAnalyzer",
-    #forSherpa    doLHE=False,
+    #forSherpa
+#    doLHE=False,
     doLHE=True,
     useLumiInfo=True
     )
@@ -196,6 +199,18 @@ from PhysicsTools.Heppy.analyzers.objects.LeptonCleaner import LeptonCleaner
 # Lepton Analyzer (generic)
 lepCleaner = cfg.Analyzer(
     LeptonCleaner, name="leptonCleaner",
+    # input collections
+    minLepPt = 15,
+    lepSelCut = lambda lep : True,
+    eleGammaDR = 1.0,
+    muGammaDR = 0.5,
+    collectionPostFix = ""
+    )
+
+from PhysicsTools.Heppy.analyzers.objects.PhotonCleaner import PhotonCleaner
+# Photon Analyzer (generic)
+phoCleaner = cfg.Analyzer(
+    PhotonCleaner, name="photonCleaner",
     # input collections
     minLepPt = 15,
     lepSelCut = lambda lep : True,
@@ -218,28 +233,32 @@ lepAna = cfg.Analyzer(
     doSegmentBasedMuonCleaning=False,
     # inclusive very loose muon selection
     inclusive_muon_id  = "POG_ID_Loose",
-    inclusive_muon_pt  = 3,
+    inclusive_muon_pt  = 20,
+#    inclusive_muon_pt  = 3,
     inclusive_muon_eta = 2.4,
     inclusive_muon_dxy = 0.5,
     inclusive_muon_dz  = 1.0,
     muon_dxydz_track = "innerTrack",
     # loose muon selection
     loose_muon_id     = "POG_ID_Loose",
-    loose_muon_pt     = 5,
+    loose_muon_pt     = 20,
+#    loose_muon_pt     = 5,
     loose_muon_eta    = 2.4,
     loose_muon_dxy    = 0.05,
     loose_muon_dz     = 0.1,
     loose_muon_relIso = 0.5,
     # inclusive very loose electron selection
     inclusive_electron_id  = "",
-    inclusive_electron_pt  = 5,
+    inclusive_electron_pt  = 20,
+#    inclusive_electron_pt  = 5,
     inclusive_electron_eta = 2.5,
     inclusive_electron_dxy = 0.5,
     inclusive_electron_dz  = 1.0,
     inclusive_electron_lostHits = 1.0,
     # loose electron selection
     loose_electron_id     = "POG_Cuts_ID_2012_Veto_full5x5",
-    loose_electron_pt     = 7,
+    loose_electron_pt     = 20,
+#    loose_electron_pt     = 7,
     loose_electron_eta    = 2.5,
     loose_electron_dxy    = 0.05,
     loose_electron_dz     = 0.1,
@@ -292,9 +311,12 @@ globalSkim = cfg.Analyzer(
 photonAna = cfg.Analyzer(
     PhotonAnalyzer, name='photonAnalyzer',
     photons='slimmedPhotons',
-    doPhotonScaleCorrections=False, 
+    doPhotonScaleCorrections=True, 
+#    doPhotonScaleCorrections=False, 
     ptMin = 15,
-    etaMax = 2.5,
+    etaMax = 1.4442,
+    #    etaMax = 1.5,
+    #    etaMax = 2.5,
     gammaID = "POG_Spring17_Loose",
     rhoPhoton = 'fixedGridRhoFastjetAll',
     gamma_isoCorr = 'rhoArea',
@@ -536,8 +558,10 @@ ttHHeavyFlavourHadronAna = cfg.Analyzer(
 
 metAna = cfg.Analyzer(
     METAnalyzer, name="metAnalyzer",
-    metCollection     = "slimmedMETs",
-    noPUMetCollection = "slimmedMETs",    
+    metCollection     = "slimmedMETsModifiedMET",
+    noPUMetCollection = "slimmedMETsModifiedMET",
+#    metCollection     = "slimmedMETs",
+#    noPUMetCollection = "slimmedMETs",    
     copyMETsByValue = False,
     doTkMet = False,
     doPuppiMet = False,
@@ -555,6 +579,47 @@ metAna = cfg.Analyzer(
     dzMax = 0.1,
     collectionPostFix = "",
     )
+
+
+metAnaStdMET = metAna.clone(name="metAnalyzerStdMET",
+                             metCollection     = "slimmedMETs",
+                             noPUMetCollection = "slimmedMETs",    
+                             copyMETsByValue = True,
+                             recalibrate = "type1", 
+                             jetAnalyzerPostFix = "",
+                             collectionPostFix = "_stdMET",
+                             )
+
+metAnaEEMod = cfg.Analyzer(
+    METAnalyzer, name="metAnalyzerEEMod",
+    metCollection     = "slimmedMETsModifiedMET",
+    noPUMetCollection = "slimmedMETsModifiedMET",
+#    metCollection     = "slimmedMETs",
+#    noPUMetCollection = "slimmedMETs",    
+    copyMETsByValue = False,
+    doTkMet = False,
+    doPuppiMet = False,
+    doMetNoPU = False,
+    doMetNoMu = False,
+    doMetNoEle = False,
+    doMetNoPhoton = False,
+    storePuppiExtra = False, # False for MC, True for re-MiniAOD
+    recalibrate = False, # or "type1", or True
+    applyJetSmearing = False, # does nothing unless the jet smearing is turned on in the jet analyzer
+    old74XMiniAODs = False, # set to True to get the correct Raw MET when running on old 74X MiniAODs
+    jetAnalyzerPostFix = "",
+    candidates='packedPFCandidates',
+    candidatesTypes='std::vector<pat::PackedCandidate>',
+    dzMax = 0.1,
+    collectionPostFix = "",
+    )
+
+
+#metEEMod = cfg.Analyzer(
+#    METEEModified, name="metEEMod",
+#    metCollection     = "slimmedMETsModifiedMET",
+#    noPUMetCollection = "slimmedMETsModifiedMET",
+#    )
 
 metAnaScaleUp = metAna.clone(name="metAnalyzerScaleUp",
     copyMETsByValue = True,
@@ -629,17 +694,20 @@ susyCoreSequence = [
     #forSherpa    susyScanAna,
     susyScanAna,
     vertexAna,
+    photonAna,
     lepAna,
     tauAna,
     ttHLepSkim,
     #ttHLepMCAna,
-    photonAna,
+    #phoCleaner,
     lepCleaner,
     isoTrackAna,
     jetAna,
     #ttHFatJetAna,  # out of core sequence for now
     #ttHSVAna, # out of core sequence for now
     metAna,
+    metAnaStdMET,
+    #    metAnaEEMod,
     ttHCoreEventAna,
     # ttHJetMETSkim,
     # susyLeptonMatchAna,

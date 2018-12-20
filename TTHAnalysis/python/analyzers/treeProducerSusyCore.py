@@ -66,7 +66,9 @@ susyCore_globalVariables = [
 
 susyCore_globalObjects = {
             "met" : NTupleObject("met", metType, help="PF E_{T}^{miss}, after type 1 corrections"),
+            "met_stdMET" : NTupleObject("met_stdMET", metType, help="PF E_{T}^{miss}, after type 1 corrections"),
 #            "metNoPU" : NTupleObject("metNoPU", fourVectorType, help="PF noPU E_{T}^{miss}"),
+#            "metNoHF" : NTupleObject("metNoHF", metType, help="PF E_{T}^{miss}, after type 1 corrections (NoHF)"),
 }
 
 susyCore_collections = {
