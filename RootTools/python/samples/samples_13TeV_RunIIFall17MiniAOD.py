@@ -458,7 +458,6 @@ DiPhotonJetsBox_MGG_80toInf = kreator.makeMCComponent("DiPhotonJetsBox_MGG_80toI
 
 MT2hgg = [
     THQ_ctcvcp_HToGG_M125,
-
     # THW_ctcvcp_HToGG_M125,
     # #    VBFHToGG_M_125_13TeV,
     # VBFHToGG_M125,
@@ -470,16 +469,14 @@ MT2hgg = [
     # #ggZH_HToGG_ZToLL_M125,
     # #ggZH_HToGG_ZToNuNu_M125,
     # #ggZH_HToGG_ZToQQ_M125,
-    
-    # ttHToGG_M125,
-    # ttHJetToGG_M125,
-    # DiPhotonJetsBox_MGG_80toInf,
-    # GJet_Pt_20to40_MGG_80toInf,
-    # GJet_Pt_20toInf_MGG_40to80,
-    # GJet_Pt_40toInf_MGG_80toInf,
-    # QCD_Pt_30to40_MGG_80toInf,
-    # QCD_Pt_30toInf_MGG_40to80,
-
+    ttHToGG_M125,
+    ttHJetToGG_M125,
+    DiPhotonJetsBox_MGG_80toInf,
+    GJet_Pt_20to40_MGG_80toInf,
+    GJet_Pt_20toInf_MGG_40to80,
+    GJet_Pt_40toInf_MGG_80toInf,
+    QCD_Pt_30to40_MGG_80toInf,
+    QCD_Pt_30toInf_MGG_40to80,
 ]
 
 

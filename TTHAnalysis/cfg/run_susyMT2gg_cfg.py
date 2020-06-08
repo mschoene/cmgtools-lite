@@ -1,3 +1,4 @@
+
 import PhysicsTools.HeppyCore.framework.config as cfg
 
 
@@ -119,10 +120,6 @@ jetAna.dataGT = [ [ -1, "Fall17_17Nov2017B_V32_DATA"], [299337 ,"Fall17_17Nov201
 # jetAna.mcGT="Fall17_17Nov2017_V6_MC"
 # jetAna.dataGT = [ [ -1, "Fall17_17Nov2017B_V6_DATA"], [299337 ,"Fall17_17Nov2017C_V6_DATA"] , [302030 ,"Fall17_17Nov2017D_V6_DATA"] , [ 303435  ,"Fall17_17Nov2017E_V6_DATA"], [ 304911  ,"Fall17_17Nov2017F_V6_DATA"]  ]
 
-#jetAna.mcGT="Summer16_23Sep2016V4_MC"
-#jetAna.dataGT = [ [ -1, "Summer16_23Sep2016BCDV4_DATA"], [276831 ,"Summer16_23Sep2016EFV4_DATA"] , [278802 ,"Summer16_23Sep2016GV4_DATA"] , [ 280919  ,"Summer16_23Sep2016HV4_DATA"]  ]
-
-
 # jetAna.recalibrateJets = False # False or False
 # jetAna.applyL2L3Residual = False # 'Data'
 # jetAna.calculateSeparateCorrections = False
@@ -196,7 +193,8 @@ metAna.old74XMiniAODs = False # get right Raw MET on old 74X MiniAODs
 
 # store all taus by default
 genAna.allGenTaus = True
-susyScanAna.doLHE = False
+susyScanAna.doLHE = True
+#susyScanAna.doLHE = False
 
 # Core Analyzer
 ttHCoreEventAna.mhtForBiasedDPhi = "mhtJetXjvec"
@@ -379,7 +377,6 @@ for key,value in triggerFlagsAna.triggerBits.items():
 #print "trigger list: %s" % (allTriggers)
 
 
-
 ##  FILTERS DEFINITION
 eventFlagsAna.triggerBits = {
     # recommended filters for 80X
@@ -466,7 +463,7 @@ from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
 # choose 3 for data production
 # choose 4 for signal production
 test = int(getHeppyOption('test',0))
-test = 2
+test = 4
 isData = False # will be changed accordingly if chosen to run on data
 doSpecialSettingsForMECCA = 1 # set to 1 for comparisons with americans
 runPreprocessor = True #because of the EEModifiedMET
@@ -525,7 +522,8 @@ elif test==1:
     #eventSelector.toSelect = [ 84142401 ]
     #sequence = cfg.Sequence([eventSelector] + sequence)
 
-    #isData = True
+#    isData = False
+    isData = True
     #from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
     #from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
     from CMGTools.RootTools.samples.samples_13TeV_DATA2017 import *
@@ -553,18 +551,34 @@ elif test==1:
 
     selectedComponents = [ DoubleEG_Run2017C_31Mar2018_v1 ]
 
+
+  #  runPreprocessor = False #because of the EEModifiedMET
+
     for comp in selectedComponents:
         
         # comp.files = ['root://xrootd.unl.edu//store/data/Run2016F/JetHT/MINIAOD/23Sep2016-v1/100000/322B5B83-B184-E611-A5B1-0026B927862A.root']
 #        isData = True
-#        comp.isMC = False
-#        comp.isData = True
-        comp.isMC = True
-        comp.isData = False
+        comp.isMC = False
+        comp.isData = True
+        #comp.isMC = True
+        #comp.isData = False
 
         #comp.files = ['root://xrootd.unl.edu//store/data/Run2016G/DoubleEG/MINIAOD/03Feb2017-v1/80000/FEA99FAC-F6EA-E611-9BE7-003048F5B69C.root']
         
-        comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall17MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/20000/028340E8-D442-E811-813C-0025905B8560.root']
+#  comp.files = ['file:testFileWH.root']
+
+        comp.files = ['root://xrootd.unl.edu//store/data/Run2017F/DoubleEG/MINIAOD/31Mar2018-v1/90000/8EDA21E9-2437-E811-8F9F-0025905C431A.root']
+
+        eventSelector.toSelect = [(305044,119, 202739699 )         ]
+
+
+   #     eventSelector.toSelect = [ 305044 ,  ]
+        sequence = cfg.Sequence([eventSelector] + sequence)
+
+#eventsToProcess = cms.untracked.VEventRange('305044:1-305044:max'),
+
+
+        #comp.files = ['root://xrootd.unl.edu//store/mc/RunIIFall17MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/20000/028340E8-D442-E811-813C-0025905B8560.root']
 
 #        comp.files = ['file:Data2017F_31Mar2018-v1.root']
 #        comp.files = comp.files[:1]
@@ -585,21 +599,21 @@ elif test==2:
     isData = False
     from CMGTools.RootTools.samples.samples_13TeV_RunIIFall17MiniAODv2 import *
 
-    selectedComponents = MT2hgg 
+#    selectedComponents = MT2hgg 
 
-    # selectedComponents = [
-    #     THQ_ctcvcp_HToGG_M125,
-    #     THW_ctcvcp_HToGG_M125,
-    #     VHToGG_M125_powheg,
-    #     VBFHToGG_M125_powheg,
-    #     GluGluHToGG_M125_powheg,
-    #     VBFHToGG_M125,
-    #     VHToGG_M125,
-    #     ttHToGG_M125,
-    #     ttHJetToGG_M125,
-    #     GluGluHToGG_M125,
-    #     bbHToGG_M125_4FS_yb2,
-    #     ]
+    selectedComponents = [
+        #     THQ_ctcvcp_HToGG_M125,
+        #     THW_ctcvcp_HToGG_M125,
+        #     VHToGG_M125_powheg,
+        #     VBFHToGG_M125_powheg,
+        #     GluGluHToGG_M125_powheg,
+        VBFHToGG_M125,
+        VHToGG_M125,
+        #        ttHToGG_M125,
+        ttHJetToGG_M125,
+        GluGluHToGG_M125,
+        bbHToGG_M125_4FS_yb2,
+        ]
 
     #    selectedComponents = [DiPhotonJetsBox_MGG_80toInf]
     #    selectedComponents = [GJet_Pt_40toInf_MGG_80toInf]
@@ -669,7 +683,8 @@ elif test==3:
         comp.isMC = False
         comp.isData = True
         #        comp.fineSplitFactor = 8
-        comp.splitFactor = 1200
+        #        comp.fineSplitFactor = 8
+        comp.splitFactor = 800
         comp.files=comp.files[:]
 #        comp.files=comp.files[50:51]
         comp.triggers = allTriggers
@@ -682,43 +697,34 @@ elif test==4:
     #    from CMGTools.RootTools.samples.samples_13TeV_signals import *
     from CMGTools.RootTools.samples.samples_13TeV_2017_signal import *
 
-#this round all signals are fullsim 
 
 #    jetAna.mcGT     = "Spring16_FastSimV1_MC" # jec corrections for FastSim V1### 25
-#    jetAna.applyL2L3Residual = False # 'Data'
-#    jetAna.do_mc_match = True
-#    jetAna.relaxJetId = True
-#    jetCleanAna.relaxJetId = True
 
-    #selectedComponents = SignalSUSY #+ SignalEXO #+ SignalSUSYFullScan ###Signal Spring15     
-    #selectedComponents = [SMS_T2cc] #+ SignalEXO #+ SignalSUSYFullScan ###Signal Spring15
+    jetAna.mcGT     = "Fall17_FastsimV1" # jec corrections for FastSim V1### 25
+    jetAna.applyL2L3Residual = False # 'Data'
+    jetAna.do_mc_match = True
+    jetAna.relaxJetId = True
+    jetCleanAna.relaxJetId = True
+
+    lheWeightAna.doFastSim=True
 
 
 
     selectedComponents = [
-        SMS_TChiWH_HToGG_mChargino300_mLSP1,
-
+        SMS_T2bH_HToGG_250,
+        SMS_TChiWH_HToGG_175,
+        SMS_T2bH_HToGG,
+        SMS_TChiWH_HToGG,
+        SMS_TChiHZ_HToGG,
+        SMS_TChiHH_HToGG,
         ]
-
-   # selectedComponents = [
-   #      SMS_T2ttZH_mStop800_mLSP1_mChi200, 
-   #      SMS_T2ttZH_mStop800_mLSP1_mChi400,
-   #      SMS_T5qqqqWH_mGl1100_mLSP750_mChi950,
-   #      SMS_T5qqqqWH_mGl1400_mLSP1_mChi200,
-   #      SMS_T5qqqqWH_mGl1400_mLSP1_mChi700
-   #      ]
-
-
-
-    # selectedComponents = Signal_T2bH +Signal_T2bH_chi 
 
     # test all components (1 thread per component).
     for comp in selectedComponents:
         comp.splitFactor = 1200
-        #comp.fineSplitFactor = 4 # to run 4 jobs per file
+        comp.fineSplitFactor = 4 # to run 4 jobs per file
         #comp.files = comp.files[:1]
         comp.files = comp.files[:]
-        # triggers on MC
         #comp.triggers = triggers_HT900 + triggers_HTMET + triggers_photon155 + triggers_1mu_isolow + triggers_MT2_mumu + triggers_MT2_ee + triggers_MT2_mue # to apply trigger skimming
 
 
@@ -740,7 +746,8 @@ if doSpecialSettingsForMECCA:
     # jetAna.do_mc_match = False
     lepAna.do_mc_match = False
     isoTrackAna.do_mc_match = False
-    genAna.makeLHEweights = False ### Such option does not exist (anymore)
+#    genAna.makeLHEweights = False ### Such option does not exist (anymore)
+    genAna.makeLHEweights = True ### Such option does not exist (anymore)
 
 if isData:
     for comp in samples:

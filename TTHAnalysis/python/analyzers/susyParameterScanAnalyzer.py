@@ -43,25 +43,34 @@ class susyParameterScanAnalyzer( Analyzer ):
         #mc information
         self.mchandles['genParticles'] = AutoHandle( 'prunedGenParticles',
                                                      'std::vector<reco::GenParticle>' )
+        #  self.cfg_ana.useLumiInfo=True
 
-
-        if self.cfg_ana.doLHE:
-            if not self.cfg_ana.useLumiInfo:
-                self.mchandles['lhe'] = AutoHandle( 'generator', 'GenLumiInfoHeader', mayFail = True, lazy = False )
-            else:
-                self.mchandles['GenInfo'] = AutoHandle( ('generator','',''), 'GenEventInfoProduct' )
-                self.genLumiHandle = Handle("GenLumiInfoHeader")
+#        if self.cfg_ana.doLHE:
+#            if not self.cfg_ana.useLumiInfo:
+                #self.mchandles['lhe'] = AutoHandle( 'generator', 'GenLumiInfoHeader', mayFail = False, lazy = False )
+        self.mchandles['lhe'] = AutoHandle( 'generator', 'GenLumiInfoHeader', mayFail = True, lazy = False )
+        #    else:
+        self.mchandles['GenInfo'] = AutoHandle( ('generator','',''), 'GenEventInfoProduct' )
+        self.genLumiHandle = Handle("GenLumiInfoHeader")
           
+        #self.mchandles['genParticles'] = AutoHandle( 'genParticles', 'std::vector<reco::GenParticle>', fallbackLabel="prunedGenParticles" )
+
         #GenLumiInfoHeader
     def beginLoop(self, setup):
         super(susyParameterScanAnalyzer,self).beginLoop(setup)
 
         if not self.cfg_comp.isMC: return True
-        if self.cfg_ana.doLHE and self.cfg_ana.useLumiInfo:
-            lumis = Lumis(self.cfg_comp.files)
-            for lumi in lumis:
-                if lumi.getByLabel('generator',self.genLumiHandle):
-                    self.LHEInfos.append( self.genLumiHandle.product().configDescription() )
+#        if self.cfg_ana.doLHE and self.cfg_ana.useLumiInfo:
+        lumis = Lumis(self.cfg_comp.files)
+#        print lumis
+        for lumi in lumis:
+ #           print lumi
+            if lumi.getByLabel('generator',self.genLumiHandle):
+                self.LHEInfos.append( self.genLumiHandle.product().configDescription() )
+
+
+# genInfoToken_(consumes<GenEventInfoProduct>(iConfig.getParameter<edm::InputTag>("genInfo"))),
+#        evt.getByToken(genInfoToken_,genInfo)
 
     def findSusyMasses(self,event):
         masses = {}
@@ -87,6 +96,20 @@ class susyParameterScanAnalyzer( Analyzer ):
                     event.genSusyMScan2 = avgmass
 
     def readLHE(self,event):
+
+
+#        print  self.mchandles['GenInfo'].product().weights()
+#        for w in self.mchandles['GenInfo'].product().weights():
+#           print w
+            # Check if id is string or int and convert to int if it's a string
+ #           try:
+#                int(w.id())
+                #event.LHE_weights.append(w)
+  #          except ValueError:
+   #             if not type(w.id) == str:
+    #                raise RuntimeError('Non int or string type for LHE weight id')
+
+
         #print " validity ", self.genLumiHandle.product().configDescription()
         if not self.mchandles['lhe'].isValid():
             if not hasattr(self,"warned_already"):
@@ -94,6 +117,8 @@ class susyParameterScanAnalyzer( Analyzer ):
                 self.warned_already = True
             return
         lheprod = self.mchandles['lhe'].configDescription();#product()
+        
+#        print lheprod
         
         scanline = re.compile(r"#\s*model\s+([A-Za-z0-9]+)_((\d+\.?\d*)(_\d+\.?\d*)*)(\s+(\d+\.?\d*))*\s*")
         for i in xrange(lheprod.comments_size()):

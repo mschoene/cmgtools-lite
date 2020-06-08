@@ -152,6 +152,8 @@ susyFullHad_globalVariables = susyCore_globalVariables + [
     NTupleVariable("gg_mt2", lambda ev: ev.mt2_Xj_gg, float, help="mt2(j1,j2,met) with 2photons added to met"),
 
     NTupleVariable("hgg_mt2", lambda ev: ev.mt2_Xj_hgg, float, help="mt2(Hgg+j1,j2,met) with 2photons added as Higgs to objects to met"),
+    NTupleVariable("hgg_mt2_genMET", lambda ev: ev.mt2_Xj_hgg_genMET, float, help="mt2(Hgg+j1,j2,genmet) with 2photons added as Higgs to objects to genmet"),
+
     NTupleVariable("hgg_stdMET_mt2", lambda ev: ev.mt2_Xj_hgg_stdMET, float, help="mt2(Hgg_StdMET+j1,j2,met) with 2photons added as Higgs to objects to met"),
 
 

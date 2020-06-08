@@ -176,7 +176,10 @@ genHFAna = cfg.Analyzer(
 
 lheWeightAna = cfg.Analyzer(
     LHEWeightAnalyzer, name="LHEWeightAnalyzer",
-    useLumiInfo=False
+    useLumiInfo=False,
+    doFastSim=False
+#    doFastSim=True
+#    useLumiInfo=True
 )
 
 pdfwAna = cfg.Analyzer(
@@ -191,7 +194,8 @@ susyScanAna = cfg.Analyzer(
     #forSherpa
 #    doLHE=False,
     doLHE=True,
-    useLumiInfo=True
+    useLumiInfo=False
+#useLumiInfo=True
     )
 
 
@@ -711,7 +715,7 @@ susyCoreSequence = [
     ttHCoreEventAna,
     # ttHJetMETSkim,
     # susyLeptonMatchAna,
-    triggerFlagsAna,
+#    triggerFlagsAna,
     eventFlagsAna,
     badMuonAna,
     #    badMuonAnaV2,

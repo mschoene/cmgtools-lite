@@ -100,12 +100,13 @@ class ttHhistoCounterAnalyzer( Analyzer ):
 
         if self.cfg_comp.isMC:
             if self.doLHE:
-              for w in event.LHE_weights:
+                for w in event.LHE_weights:
+#                    print w.id
                     id_ = float(w.id)
                     wgt_ = float(w.wgt)
                     self.inputLHE.Fill(id_, wgt_)
 #                    if isSMS: self.inputLHESMS.Fill(m1,m2,id_, wgt_)
-
+                    
         if self.cfg_comp.isMC:
             genWeight_ = float(self.mchandles['GenInfo'].product().weight())
             self.inputGenWeights.Fill(1, genWeight_);
